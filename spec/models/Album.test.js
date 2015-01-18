@@ -77,6 +77,9 @@ describe('Album', function() {
 			assert.deepEqual(album.viewModel(), {
 				shortName: 'blah',
 				ownershipCode: 'bleep',
+				links: {
+					self: '/api/albums/blah'
+				},
 				files: [{
 					"size": 1234469,
 					"mimeType": "image/jpeg",

@@ -8,10 +8,10 @@ router.post('/', multer({ dest: './uploads/'}), function(req, res, next) {
 	var album; // This will be a new album
 	console.log(req.files);
 	album = new Album({
-		files: req.files.fileUpload
+		files: req.files
 	});
 	album.save(function (err, album) {
-		res.send(album);
+		res.send(album.viewModel());
 	});
 });
 
@@ -20,8 +20,7 @@ router.post('/:shortName', function(req, res, next) {
 	var album; // This will be a new album
 	console.log('Looking for albums with shortname', req.params.shortName);
 	album = Album.findByShortName(req.params.shortName, function (err, album) {
-		console.log(err, album);
-		res.send(album);
+		res.send(album.viewModel());
 	});
 });
 

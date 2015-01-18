@@ -43,6 +43,9 @@ albumSchema.methods.ownedBy = function (user) {
 
 albumSchema.methods.viewModel = function () {
     var viewModel = {
+        links: {
+            self: '/api/albums/' + this.shortName
+        },
         shortName: this.shortName,
         ownershipCode: this.ownershipCode
     };
