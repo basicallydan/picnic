@@ -11,17 +11,21 @@ describe('Album', function () {
 		});
 	});
 
-	it('should generate a random ownership code', function () {
+	it('should generate a random ownership code and short name', function () {
 		album = new Album();
 		assert.ok(album.ownershipCode);
+		assert.ok(album.shortName);
 	});
 
-	it('should generate two different codes for different albums', function () {
+	it('should generate two different codes for different albums in both ownership code and short name', function () {
 		albumOne = new Album();
 		albumTwo = new Album();
 		assert.ok(albumOne.ownershipCode);
 		assert.ok(albumTwo.ownershipCode);
 		assert.notEqual(albumOne.ownershipCode, albumTwo.ownershipCode);
+		assert.ok(albumOne.shortName);
+		assert.ok(albumTwo.shortName);
+		assert.notEqual(albumOne.shortName, albumTwo.shortName);
 	});
 
 	describe('#authorizeOwnershipCode', function () {

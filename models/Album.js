@@ -4,7 +4,12 @@ var User = require('./User.js');
 var shortId = require('shortid');
 
 var albumSchema = new Schema({
-    shortName: String,
+    shortName: {
+        type : String,
+        default : function () {
+            return shortId.generate();
+        } 
+    },
     ownershipCode: {
         type : String,
         default : function () {
