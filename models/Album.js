@@ -72,6 +72,10 @@ albumSchema.statics.findByShortName = function (shortName, cb) {
     this.findOne({ shortName: new RegExp(shortName, 'i') }, cb);
 };
 
+albumSchema.statics.findByOwnershipCode = function (ownershipCode, cb) {
+    this.find({ ownershipCode: new RegExp(ownershipCode, 'i') }, cb);
+};
+
 var Album = mongoose.model('Album', albumSchema);
 
 module.exports = Album;

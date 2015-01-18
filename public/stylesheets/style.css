@@ -136,6 +136,10 @@ button {
 }
 
 .image {
+	display: block;
+}
+
+.image {
 	overflow-y: hidden ! important;
 	overflow-x: hidden ! important;
 	background-color: #f8f8f8;
