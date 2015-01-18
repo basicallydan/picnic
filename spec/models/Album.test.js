@@ -78,21 +78,22 @@ describe('Album', function() {
 				shortName: 'blah',
 				ownershipCode: 'bleep',
 				links: {
-					self: '/api/albums/blah'
+					self: '/api/albums/blah',
+					web: 'http://localhost:3000/a/blah'
 				},
 				files: [{
 					"size": 1234469,
 					"mimeType": "image/jpeg",
 					"originalName": "IMG_20140625_133245.jpg",
 					links: {
-						image: '/images/4dd049f5a347638ad5566de16a5418a5.jpg'
+						image: '/uploads/4dd049f5a347638ad5566de16a5418a5.jpg'
 					}
 				}, {
 					"size": 1260809,
 					"mimeType": "image/jpeg",
 					"originalName": "IMG_20140625_133308.jpg",
 					links: {
-						image: '/images/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
+						image: '/uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
 					}
 				}]
 			});

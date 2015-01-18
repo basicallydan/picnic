@@ -44,7 +44,8 @@ albumSchema.methods.ownedBy = function (user) {
 albumSchema.methods.viewModel = function () {
     var viewModel = {
         links: {
-            self: '/api/albums/' + this.shortName
+            self: '/api/albums/' + this.shortName,
+            web: 'http://localhost:3000/a/' + this.shortName
         },
         shortName: this.shortName,
         ownershipCode: this.ownershipCode
@@ -56,7 +57,7 @@ albumSchema.methods.viewModel = function () {
             mimeType: file.mimetype,
             originalName: file.originalname,
             links: {
-                image: '/images/' + file.name
+                image: '/uploads/' + file.name
             }
         });
     });
