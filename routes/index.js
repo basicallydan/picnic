@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var multer  = require('multer');
+var Album = require('../models/Album');
+var _ = require('underscore');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
