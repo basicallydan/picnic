@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "bundle": "browserify -t hbsfy --debug public/javascripts/main.js > public/javascripts/bundle.js",
     "test": "mocha spec/**/*.test.js --reporter spec"
   },
   "dependencies": {
@@ -20,5 +21,11 @@
     "serve-favicon": "~2.2.0",
     "shortid": "^2.1.3",
     "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "dropzone": "^3.12.0",
+    "handlebars": "^2.0.0",
+    "hbsfy": "^2.2.1",
+    "jquery": "^2.1.3"
   }
 }

@@ -1,3 +1,7 @@
+var Dropzone = require('dropzone');
+var $ = require('jquery');
+var albumTemplate = require('../../views/album.handlebars');
+
 Dropzone.options.albumDropzone = {
 	uploadMultiple: true,
 	init: function() {
@@ -7,7 +11,9 @@ Dropzone.options.albumDropzone = {
 		this.on('successmultiple', function(file, response) {
 			console.log('File uploaded');
 			console.log(response);
-			$('#album-url').val(response.links.web);
+			var albumRendered = albumTemplate(response);
+			history.pushState(response, '', response.links.web);
+			$('#page-container').html(albumRendered);
 		});
 	}
 };
