@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = require('./User.js');
 var shortId = require('shortid');
+shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 var albumSchema = new Schema({
     shortName: {
@@ -17,13 +18,7 @@ var albumSchema = new Schema({
         } 
     },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-});
-
-albumSchema.on('init', function (model) {
-    console.log('Hahaha');
-    if (!model.ownershipCode) {
-        model.ownershipCode = 'awndkawd';
-    }
+    files: [ Schema.Types.Mixed ]
 });
 
 albumSchema.methods.authorizeOwnershipCode = function (code) {
@@ -44,6 +39,10 @@ albumSchema.methods.ownedBy = function (user) {
         owner = this.owner;
     }
     return user.equals(owner);
+};
+
+albumSchema.statics.findByShortName = function (shortName, cb) {
+    this.findOne({ shortName: new RegExp(shortName, 'i') }, cb);
 };
 
 var Album = mongoose.model('Album', albumSchema);
