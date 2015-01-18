@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var Album = require('../models/Album');
+var User = require('../models/User');
 var _ = require('underscore');
 
 /* POST albums listing. */
@@ -41,24 +42,20 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-/* POST albums listing. */
-router.post('/:shortName', function(req, res, next) {
-	var album; // This will be a new album
-	console.log('Looking for albums with shortname', req.params.shortName);
-	album = Album.findByShortName(req.params.shortName, function(err, album) {
-		res.send(album.viewModel());
-	});
-});
-
-router.put('/:shortName', function(req, res, next) {
+router.patch('/:shortName', function(req, res, next) {
 	var album;
 	var user;
 	var ownershipCode = req.query.ownershipCode || req.cookies.ownershipCode;
+	var email;
 
-	if (_.isString(req.body.owner)) {
+	console.log('Body:', req.body);
+
+	if (req.body.owner && _.isString(req.body.owner.email)) {
+		email = req.body.owner.email;
 		album = Album.findByShortName(req.params.shortName, function(err, album) {
+			console.log('Album:', album, 'ownership code:', ownershipCode);
 			if (!album.authorizeOwnershipCode(ownershipCode)) {
-				res.statusCode(401);
+				res.status(401);
 				return res.send({
 					message: 'You are not authorized to transfer ownership of this album'
 				});
