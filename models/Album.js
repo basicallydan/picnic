@@ -41,6 +41,29 @@ albumSchema.methods.ownedBy = function (user) {
     return user.equals(owner);
 };
 
+albumSchema.methods.viewModel = function () {
+    var viewModel = {
+        shortName: this.shortName,
+        ownershipCode: this.ownershipCode
+    };
+    var files = [];
+    this.files.forEach(function (file) {
+        files.push({
+            size: file.size,
+            mimeType: file.mimetype,
+            originalName: file.originalname,
+            links: {
+                image: '/images/' + file.name
+            }
+        });
+    });
+    if (this.owner) {
+        viewModel.owner = this.owner;
+    }
+    viewModel.files = files;
+    return viewModel;
+};
+
 albumSchema.statics.findByShortName = function (shortName, cb) {
     this.findOne({ shortName: new RegExp(shortName, 'i') }, cb);
 };
