@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = require('./User.js');
 var shortId = require('shortid');
+var _ = require('underscore');
 shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 var albumSchema = new Schema({
@@ -41,7 +42,7 @@ albumSchema.methods.ownedBy = function (user) {
     return user.equals(owner);
 };
 
-albumSchema.methods.viewModel = function () {
+albumSchema.methods.viewModel = function (override) {
     var viewModel = {
         links: {
             self: '/api/albums/' + this.shortName,
@@ -61,10 +62,15 @@ albumSchema.methods.viewModel = function () {
             }
         });
     });
+
     if (this.owner) {
         viewModel.owner = this.owner;
     }
+
     viewModel.files = files;
+
+    viewModel = _.extend(viewModel, override || {});
+
     return viewModel;
 };
 

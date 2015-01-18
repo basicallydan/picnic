@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var multer  = require('multer');
+var multer = require('multer');
 var Album = require('../models/Album');
 var _ = require('underscore');
 
 /* POST albums listing. */
-router.post('/', multer({ dest: './uploads/'}), function(req, res, next) {
+router.post('/', multer({
+	dest: './uploads/'
+}), function(req, res, next) {
 	var album; // This will be a new album
 	var files = [];
 	var newAlbumOptions = {};
@@ -15,14 +17,14 @@ router.post('/', multer({ dest: './uploads/'}), function(req, res, next) {
 	}
 
 	if (!(req.files instanceof Array)) {
-		newAlbumOptions.files = _.map(req.files, function (file) {
+		newAlbumOptions.files = _.map(req.files, function(file) {
 			return file;
 		});
 	} else {
 		newAlbumOptions.files = req.files;
 	}
 	album = new Album(newAlbumOptions);
-	album.save(function (err, album) {
+	album.save(function(err, album) {
 		res.cookie('ownershipCode', album.ownershipCode);
 		res.send(album.viewModel());
 	});
@@ -31,8 +33,8 @@ router.post('/', multer({ dest: './uploads/'}), function(req, res, next) {
 router.get('/', function(req, res, next) {
 	var ownershipCode = req.query.ownershipCode || req.cookies.ownershipCode;
 	console.log('Looking for albums with ownershipCode', ownershipCode);
-	album = Album.findByOwnershipCode(ownershipCode, function (err, albums) {
-		var albumViewModels = _.map(albums, function (album) {
+	album = Album.findByOwnershipCode(ownershipCode, function(err, albums) {
+		var albumViewModels = _.map(albums, function(album) {
 			return album.viewModel();
 		});
 		res.send(albumViewModels);
@@ -43,7 +45,7 @@ router.get('/', function(req, res, next) {
 router.post('/:shortName', function(req, res, next) {
 	var album; // This will be a new album
 	console.log('Looking for albums with shortname', req.params.shortName);
-	album = Album.findByShortName(req.params.shortName, function (err, album) {
+	album = Album.findByShortName(req.params.shortName, function(err, album) {
 		res.send(album.viewModel());
 	});
 });
@@ -51,22 +53,29 @@ router.post('/:shortName', function(req, res, next) {
 router.put('/:shortName', function(req, res, next) {
 	var album;
 	var user;
+	var ownershipCode = req.query.ownershipCode || req.cookies.ownershipCode;
 
 	if (_.isString(req.body.owner)) {
-		user = User.findByEmail(email, function (err, user) {
-			if (!user) {
-				user = new User({
-					email: email
+		album = Album.findByShortName(req.params.shortName, function(err, album) {
+			if (!album.authorizeOwnershipCode(ownershipCode)) {
+				res.statusCode(401);
+				return res.send({
+					message: 'You are not authorized to transfer ownership of this album'
 				});
-				user.save(function (err, user) {
-					album = Album.findByShortName(req.params.shortName, function(err, album) {
+			}
+			user = User.findByEmail(email, function(err, user) {
+				if (!user) {
+					user = new User({
+						email: email
+					});
+					user.save(function(err, user) {
 						album.transferOwnership(user);
-						album.save(function (err, user) {
+						album.save(function(err, user) {
 							res.send(album.viewModel());
 						});
 					});
-				});
-			}
+				}
+			});
 		});
 	}
 });

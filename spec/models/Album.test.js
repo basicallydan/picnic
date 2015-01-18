@@ -98,5 +98,45 @@ describe('Album', function() {
 				}]
 			});
 		});
+
+		it('should override any properties specified', function() {
+			var album = new Album({
+				shortName: 'blah',
+				ownershipCode: 'bleep'
+			});
+
+			assert.deepEqual(album.viewModel({
+				owner: {
+					email: 'test@test.com',
+					name: 'Test Test'
+				}
+			}), {
+				shortName: 'blah',
+				ownershipCode: 'bleep',
+				links: {
+					self: '/api/albums/blah',
+					web: 'http://localhost:3000/a/blah'
+				},
+				files: [{
+					"size": 1234469,
+					"mimeType": "image/jpeg",
+					"originalName": "IMG_20140625_133245.jpg",
+					links: {
+						image: '/uploads/4dd049f5a347638ad5566de16a5418a5.jpg'
+					}
+				}, {
+					"size": 1260809,
+					"mimeType": "image/jpeg",
+					"originalName": "IMG_20140625_133308.jpg",
+					links: {
+						image: '/uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
+					}
+				}],
+				owner: {
+					email: 'test@test.com',
+					name: 'Test Test'
+				}
+			});
+		});
 	});
 });

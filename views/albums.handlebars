@@ -1,0 +1,14 @@
+<div>
+	<section class="album-meta-data cf">
+		<label for="short-link">Use Swumo on other devices by signing up:</label>
+		<button type="button" id="short-link-copy">Copy</button>
+		<input type="text" id="short-link" name="short-link" value="{{links.web}}">
+	</section>
+	{{#each @root}}
+	<div class="images">
+		{{#each files}}
+		<div class="image" style="background-image:url({{links.image}})"></div>
+		{{/each}}
+	</div>
+	{{/each}}
+</div>
