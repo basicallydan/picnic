@@ -8,18 +8,22 @@ var _ = require('underscore');
 router.post('/', multer({ dest: './uploads/'}), function(req, res, next) {
 	var album; // This will be a new album
 	var files = [];
+	var newAlbumOptions = {};
+
+	if (req.cookies.ownershipCode) {
+		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
+	}
+
 	if (!(req.files instanceof Array)) {
-		console.log('That ain\'t no array!');
-		files = _.map(req.files, function (file) {
+		newAlbumOptions.files = _.map(req.files, function (file) {
 			return file;
 		});
 	} else {
-		files = req.files;
+		newAlbumOptions.files = req.files;
 	}
-	album = new Album({
-		files: files
-	});
+	album = new Album(newAlbumOptions);
 	album.save(function (err, album) {
+		res.cookie('ownershipCode', album.ownershipCode);
 		res.send(album.viewModel());
 	});
 });

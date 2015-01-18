@@ -1,11 +1,12 @@
 <div>
-	<label for="short-link">Get your friends to contribute:</label>
-	<input type="text" id="short-link" name="short-link" value="{{links.web}}">
+	<section class="album-meta-data cf">
+		<label for="short-link">Get your friends to contribute:</label>
+		<button type="button" id="short-link-copy">Copy</button>
+		<input type="text" id="short-link" name="short-link" value="{{links.web}}">
+	</section>
 	<div class="images">
 		{{#each files}}
-		<div class="image">
-			<img src="{{links.image}}">
-		</div>
+		<div class="image" style="background-image:url({{links.image}})"></div>
 		{{/each}}
 	</div>
 </div>

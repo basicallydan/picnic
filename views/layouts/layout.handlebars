@@ -2,11 +2,20 @@
 <html>
 <head>
 	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 	<script type="text/javascript" src="/javascripts/bundle.js"></script>
 </head>
 <body>
+	<header>
+		<div class="grid cf">
+			<span class="site-title">Swumo</span>
+			<nav class="header-nav">
+				<a href="/a">My Albums</a>
+			</nav>
+		</div>
+	</header>
 	{{!-- The purpose of .page-container is to swap out handlebar-rendered pages later on --}}
-	<div id="page-container">
+	<div id="page-container" class="grid">
 		{{{body}}}
 	</div>
 </body>
