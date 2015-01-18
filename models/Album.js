@@ -1,11 +1,24 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = require('./User.js');
+var shortId = require('shortid');
 
 var albumSchema = new Schema({
     shortName: String,
-    ownershipCode: String,
+    ownershipCode: {
+        type : String,
+        default : function () {
+            return shortId.generate();
+        } 
+    },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+});
+
+albumSchema.on('init', function (model) {
+    console.log('Hahaha');
+    if (!model.ownershipCode) {
+        model.ownershipCode = 'awndkawd';
+    }
 });
 
 albumSchema.methods.authorizeOwnershipCode = function (code) {
