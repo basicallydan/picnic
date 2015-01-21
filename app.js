@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(upHook('/01a87ee2c9736961022f4af2af66dc55', { branch: 'master', cmd: "git pull" }));
+app.use(uphook('/01a87ee2c9736961022f4af2af66dc55', { branch: 'master', cmd: "git pull" }));
 
 app.use('/', routes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
