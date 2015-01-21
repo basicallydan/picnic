@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm install && pm2 start processes.json",
-        "stop": "pm2 stop processes.json",
+    "stop": "pm2 stop processes.json",
     "bundle": "browserify -t hbsfy --debug public/javascripts/main.js > public/javascripts/bundle.js",
     "test": "mocha spec/**/*.test.js --reporter spec"
   },
@@ -21,7 +21,8 @@
     "multer": "^0.1.7",
     "serve-favicon": "~2.2.0",
     "shortid": "^2.1.3",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "up-hook": "^0.1.2"
   },
   "devDependencies": {
     "dropzone": "^3.12.0",

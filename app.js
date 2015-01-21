@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
+var uphook = require('up-hook');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -29,6 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(upHook('/01a87ee2c9736961022f4af2af66dc55', { branch: 'master', cmd: "git pull" }));
 
 app.use('/', routes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
