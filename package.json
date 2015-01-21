@@ -1,9 +1,10 @@
 {
   "name": "projectx",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "npm install && pm2 start processes.json",
+        "stop": "pm2 stop processes.json",
     "bundle": "browserify -t hbsfy --debug public/javascripts/main.js > public/javascripts/bundle.js",
     "test": "mocha spec/**/*.test.js --reporter spec"
   },
