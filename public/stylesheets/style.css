@@ -116,10 +116,12 @@ button, input[type=submit] {
 .one-line-form {
 	margin:1em 0;
 	font-size:2rem;
+	display:-webkit-flex;
 	display:flex;
 }
 
 .one-line-form form {
+	display:-webkit-flex;
 	display:flex;
 	width:100%;
 }
@@ -128,6 +130,7 @@ button, input[type=submit] {
 	width:50%;
 	padding:0.5em 0 0.5em 1em;
 	margin:0 1rem;
+	-webkit-flex:2;
 	flex:2;
 }
 
@@ -138,6 +141,7 @@ button, input[type=submit] {
 }
 
 .one-line-form button, .one-line-form input[type=submit] {
+	-webkit-flex:1;
 	flex:1;
 	padding:0.5rem 1rem;
 	margin-right:0;
@@ -146,6 +150,7 @@ button, input[type=submit] {
 .one-line-form label {
 	margin:0.5rem 0;
 	display: inline-block;
+	-webkit-flex:3;
 	flex:3;
 }
 

@@ -82,6 +82,10 @@ albumSchema.statics.findByOwnershipCode = function (ownershipCode, cb) {
     this.find({ ownershipCode: new RegExp(ownershipCode, 'i') }, cb);
 };
 
+albumSchema.statics.findByOwner = function (user, cb) {
+    this.find({ owner: user }, cb);
+};
+
 var Album = mongoose.model('Album', albumSchema);
 
 module.exports = Album;

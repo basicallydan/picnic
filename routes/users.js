@@ -54,11 +54,16 @@ router.post('/', function(req, res, next) {
 	});
 });
 
-router.post('/authenticate', auth, function(req, res) {
+router.post('/authenticate', auth(), function(req, res, next) {
 	if (req.user) {
-		res.status(201);
-		res.send({
-			user: req.user.viewModel()
+		req.logIn(req.user, function (err) {
+			if (err) {
+				return next(err);
+			}
+			res.status(201);
+			res.send({
+				user: req.user.viewModel()
+			});
 		});
 	} else {
 		res.status(400);

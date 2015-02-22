@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var exphbs  = require('express-handlebars');
 var uphook = require('up-hook');
 
@@ -34,6 +35,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'keyboard cat' }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(uphook('/01a87ee2c9736961022f4af2af66dc55', { branch: 'master', cmd: "git pull" }));
 app.use(passport.initialize());
@@ -53,8 +55,8 @@ app.use(function(req, res, next) {
 
 // Set up passport
 passport.use(new LocalStrategy(User.authenticate()));
-
-// error handlers
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // development error handler
 // will print stacktrace
