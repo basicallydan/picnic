@@ -155,6 +155,25 @@ button, input[type=submit] {
 	flex:3;
 }
 
+.images {
+	display:block;
+	text-decoration: none;
+	padding:1rem 0 0 1rem;
+	border-top:1px solid #e8e8e8;
+	box-sizing:content-box;
+}
+
+.images.one-line {
+	display:block;
+	height:10vmax;
+	overflow:hidden;
+	padding:1rem 0 1rem 1rem;
+}
+
+.images:hover {
+	background-color:#f8f8f8;
+}
+
 .image {
 	display: block;
 }

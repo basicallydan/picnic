@@ -8,10 +8,10 @@
 		</form>
 	</section>
 	{{#each @root}}
-	<div class="images">
+	<a class="images cf one-line" href="{{links.web}}">
 		{{#each files}}
 		<div class="image" style="background-image:url({{links.image}})"></div>
 		{{/each}}
-	</div>
+	</a>
 	{{/each}}
 </div>
