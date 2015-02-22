@@ -8,14 +8,16 @@ var User = require('../models/User');
 var _ = require('underscore');
 
 /* POST albums listing. */
-router.post('/', multer({
+router.post('/', auth({ required : false }), multer({
 	dest: './uploads/'
 }), function(req, res, next) {
 	var album; // This will be a new album
 	var files = [];
 	var newAlbumOptions = {};
 
-	if (req.cookies.ownershipCode) {
+	if (req.user) {
+		newAlbumOptions.owner = req.user;
+	} else if (req.cookies.ownershipCode) {
 		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
 	}
 
