@@ -31,12 +31,7 @@ router.post('/', function(req, res, next) {
 		}
 
 		if (ownershipCode) {
-			Album.findByOwnershipCode(ownershipCode, function(err, albums) {
-				albums.forEach(function(album) {
-					console.log('Transfering ownership of', album.id, 'to', user.email);
-					album.transferOwnership(user, ownershipCode);
-					album.save();
-				});
+			user.takeOwnershipOfAlbums(ownershipCode, function(err) {
 				passport.authenticate('local')(req, res, function() {
 					res.status(201);
 					res.send(user.viewModel({
@@ -55,15 +50,30 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/authenticate', auth(), function(req, res, next) {
+	console.log('Signing in user', req.body);
+	var ownershipCode;
+
+	if (req.cookies.ownershipCode) {
+		ownershipCode = req.cookies.ownershipCode;
+	}
 	if (req.user) {
-		req.logIn(req.user, function (err) {
+		req.logIn(req.user, function(err) {
 			if (err) {
 				return next(err);
 			}
-			res.status(201);
-			res.send({
-				user: req.user.viewModel()
-			});
+			if (ownershipCode) {
+				req.user.takeOwnershipOfAlbums(ownershipCode, function(err) {
+					res.status(201);
+					res.send({
+						user: req.user.viewModel()
+					});
+				});
+			} else {
+				res.status(201);
+				res.send({
+					user: req.user.viewModel()
+				});
+			}
 		});
 	} else {
 		res.status(400);

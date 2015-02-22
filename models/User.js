@@ -23,6 +23,23 @@ userSchema.methods.viewModel = function (override) {
     return viewModel;
 };
 
+/**
+ * Finds all the albums for the given ownershipCode and assigns them
+ * to the user
+ */
+userSchema.methods.takeOwnershipOfAlbums = function (ownershipCode, cb) {
+    var Album = mongoose.model('Album');
+    var user = this;
+    Album.findByOwnershipCode(ownershipCode, function(err, albums) {
+        albums.forEach(function(album) {
+            console.log('Transfering ownership of', album.id, 'to', user.email);
+            album.transferOwnership(user, ownershipCode);
+            album.save();
+        });
+        cb();
+    });
+};
+
 userSchema.plugin(passportLocalMongoose);
 
 userSchema.statics.findByEmail = function (email, cb) {

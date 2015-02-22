@@ -86,6 +86,4 @@ albumSchema.statics.findByOwner = function (user, cb) {
     this.find({ owner: user }, cb);
 };
 
-var Album = mongoose.model('Album', albumSchema);
-
-module.exports = Album;
+module.exports = mongoose.model('Album', albumSchema);

@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var errorhandler = require('errorhandler');
 var session = require('express-session');
 var exphbs  = require('express-handlebars');
 var uphook = require('up-hook');
@@ -61,6 +62,7 @@ passport.deserializeUser(User.deserializeUser());
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+    app.use(errorhandler({ dumpExceptions: true, showStack: true }));
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
