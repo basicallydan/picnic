@@ -12,6 +12,11 @@ var users = require('./routes/users');
 var albums = require('./routes/albums');
 var mongoose = require('mongoose');
 
+var User = require('./models/User');
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 var app = express();
 
 // connect to the db
@@ -31,6 +36,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(uphook('/01a87ee2c9736961022f4af2af66dc55', { branch: 'master', cmd: "git pull" }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -43,6 +50,9 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+// Set up passport
+passport.use(new LocalStrategy(User.authenticate()));
 
 // error handlers
 

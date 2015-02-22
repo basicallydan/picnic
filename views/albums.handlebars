@@ -1,8 +1,11 @@
 <div>
-	<section class="album-meta-data cf">
-		<label for="short-link">Use Swumo on other devices by signing up:</label>
-		<button type="button" id="short-link-copy">Copy</button>
-		<input type="text" id="short-link" name="short-link" value="{{links.web}}">
+	<section class="one-line-form cf">
+		<form id="signUpForm">
+			<label for="signUpEmail">Use Swumo on other devices by signing up:</label>
+			<input type="email" placeholder="you@example.com" id="signUpEmail" name="email">
+			<input type="password" placeholder="password" id="signUpPassword" name="password">
+			<input type="submit" id="signUpInput" value="Sign up">
+		</form>
 	</section>
 	{{#each @root}}
 	<div class="images">

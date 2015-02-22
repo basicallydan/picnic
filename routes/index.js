@@ -12,6 +12,9 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+/**
+ * All albums with user's ownership code
+ */
 router.get('/a', function(req, res, next) {
 	var ownershipCode = req.query.ownershipCode || req.cookies.ownershipCode;
 	console.log('Looking for albums with ownershipCode', ownershipCode);

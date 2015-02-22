@@ -34,7 +34,7 @@ router.post('/', multer({
 router.get('/', function(req, res, next) {
 	var ownershipCode = req.query.ownershipCode || req.cookies.ownershipCode;
 	console.log('Looking for albums with ownershipCode', ownershipCode);
-	album = Album.findByOwnershipCode(ownershipCode, function(err, albums) {
+	Album.findByOwnershipCode(ownershipCode, function(err, albums) {
 		var albumViewModels = _.map(albums, function(album) {
 			return album.viewModel();
 		});

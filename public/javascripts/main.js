@@ -17,3 +17,50 @@ Dropzone.options.albumDropzone = {
 		});
 	}
 };
+
+function setupUserForm() {
+	$('#signUpForm').submit(function(e) {
+		e.preventDefault();
+		var userPostData = $(this).serializeArray();
+		userPostData[2] = {
+			name: 'username',
+			value: $(this.elements.email).val()
+		};
+		$.ajax('/api/users', {
+			method: 'post',
+			data: userPostData,
+			success: function() {
+				console.log('Done');
+			},
+			error: function() {
+				console.log('Failed');
+			}
+		});
+	});
+}
+
+function setupSignInForm() {
+	$('#signInForm').submit(function(e) {
+		e.preventDefault();
+		var userPostData = $(this).serializeArray();
+		userPostData[2] = {
+			name: 'username',
+			value: $(this.elements.email).val()
+		};
+		$.ajax('/api/users/authenticate', {
+			method: 'post',
+			data: userPostData,
+			success: function() {
+				console.log('Done');
+			},
+			error: function() {
+				console.log('Failed');
+			}
+		});
+	});
+}
+
+$(document).ready(function() {
+	setupUserForm();
+	setupSignInForm();
+});

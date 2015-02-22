@@ -66,12 +66,13 @@ header {
 	text-decoration: none;
 }
 
-button {
+button, input[type=submit] {
 	background-color:#66CC00;
 	border-radius:4px;
 	color:#fff;
 	border:none;
 	padding:0.5rem 1rem;
+	cursor: pointer;
 }
 
 .site-title {
@@ -112,27 +113,40 @@ button {
 	text-align:center;
 }
 
-.album-meta-data {
+.one-line-form {
 	margin:1em 0;
 	font-size:2rem;
+	display:flex;
 }
 
-.album-meta-data input {
+.one-line-form form {
+	display:flex;
+	width:100%;
+}
+
+.one-line-form input {
 	width:50%;
 	padding:0.5em 0 0.5em 1em;
 	margin:0 1rem;
+	flex:2;
 }
 
-.album-meta-data input, .album-meta-data button {
+.one-line-form input, .one-line-form button {
 	font-size:2rem;
 	border-radius:4px;
 	border:1px solid #66CC00;
-	float:right;
 }
 
-.album-meta-data label {
+.one-line-form button, .one-line-form input[type=submit] {
+	flex:1;
+	padding:0.5rem 1rem;
+	margin-right:0;
+}
+
+.one-line-form label {
 	margin:0.5rem 0;
 	display: inline-block;
+	flex:3;
 }
 
 .image {
