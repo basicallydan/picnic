@@ -7,9 +7,10 @@ var User = require('../models/User');
 var _ = require('underscore');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', auth({ required : false }), function(req, res, next) {
 	res.render('index', {
-		title: 'Swumo'
+		title: 'Swumo',
+		user: req.user
 	});
 });
 
@@ -25,7 +26,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.render('albums', albumViewModels);
+			res.render('albums', { title : 'My Albums', albums : albumViewModels, user: req.user });
 		});
 	} else if (user) {
 		console.log('Looking for albums with user', user.email);
@@ -34,18 +35,23 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.render('albums', albumViewModels);
+			res.render('albums', { albums : albumViewModels, user: req.user });
 		});
 	} else {
 		res.render('albums', []);
 	}
 });
 
-router.get('/a/:shortName', function(req, res, next) {
+router.get('/a/:shortName', auth({ required : false }), function(req, res, next) {
 	var album; // This will be a new albumdd
 	album = Album.findByShortName(req.params.shortName, function(err, album) {
-		res.render('album', album.viewModel());
+		res.render('album', { title : 'Album', album : album.viewModel(), user: req.user });
 	});
+});
+
+router.get('/sign-out', auth({ required : false }), function(req, res, next) {
+	req.logout();
+	res.redirect('/');
 });
 
 module.exports = router;
