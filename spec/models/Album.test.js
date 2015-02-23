@@ -102,7 +102,30 @@ describe('Album', function() {
 		it('should override any properties specified', function() {
 			var album = new Album({
 				shortName: 'blah',
-				ownershipCode: 'bleep'
+				ownershipCode: 'bleep',
+				files: [{
+					"buffer": null,
+					"truncated": false,
+					"size": 1234469,
+					"extension": "jpg",
+					"path": "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
+					"mimetype": "image/jpeg",
+					"encoding": "7bit",
+					"name": "4dd049f5a347638ad5566de16a5418a5.jpg",
+					"originalname": "IMG_20140625_133245.jpg",
+					"fieldname": "fileUpload"
+				}, {
+					"buffer": null,
+					"truncated": false,
+					"size": 1260809,
+					"extension": "jpg",
+					"path": "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
+					"mimetype": "image/jpeg",
+					"encoding": "7bit",
+					"name": "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
+					"originalname": "IMG_20140625_133308.jpg",
+					"fieldname": "fileUpload"
+				}]
 			});
 
 			assert.deepEqual(album.viewModel({
@@ -111,12 +134,12 @@ describe('Album', function() {
 					name: 'Test Test'
 				}
 			}), {
-				shortName: 'blah',
-				ownershipCode: 'bleep',
 				links: {
 					self: '/api/albums/blah',
 					web: 'http://localhost:3000/a/blah'
 				},
+				shortName: 'blah',
+				ownershipCode: 'bleep',
 				files: [{
 					"size": 1234469,
 					"mimeType": "image/jpeg",
