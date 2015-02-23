@@ -31,7 +31,7 @@ router.post('/', auth({ required : false }), multer({
 	album = new Album(newAlbumOptions);
 	album.save(function(err, album) {
 		res.cookie('ownershipCode', album.ownershipCode);
-		res.send(album.viewModel());
+		res.send({ album : album.viewModel() });
 	});
 });
 
@@ -44,7 +44,7 @@ router.get('/', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.send(albumViewModels);
+			res.send({ albums : albumViewModels });
 		});
 	} else {
 		console.log('Looking for albums with ownershipCode', ownershipCode);
@@ -53,7 +53,7 @@ router.get('/', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.send(albumViewModels);
+			res.send({ albums : albumViewModels });
 		});
 	}
 });
@@ -84,7 +84,7 @@ router.patch('/:shortName', function(req, res, next) {
 					user.save(function(err, user) {
 						album.transferOwnership(user);
 						album.save(function(err, user) {
-							res.send(album.viewModel());
+							res.send({ album : album.viewModel() });
 						});
 					});
 				}

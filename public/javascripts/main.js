@@ -12,7 +12,7 @@ Dropzone.options.albumDropzone = {
 			console.log('File uploaded');
 			console.log(response);
 			var albumRendered = albumTemplate(response);
-			history.pushState(response, '', response.links.web);
+			history.pushState(response, '', response.album.links.web);
 			$('#page-container').html(albumRendered);
 		});
 	}
