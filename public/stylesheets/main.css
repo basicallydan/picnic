@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box; }
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before, .cf:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+.cf:after {
+  clear: both; }
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+  *zoom: 1; }
+
+html {
+  font-size: 14px;
+  padding: 0;
+  margin: 0; }
+
+body {
+  padding: 0;
+  margin: 0;
+  font: 1rem "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00B7FF; }
+
+header {
+  width: 100%;
+  background-color: #66CC00;
+  padding: 1rem 0; }
+
+.header-nav {
+  float: right;
+  display: block; }
+
+.header-nav a {
+  border: none;
+  padding: 0.5em 0.5em;
+  background-color: #fff;
+  color: #66CC00;
+  border-radius: 4px;
+  display: inline-block;
+  text-decoration: none; }
+
+button, input[type=submit] {
+  background-color: #66CC00;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer; }
+
+.site-title, .site-title a {
+  font-size: 1.5rem;
+  color: #fff;
+  line-height: 31px;
+  text-decoration: none; }
+
+.grid {
+  max-width: 1136px;
+  margin: 0 auto; }
+
+.row {
+  margin: 2rem auto; }
+
+.new-album-dropzone {
+  width: 100%;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  background-color: #fcfcfc;
+  height: 60vh;
+  vertical-align: middle;
+  text-align: center; }
+
+.new-album-dropzone.dz-drag-hover {
+  background-color: #eeeeee; }
+
+.dz-message {
+  line-height: 55vh;
+  font-size: 2rem;
+  font-weight: lighter;
+  display: block;
+  vertical-align: middle;
+  text-align: center; }
+
+.one-line-form {
+  margin: 1em 0;
+  font-size: 2rem;
+  display: -webkit-flex;
+  display: flex; }
+
+.one-line-form form {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%; }
+
+.one-line-form input {
+  width: 50%;
+  padding: 0.5em 0 0.5em 1em;
+  margin: 0 1rem;
+  -webkit-flex: 2;
+  flex: 2; }
+
+.one-line-form input, .one-line-form button {
+  font-size: 2rem;
+  border-radius: 4px;
+  border: 1px solid #66CC00; }
+
+.one-line-form button, .one-line-form input[type=submit] {
+  -webkit-flex: 1;
+  flex: 1;
+  padding: 0.5rem 1rem;
+  margin-right: 0; }
+
+.one-line-form label {
+  margin: 0.5rem 0;
+  display: inline-block;
+  -webkit-flex: 3;
+  flex: 3; }
+
+.images {
+  display: block;
+  text-decoration: none;
+  padding: 1rem 0 0 1rem;
+  border-top: 1px solid #e8e8e8;
+  box-sizing: content-box; }
+
+.images.one-line {
+  display: block;
+  height: 10vmax;
+  overflow: hidden;
+  padding: 1rem 0 1rem 1rem; }
+
+.images:hover {
+  background-color: #f8f8f8; }
+
+.image {
+  display: block; }
+
+.image {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  background-color: #f8f8f8;
+  background-image: url('index.png');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 10vmax;
+  height: 10vmax;
+  margin: 0 1rem 1rem 0;
+  display: inline-block;
+  cursor: pointer; }
