@@ -122,8 +122,6 @@ button, input[type=submit] {
 }
 
 .one-line-form form {
-	display:-webkit-flex;
-	display:flex;
 	width:100%;
 }
 
@@ -153,6 +151,18 @@ button, input[type=submit] {
 	display: inline-block;
 	-webkit-flex:3;
 	flex:3;
+}
+
+.one-line-form {
+	@media (max-width: 360px) {
+		display:block;
+	}
+	button, input, label {
+		@media (max-width: 360px) {
+			display:block;
+			width:100%;
+		}
+	}
 }
 
 .images {

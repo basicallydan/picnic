@@ -12,7 +12,9 @@ if (gutil.env.watch) {
 
 gulp.task('styles', function() {
 	return gulp.src('./scss/*.scss')
-		.pipe(sass())
+		.pipe(sass({
+			watch: true
+		}))
 		.pipe(gulp.dest('./public/stylesheets'));
 });
 
@@ -39,6 +41,10 @@ gulp.task('browserify', function() {
 	b.bundle();
 });
 
-gulp.task('build', ['styles', 'browserify']);
+gulp.task('watch-styles', function () {
+	gulp.watch('./scss/*.scss', ['styles']);
+});
+
+gulp.task('build', ['styles', 'watch-styles', 'browserify']);
 
 gulp.task('default', ['build']);
