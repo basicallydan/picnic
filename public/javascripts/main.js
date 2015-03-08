@@ -1,6 +1,11 @@
 var Dropzone = require('dropzone');
 var $ = require('jquery');
 var albumTemplate = require('../../views/album.handlebars');
+var _ = require('lodash');
+
+function renderTemplate(template, viewModel) {
+	if ()
+}
 
 Dropzone.options.albumDropzone = {
 	uploadMultiple: true,

@@ -49,40 +49,56 @@ router.post('/', function(req, res, next) {
 	});
 });
 
-router.post('/authenticate', auth(), function(req, res, next) {
-	console.log('Signing in user', req.body);
+router.post('/authenticate', function(req, res, next) {
+	console.log('Signing in user', req.body.username, 'with password length', req.body.password.length);
 	var ownershipCode;
 
 	if (req.cookies.ownershipCode) {
 		ownershipCode = req.cookies.ownershipCode;
 	}
-	if (req.user) {
-		req.logIn(req.user, function(err) {
-			if (err) {
-				return next(err);
-			}
+
+	passport.authenticate('local', function(err, user, info) {
+		if (err) {
+			console.log('Error authenticating user', err);
+			return next(err);
+		}
+
+		if (!user) {
+			console.log('User could not be signed in.');
+			res.status(401);
+			return res.send({
+				message: 'Authentication failed'
+			});
+		}
+
+		if (user) {
+			console.log('Signed in user', user.username);
 			if (ownershipCode) {
+				console.log('Transferring albums to', user.username, 'with ownership code', ownershipCode);
 				req.user.takeOwnershipOfAlbums(ownershipCode, function(err) {
-					res.status(201);
-					res.send({
-						user: req.user.viewModel()
+					req.logIn(user, function(err) {
+						if (err) {
+							return next(err);
+						}
+						res.status(201);
+						res.send({
+							user: user.viewModel()
+						});
 					});
 				});
 			} else {
-				res.status(201);
-				res.send({
-					user: req.user.viewModel()
+				req.logIn(user, function(err) {
+					if (err) {
+						return next(err);
+					}
+					res.status(201);
+					res.send({
+						user: user.viewModel()
+					});
 				});
 			}
-		});
-	} else {
-		res.status(400);
-		res.send({
-			error: {
-				message: 'You could not be logged in, sorry'
-			}
-		});
-	}
+		}
+	})(req, res, next);
 });
 
 module.exports = router;
