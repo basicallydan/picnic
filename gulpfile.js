@@ -2,7 +2,8 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
-var watchify = require('watchify');
+// var watchify = require('watchify');
+var fs = require('fs');
 var environment = 'live';
 var watch = false;
 
@@ -20,31 +21,22 @@ gulp.task('styles', function() {
 
 gulp.task('browserify', function() {
 	var b = browserify({
-		entries: './public/javascripts/main.js',
-		dest: './public/javascripts',
-		outputName: 'bundle.js',
 		extensions: ['.json', '.hbs', '.handlebars'],
 		debug: true,
-		cache: {},
-		packageCache: {},
 		fullPaths: true
 	});
-
-	if (watch === true) {
-		b = watchify(b);
-		b.on('update', function () {
-			gutil.log('Rebuilding JavaScripts');
-			b.bundle();
-		});
-	}
-
-	b.bundle();
+	b.add('./public/javascripts/main.js');
+	b.bundle().pipe(fs.createWriteStream('./public/javascripts/bundle.js'));
 });
 
 gulp.task('watch-styles', function () {
 	gulp.watch('./scss/*.scss', ['styles']);
 });
 
-gulp.task('build', ['styles', 'watch-styles', 'browserify']);
+gulp.task('watch-scripts', function () {
+	gulp.watch(['./public/javascripts/*.js', '!./public/javascripts/bundle.js'], ['browserify']);
+});
+
+gulp.task('build', ['styles', 'watch-styles', 'browserify', 'watch-scripts']);
 
 gulp.task('default', ['build']);

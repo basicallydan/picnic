@@ -52,6 +52,13 @@ router.get('/a/:shortName', auth({ required : false }), function(req, res, next)
 	});
 });
 
+router.get('/sign-in', auth({ required : false }), function(req, res, next) {
+	res.render('signIn', {
+		title: 'Swumo - Sign in',
+		user: req.user
+	});
+});
+
 router.get('/sign-out', auth({ required : false }), function(req, res, next) {
 	req.logout();
 	res.redirect('/');

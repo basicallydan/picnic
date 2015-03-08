@@ -1,6 +1,7 @@
 var Dropzone = require('dropzone');
 var $ = require('jquery');
 var albumTemplate = require('../../views/album.handlebars');
+var albumListTemplate = require('../../views/albums.handlebars');
 var _ = require('lodash');
 
 Dropzone.options.albumDropzone = {
@@ -19,6 +20,19 @@ Dropzone.options.albumDropzone = {
 	}
 };
 
+function goToAlbumsPage() {
+	$.ajax('/api/albums', {
+		method: 'get',
+	}).done(function(response) {
+		console.log('Albums loaded:', response);
+		var albumsRendered = albumListTemplate(response);
+		history.pushState(response, '', response.links.web);
+		$('#page-container').html(albumsRendered);
+	}).fail(function(response) {
+		console.log('Error:', response);
+	});
+}
+
 function setupUserForm() {
 	$('#signUpForm').submit(function(e) {
 		e.preventDefault();
@@ -29,13 +43,11 @@ function setupUserForm() {
 		};
 		$.ajax('/api/users', {
 			method: 'post',
-			data: userPostData,
-			success: function() {
-				console.log('Done');
-			},
-			error: function() {
-				console.log('Failed');
-			}
+			data: userPostData
+		}).done(function(response) {
+			goToAlbumsPage();
+		}).fail(function(response) {
+			console.log('Failed');
 		});
 	});
 }
@@ -50,13 +62,11 @@ function setupSignInForm() {
 		};
 		$.ajax('/api/users/authenticate', {
 			method: 'post',
-			data: userPostData,
-			success: function() {
-				console.log('Done');
-			},
-			error: function() {
-				console.log('Failed');
-			}
+			data: userPostData
+		}).done(function(response) {
+			goToAlbumsPage();
+		}).fail(function(response) {
+			console.log('Failed');
 		});
 	});
 }

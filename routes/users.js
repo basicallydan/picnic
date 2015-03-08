@@ -75,7 +75,7 @@ router.post('/authenticate', function(req, res, next) {
 			console.log('Signed in user', user.username);
 			if (ownershipCode) {
 				console.log('Transferring albums to', user.username, 'with ownership code', ownershipCode);
-				req.user.takeOwnershipOfAlbums(ownershipCode, function(err) {
+				user.takeOwnershipOfAlbums(ownershipCode, function(err) {
 					req.logIn(user, function(err) {
 						if (err) {
 							return next(err);

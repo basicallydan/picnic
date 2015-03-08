@@ -44,7 +44,7 @@ router.get('/', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.send({ albums : albumViewModels });
+			res.send({ albums : albumViewModels, links : { web : '/a' } });
 		});
 	} else {
 		console.log('Looking for albums with ownershipCode', ownershipCode);
@@ -53,7 +53,7 @@ router.get('/', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.send({ albums : albumViewModels });
+			res.send({ albums : albumViewModels, links : { web : '/a' } });
 		});
 	}
 });
