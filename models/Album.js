@@ -46,7 +46,7 @@ albumSchema.methods.viewModel = function (override) {
     var viewModel = {
         links: {
             self: '/api/albums/' + this.shortName,
-            web: 'http://localhost:3000/a/' + this.shortName
+            web: '/a/' + this.shortName
         },
         shortName: this.shortName,
         ownershipCode: this.ownershipCode

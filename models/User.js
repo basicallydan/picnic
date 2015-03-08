@@ -13,7 +13,7 @@ userSchema.methods.viewModel = function (override) {
     var viewModel = {
         links: {
             self: '/api/user/' + this.id,
-            web: 'http://localhost:3000/u/' + this.id
+            web: '/u/' + this.id
         },
         email: this.email
     };
