@@ -1,3 +1,5 @@
+@import "colours";
+
 * {
 	box-sizing:border-box;
 }
@@ -42,12 +44,12 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: $linkColour;
 }
 
 header {
 	width:100%;
-	background-color:#66CC00;
+	background-color:$mainBlockColour;
 	padding:1rem 0;
 }
 
@@ -60,14 +62,14 @@ header {
 	border:none;
 	padding:0.5em 0.5em;
 	background-color:#fff;
-	color:#66CC00;
+	color:$mainBlockColour;
 	border-radius:4px;
 	display:inline-block;
 	text-decoration: none;
 }
 
 button, input[type=submit] {
-	background-color:#66CC00;
+	background-color:$mainBlockColour;
 	border-radius:4px;
 	color:#fff;
 	border:none;
@@ -84,6 +86,7 @@ button, input[type=submit] {
 
 .grid {
 	max-width:1136px;
+	padding:0 	A1rem;
 	margin:0 auto;
 }
 
@@ -93,16 +96,16 @@ button, input[type=submit] {
 
 .new-album-dropzone {
 	width:100%;
-	border:2px solid #ddd;
+	border:2px solid $darkGrey;
 	border-radius:4px;
-	background-color:#fcfcfc;
+	background-color:$lightGrey;
 	height:60vh;
 	vertical-align:middle;
 	text-align:center;
 }
 
 .new-album-dropzone.dz-drag-hover {
-	background-color:#eeeeee;
+	background-color:$midGrey;
 }
 
 .dz-message {
@@ -123,6 +126,7 @@ button, input[type=submit] {
 
 .one-line-form form {
 	width:100%;
+	display:inherit;
 }
 
 .one-line-form input {
@@ -136,7 +140,7 @@ button, input[type=submit] {
 .one-line-form input, .one-line-form button {
 	font-size:2rem;
 	border-radius:4px;
-	border:1px solid #66CC00;
+	border:1px solid $mainBlockColour;
 }
 
 .one-line-form button, .one-line-form input[type=submit] {
@@ -169,7 +173,7 @@ button, input[type=submit] {
 	display:block;
 	text-decoration: none;
 	padding:1rem 0 0 1rem;
-	border-top:1px solid #e8e8e8;
+	border-top:1px solid $darkGrey;
 	box-sizing:content-box;
 }
 
@@ -181,7 +185,7 @@ button, input[type=submit] {
 }
 
 .images:hover {
-	background-color:#f8f8f8;
+	background-color:$lightGrey;
 }
 
 .image {
@@ -191,7 +195,7 @@ button, input[type=submit] {
 .image {
 	overflow-y: hidden ! important;
 	overflow-x: hidden ! important;
-	background-color: #f8f8f8;
+	background-color:$lightGrey;
 	background-image: url('index.png');
 	-webkit-background-size: cover;
 	-moz-background-size: cover;

@@ -3,6 +3,8 @@
 		<div class="dz-message">Drag images here &amp; share the link with your friends</div>
 	</form>
 </div>
+{{#if user}}
+{{else}}
 <section class="one-line-form cf">
 	<form id="signInForm">
 		<label for="signInEmail">Log in to see existing albums:</label>
@@ -11,3 +13,4 @@
 		<input type="submit" id="signInInput" value="Sign in">
 	</form>
 </section>
+{{/if}}

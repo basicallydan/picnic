@@ -73,6 +73,7 @@ button, input[type=submit] {
 
 .grid {
   max-width: 1136px;
+  padding: 0 	A1rem;
   margin: 0 auto; }
 
 .row {
@@ -105,7 +106,8 @@ button, input[type=submit] {
   display: flex; }
 
 .one-line-form form {
-  width: 100%; }
+  width: 100%;
+  display: inherit; }
 
 .one-line-form input {
   width: 50%;
@@ -143,7 +145,7 @@ button, input[type=submit] {
   display: block;
   text-decoration: none;
   padding: 1rem 0 0 1rem;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #ddd;
   box-sizing: content-box; }
 
 .images.one-line {
@@ -153,7 +155,7 @@ button, input[type=submit] {
   padding: 1rem 0 1rem 1rem; }
 
 .images:hover {
-  background-color: #f8f8f8; }
+  background-color: #fcfcfc; }
 
 .image {
   display: block; }
@@ -161,7 +163,7 @@ button, input[type=submit] {
 .image {
   overflow-y: hidden !important;
   overflow-x: hidden !important;
-  background-color: #f8f8f8;
+  background-color: #fcfcfc;
   background-image: url('index.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
