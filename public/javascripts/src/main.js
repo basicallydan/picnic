@@ -1,8 +1,13 @@
 var Dropzone = require('dropzone');
 var $ = require('jquery');
-var albumTemplate = require('../../views/album.handlebars');
-var albumListTemplate = require('../../views/albums.handlebars');
+var Backbone = require('backbone');
+Backbone.$ = $;
+var AlbumModel = require('./models/AlbumModel');
+var albumTemplate = require('../../../views/album.handlebars');
+var albumListTemplate = require('../../../views/albums.handlebars');
 var _ = require('lodash');
+var Router = require('./Router');
+var router = new Router();
 
 Dropzone.options.albumDropzone = {
 	uploadMultiple: true,
@@ -11,10 +16,8 @@ Dropzone.options.albumDropzone = {
 			console.log('Added File:', file.name);
 		});
 		this.on('successmultiple', function(file, response) {
-			console.log('File uploaded');
-			console.log(response);
-			var albumRendered = albumTemplate(response);
 			history.pushState(response, '', response.album.links.web);
+			let albumRendered = albumTemplate(response);
 			$('#page-container').html(albumRendered);
 		});
 	}
@@ -23,7 +26,7 @@ Dropzone.options.albumDropzone = {
 function goToAlbumsPage() {
 	$.ajax('/api/albums', {
 		method: 'get',
-	}).done(function(response) {
+	}).done((response) => {
 		console.log('Albums loaded:', response);
 		var albumsRendered = albumListTemplate(response);
 		history.pushState(response, '', response.links.web);
@@ -34,7 +37,7 @@ function goToAlbumsPage() {
 }
 
 function setupUserForm() {
-	$('#signUpForm').submit(function(e) {
+	$('#signUpForm').submit((e) => {
 		e.preventDefault();
 		var userPostData = $(this).serializeArray();
 		userPostData[2] = {
@@ -71,7 +74,7 @@ function setupSignInForm() {
 	});
 }
 
-$(document).ready(function() {
+$(document).ready(() => {
 	setupUserForm();
 	setupSignInForm();
 });
