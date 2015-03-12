@@ -12,13 +12,8 @@ var router = new Router();
 Dropzone.options.albumDropzone = {
 	uploadMultiple: true,
 	init: function() {
-		this.on('addedfile', function(file) {
-			console.log('Added File:', file.name);
-		});
 		this.on('successmultiple', function(file, response) {
-			history.pushState(response, '', response.album.links.web);
-			let albumRendered = albumTemplate(response);
-			$('#page-container').html(albumRendered);
+			Backbone.history.navigate(response.album.links.web, { trigger : true });
 		});
 	}
 };

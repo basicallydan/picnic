@@ -93,4 +93,16 @@ router.patch('/:shortName', function(req, res, next) {
 	}
 });
 
+router.get('/:shortName', auth({ required : false }), function(req, res, next) {
+	Album.findByShortName(req.params.shortName, function(err, album) {
+		var responseObject = { title : 'Album', user: req.user };
+		if (album) {
+			res.send({ album : album.viewModel() });
+		} else {
+			res.status(404);
+			res.send({ message : 'Album with shortname' + req.params.shortname + ' could not be found' });
+		}
+	});
+});
+
 module.exports = router;

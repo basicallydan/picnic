@@ -1,4 +1,6 @@
 var Backbone = require('backbone');
+var AlbumModel = require('./models/AlbumModel');
+import AlbumView from './views/AlbumView';
 
 var Router = Backbone.Router.extend({
     routes: {
@@ -13,10 +15,18 @@ var Router = Backbone.Router.extend({
             shortName:albumShortName
         });
 
+        new AlbumView({
+            model: {
+                album: albumModel
+            }
+        });
+
         albumModel.fetch();
     }
 });
 
-Backbone.history.start();
+Backbone.history.start({
+    pushState: true
+});
 
-module.exports = Router;
+export default Router;
