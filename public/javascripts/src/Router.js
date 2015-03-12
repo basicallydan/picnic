@@ -1,5 +1,5 @@
-var Backbone = require('backbone');
-var AlbumModel = require('./models/AlbumModel');
+import Backbone from 'backbone';
+import AlbumModel from './models/AlbumModel';
 import AlbumView from './views/AlbumView';
 
 var Router = Backbone.Router.extend({
