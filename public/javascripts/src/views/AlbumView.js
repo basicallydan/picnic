@@ -1,14 +1,14 @@
-var Backbone = require('backbone');
-var $ = require('jquery');
+import Backbone from 'backbone';
+import $ from 'jquery';
 
 var AlbumView = Backbone.View.extend({
 	albumTemplate: require('../../../../views/album.handlebars'),
-	initialize: function () {
+	initialize: () => {
 		this.listenTo(this.model.album, 'sync', this.render);
 	},
 	render: function () {
 		let albumRendered = this.albumTemplate(this.model.album.toJSON());
-		$('#page-container').html(albumRendered);
+		this.$el.html(albumsRendered);
 	}
 });
 

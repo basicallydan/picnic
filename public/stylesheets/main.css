@@ -41,7 +41,7 @@ a {
 
 header {
   width: 100%;
-  background-color: #66CC00;
+  background-color: gray;
   padding: 1rem 0; }
 
 .header-nav {
@@ -52,13 +52,13 @@ header {
   border: none;
   padding: 0.5em 0.5em;
   background-color: #fff;
-  color: #66CC00;
+  color: gray;
   border-radius: 4px;
   display: inline-block;
   text-decoration: none; }
 
 button, input[type=submit] {
-  background-color: #66CC00;
+  background-color: gray;
   border-radius: 4px;
   color: #fff;
   border: none;
@@ -119,7 +119,7 @@ button, input[type=submit] {
 .one-line-form input, .one-line-form button {
   font-size: 2rem;
   border-radius: 4px;
-  border: 1px solid #66CC00; }
+  border: 1px solid gray; }
 
 .one-line-form button, .one-line-form input[type=submit] {
   -webkit-flex: 1;

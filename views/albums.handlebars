@@ -1,4 +1,3 @@
-{{#with albums}}
 <div>
 	<section class="one-line-form cf">
 		<form id="signUpForm">
@@ -8,7 +7,7 @@
 			<input type="submit" id="signUpInput" value="Sign up">
 		</form>
 	</section>
-	{{#each @root}}
+	{{#each albums}}
 	<a class="images cf one-line" href="{{links.web}}">
 		{{#each files}}
 		<div class="image" style="background-image:url({{links.image}})"></div>
@@ -16,4 +15,3 @@
 	</a>
 	{{/each}}
 </div>
-{{/with}}

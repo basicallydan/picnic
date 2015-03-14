@@ -50,26 +50,9 @@ function setupUserForm() {
 	});
 }
 
-function setupSignInForm() {
-	$('#signInForm').submit(function(e) {
-		e.preventDefault();
-		var userPostData = $(this).serializeArray();
-		userPostData[2] = {
-			name: 'username',
-			value: $(this.elements.email).val()
-		};
-		$.ajax('/api/users/authenticate', {
-			method: 'post',
-			data: userPostData
-		}).done(function(response) {
-			goToAlbumsPage();
-		}).fail(function(response) {
-			console.log('Failed');
-		});
-	});
-}
-
 $(document).ready(() => {
-	setupUserForm();
-	setupSignInForm();
+	let firstRouteFunctionName = router.routes[Backbone.history.fragment];
+	if (_.isFunction(router[firstRouteFunctionName])) {
+		router[firstRouteFunctionName]();
+	}
 });
