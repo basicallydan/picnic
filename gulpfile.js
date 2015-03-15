@@ -55,7 +55,7 @@ gulp.task('watch-styles', function() {
 });
 
 gulp.task('watch-scripts', function() {
-	gulp.watch(['./public/javascripts/*.js', './public/javascripts/**/*.js', '!./public/javascripts/bundle.js'], ['browserify']);
+	gulp.watch(['./public/javascripts/*.js', './public/javascripts/**/*.js', './public/javascripts/src/**/*.js', '!./public/javascripts/bundle.js'], ['browserify']);
 });
 
 gulp.task('build', ['styles', 'watch-styles', 'browserify', 'watch-scripts']);

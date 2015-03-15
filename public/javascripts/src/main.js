@@ -11,47 +11,20 @@ var router = new Router();
 
 Dropzone.options.albumDropzone = {
 	uploadMultiple: true,
+	parallelUploads: 6,
+	maxFiles: 6,
 	init: function() {
 		this.on('successmultiple', function(file, response) {
-			Backbone.history.navigate(response.album.links.web, { trigger : true });
+			Backbone.history.navigate(response.album.links.web, {
+				trigger: true
+			});
 		});
 	}
 };
 
-function goToAlbumsPage() {
-	$.ajax('/api/albums', {
-		method: 'get',
-	}).done((response) => {
-		console.log('Albums loaded:', response);
-		var albumsRendered = albumListTemplate(response);
-		history.pushState(response, '', response.links.web);
-		$('#page-container').html(albumsRendered);
-	}).fail(function(response) {
-		console.log('Error:', response);
-	});
-}
-
-function setupUserForm() {
-	$('#signUpForm').submit((e) => {
-		e.preventDefault();
-		var userPostData = $(this).serializeArray();
-		userPostData[2] = {
-			name: 'username',
-			value: $(this.elements.email).val()
-		};
-		$.ajax('/api/users', {
-			method: 'post',
-			data: userPostData
-		}).done(function(response) {
-			goToAlbumsPage();
-		}).fail(function(response) {
-			console.log('Failed');
-		});
-	});
-}
-
 $(document).ready(() => {
-	let firstRouteFunctionName = router.routes[Backbone.history.fragment];
+	let pathName = Backbone.history.location.pathname.replace(/^\//g, '');
+	let firstRouteFunctionName = router.routes[pathName];
 	if (_.isFunction(router[firstRouteFunctionName])) {
 		router[firstRouteFunctionName]();
 	}

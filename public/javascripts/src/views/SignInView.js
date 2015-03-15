@@ -6,9 +6,9 @@ var SignInView = Backbone.View.extend({
 	events: {
 		'submit #signInForm': 'handleSubmit'
 	},
-	render: () => {
-		let albumRendered = this.signInTemplate(this.model.album.toJSON());
-		$('#page-container').html(albumRendered);
+	render: function () {
+		let signInRendered = this.signInTemplate();
+		this.$el.html(signInRendered);
 	},
 	handleSubmit: function (e) {
 		e.preventDefault();
@@ -23,7 +23,7 @@ var SignInView = Backbone.View.extend({
 		}).done((response) => {
 			Backbone.history.navigate('/a', { trigger : true });
 		}).fail(function(response) {
-			console.log('Failed');
+			console.log('Failed to sign in user');
 		});
 	}
 });

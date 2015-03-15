@@ -4,6 +4,8 @@ import AlbumCollection from './collections/AlbumCollection';
 import AlbumView from './views/AlbumView';
 import AlbumsView from './views/AlbumsView';
 import SignInView from './views/SignInView';
+import SignUpView from './views/SignUpView';
+import HomepageView from './views/HomepageView';
 import $ from 'jquery';
 import log from './utils/log';
 
@@ -17,7 +19,8 @@ var Router = Backbone.Router.extend({
 
     homepage: function () {
         log('Route: Homepage');
-        new SignInView({
+
+        new HomepageView({
             el: $('#page-container')[0]
         }).delegateEvents();
     },

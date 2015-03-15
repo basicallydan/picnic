@@ -1,23 +1,14 @@
 import Backbone from 'backbone';
 import $ from 'jquery';
-import SignUpView from './SignUpView';
 
-var AlbumsView = Backbone.View.extend({
-	albumsTemplate: require('../../../../views/albums.handlebars'),
+var SignUpView = Backbone.View.extend({
+	signUpTemplate: require('../../../../views/signUp.handlebars'),
 	events: {
 		'submit #signUpForm': 'handleSubmit'
 	},
-	initialize: function () {
-		this.listenTo(this.collection.albums, 'sync', this.render);
-	},
-	delegateEvents: function () {
-		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
-	},
 	render: function () {
-		let albumsRendered = this.albumsTemplate({
-			albums : this.collection.albums.toJSON()
-		});
-		this.$el.html(albumsRendered);
+		let signUpRendered = this.signUpTemplate();
+		this.$el.html(signUpRendered);
 	},
 	handleSubmit: function (e) {
 		e.preventDefault();
@@ -37,4 +28,4 @@ var AlbumsView = Backbone.View.extend({
 	}
 });
 
-export default AlbumsView;
+export default SignUpView;
