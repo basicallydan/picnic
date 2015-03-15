@@ -5,12 +5,12 @@
 			<input type="text" id="shortLink" name="shortLink" value="{{links.web}}" />
 			<button type="button" id="shortLinkCopy">Copy</button>
 		</section>
-	<form action="{{links.self}}" class="dropzone new-album-dropzone" id="albumDropzone">
-		<div class="images">
+	{{!-- <form action="{{links.self}}" class="dropzone existing-album-dropzone" id="existingAlbumDropzone"> --}}
+		<div class="images" id="existingAlbumDropzone">
 			{{#each files}}
 			<div class="image" style="background-image:url({{links.image}})"></div>
 			{{/each}}
 		</div>
-	</form>
+	{{!-- </form> --}}
 </div>
 {{/with}}

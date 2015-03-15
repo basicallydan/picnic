@@ -24,8 +24,5 @@ Dropzone.options.albumDropzone = {
 
 $(document).ready(() => {
 	let pathName = Backbone.history.location.pathname.replace(/^\//g, '');
-	let firstRouteFunctionName = router.routes[pathName];
-	if (_.isFunction(router[firstRouteFunctionName])) {
-		router[firstRouteFunctionName]();
-	}
+	Backbone.history.loadUrl(pathName);
 });

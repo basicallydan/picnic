@@ -45,14 +45,18 @@ var Router = Backbone.Router.extend({
             shortName:albumShortName
         });
 
-        new AlbumView({
+        albumModel.set(GLOBAL.viewModel.album);
+
+        var albumView = new AlbumView({
             el: $('#page-container')[0],
             model: {
                 album: albumModel
             }
         });
 
-        albumModel.fetch();
+        albumView.initializeDropzone();
+
+        // albumModel.fetch();
     },
 
     signIn: function () {
