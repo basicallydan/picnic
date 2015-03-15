@@ -27,7 +27,7 @@ var Router = Backbone.Router.extend({
 
     albums: function () {
         log('Route: Albums');
-        var albumCollection = new AlbumCollection();
+        var albumCollection = new AlbumCollection(GLOBAL.viewModel.albums);
 
         new AlbumsView({
             el: $('#page-container')[0],

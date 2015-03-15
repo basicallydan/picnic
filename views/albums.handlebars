@@ -1,5 +1,7 @@
 <div>
 	<div class="signUpView">
+		{{#if user}}
+		{{else}}
 		<section id="signUp" class="one-line-form cf">
 			<form id="signUpForm">
 				<label for="signUpEmail">Use Swumo on other devices by signing up:</label>
@@ -8,6 +10,7 @@
 				<input type="submit" id="signUpInput" value="Sign up">
 			</form>
 		</section>
+		{{/if}}
 	</div>
 	{{#each albums}}
 	<a class="images cf one-line" href="{{links.web}}">
