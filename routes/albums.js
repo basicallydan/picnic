@@ -105,4 +105,33 @@ router.get('/:shortName', auth({ required : false }), function(req, res, next) {
 	});
 });
 
+router.post('/:shortName', auth({ required : false }), multer({
+	dest: './uploads/'
+}), function(req, res, next) {
+	Album.findByShortName(req.params.shortName, function(err, album) {
+		if (!album) {
+			res.status(404);
+			return res.send({ message : 'Album with shortname' + req.params.shortname + ' could not be found' });
+		}
+
+		var files;
+
+		if (!(req.files instanceof Array)) {
+			files = _.map(req.files, function(file) {
+				return file;
+			});
+		}
+
+		console.log('Adding', files.length, 'files to the album');
+
+		files.forEach(function (file) {
+			album.files.push(file);
+		});
+		
+		album.save(function(err, album) {
+			res.send({ album : album.viewModel() });
+		});
+	});
+});
+
 module.exports = router;

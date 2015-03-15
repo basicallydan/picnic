@@ -1,14 +1,16 @@
 {{#with album}}
 <div>
-	<section class="one-line-form cf">
-		<label for="shortLink">Get your friends to contribute:</label>
-		<input type="text" id="shortLink" name="shortLink" value="{{links.web}}" />
-		<button type="button" id="shortLinkCopy">Copy</button>
-	</section>
-	<div class="images">
-		{{#each files}}
-		<div class="image" style="background-image:url({{links.image}})"></div>
-		{{/each}}
-	</div>
+		<section class="one-line-form cf">
+			<label for="shortLink">Get your friends to contribute:</label>
+			<input type="text" id="shortLink" name="shortLink" value="{{links.web}}" />
+			<button type="button" id="shortLinkCopy">Copy</button>
+		</section>
+	<form action="{{links.self}}" class="dropzone new-album-dropzone" id="albumDropzone">
+		<div class="images">
+			{{#each files}}
+			<div class="image" style="background-image:url({{links.image}})"></div>
+			{{/each}}
+		</div>
+	</form>
 </div>
 {{/with}}
