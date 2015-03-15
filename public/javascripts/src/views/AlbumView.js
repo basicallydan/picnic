@@ -20,7 +20,7 @@ var AlbumView = Backbone.View.extend({
 			uploadMultiple: true,
 			parallelUploads: 6,
 			maxFiles: 6,
-			url: this.model.album.get('links').self
+			url: this.model.album.get('links').files
 		});
 		this.dropzone.on('success', (file, response) => {
 			this.model.album.set(response);

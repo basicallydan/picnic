@@ -105,7 +105,7 @@ router.get('/:shortName', auth({ required : false }), function(req, res, next) {
 	});
 });
 
-router.post('/:shortName', auth({ required : false }), multer({
+router.post('/:shortName/files', auth({ required : false }), multer({
 	dest: './uploads/'
 }), function(req, res, next) {
 	Album.findByShortName(req.params.shortName, function(err, album) {
