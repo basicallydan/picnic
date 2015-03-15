@@ -30,6 +30,7 @@ node_modules
 # Project X-specific stuff
 uploads
 public/javascripts/bundle.js
+public/stylesheets/main.css
 
 # Mac OSX Shit
 .DS_Store
