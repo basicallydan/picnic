@@ -56,7 +56,7 @@ var Router = Backbone.Router.extend({
 
         albumView.initializeDropzone();
 
-        // albumModel.fetch();
+        albumModel.fetch();
     },
 
     signIn: function () {

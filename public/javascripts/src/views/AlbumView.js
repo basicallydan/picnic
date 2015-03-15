@@ -6,8 +6,12 @@ var AlbumView = Backbone.View.extend({
 	albumTemplate: require('../../../../views/album.handlebars'),
 	initialize: function() {
 		this.listenTo(this.model.album, 'sync', this.render);
+		this.listenTo(this.model.album, 'change:links', this.initializeDropzone);
 	},
 	initializeDropzone: function() {
+		if (this.dropzone || !this.model.album.get('links')) {
+			return;
+		}
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
 			uploadMultiple: true,
 			parallelUploads: 6,
