@@ -42,6 +42,14 @@ describe('Album', function() {
 			album.transferOwnership(user, 'eggs');
 			assert.equal(album.ownedBy(user), true);
 		});
+		it('should undefine the ownership code for the transferred album', function() {
+			var user = new User({
+				email: 'test@test.com'
+			});
+			album.transferOwnership(user, 'eggs');
+			assert.equal(album.get('ownershipCode'), undefined);
+			assert.equal(album.authorizeOwnershipCode('eggs'), false);
+		});
 	});
 
 	describe('#viewModel', function() {
@@ -79,7 +87,7 @@ describe('Album', function() {
 				ownershipCode: 'bleep',
 				links: {
 					self: '/api/albums/blah',
-					web: 'http://localhost:3000/a/blah'
+					web: '/a/blah'
 				},
 				files: [{
 					"size": 1234469,
@@ -136,7 +144,7 @@ describe('Album', function() {
 			}), {
 				links: {
 					self: '/api/albums/blah',
-					web: 'http://localhost:3000/a/blah'
+					web: '/a/blah'
 				},
 				shortName: 'blah',
 				ownershipCode: 'bleep',

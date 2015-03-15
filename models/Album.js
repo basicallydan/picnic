@@ -29,6 +29,7 @@ albumSchema.methods.authorizeOwnershipCode = function (code) {
 albumSchema.methods.transferOwnership = function (user, code) {
     if (this.authorizeOwnershipCode(code)) {
         this.owner = user;
+	this.ownershipCode = undefined;
     }
 };
 
