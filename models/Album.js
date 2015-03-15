@@ -47,6 +47,7 @@ albumSchema.methods.viewModel = function (override) {
     var viewModel = {
         links: {
             self: '/api/albums/' + this.shortName,
+            files: '/api/albums/' + this.shortName + '/files/',
             web: '/a/' + this.shortName
         },
         shortName: this.shortName,

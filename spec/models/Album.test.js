@@ -87,6 +87,7 @@ describe('Album', function() {
 				ownershipCode: 'bleep',
 				links: {
 					self: '/api/albums/blah',
+					files: '/api/albums/blah/files/',
 					web: '/a/blah'
 				},
 				files: [{
@@ -144,6 +145,7 @@ describe('Album', function() {
 			}), {
 				links: {
 					self: '/api/albums/blah',
+					files: '/api/albums/blah/files/',
 					web: '/a/blah'
 				},
 				shortName: 'blah',
