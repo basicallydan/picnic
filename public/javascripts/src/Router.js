@@ -6,8 +6,19 @@ import AlbumsView from './views/AlbumsView';
 import SignInView from './views/SignInView';
 import SignUpView from './views/SignUpView';
 import HomepageView from './views/HomepageView';
+import ContainerView from './views/ContainerView';
 import $ from 'jquery';
+import _ from 'underscore';
 import log from './utils/log';
+
+function getAndWipeInjectedViewModel() {
+    if (!GLOBAL.viewModel) {
+        return {};
+    }
+    let cloned = _.clone(GLOBAL.viewModel);
+    delete GLOBAL.viewModel;
+    return cloned;
+}
 
 var Router = Backbone.Router.extend({
     routes: {
@@ -17,17 +28,37 @@ var Router = Backbone.Router.extend({
         'sign-in':'signIn'
     },
 
+    initialize: function () {
+        log('Initializing router.');
+        let pathName = Backbone.history.location.pathname.replace(/^\//g, '');
+        let model = getAndWipeInjectedViewModel();
+
+        this.containerView = new ContainerView({
+            el: 'body',
+            collection: {
+                albums: new AlbumCollection(model.albums)
+            },
+            model: {
+                user: model.user,
+                album: new AlbumModel(model.album)
+            }
+        });
+
+        let route = Backbone.history.loadUrl(pathName);
+    },
+
     homepage: function () {
         log('Route: Homepage');
 
         new HomepageView({
             el: $('#page-container')[0]
-        }).delegateEvents();
+        });
     },
 
     albums: function () {
         log('Route: Albums');
-        var albumCollection = new AlbumCollection(GLOBAL.viewModel.albums);
+        var model = getAndWipeInjectedViewModel();
+        var albumCollection = new AlbumCollection(model.albums);
 
         new AlbumsView({
             el: $('#page-container')[0],
@@ -45,7 +76,7 @@ var Router = Backbone.Router.extend({
             shortName:albumShortName
         });
 
-        albumModel.set(GLOBAL.viewModel.album);
+        albumModel.set(getAndWipeInjectedViewModel(), { remove : false });
 
         var albumView = new AlbumView({
             el: $('#page-container')[0],

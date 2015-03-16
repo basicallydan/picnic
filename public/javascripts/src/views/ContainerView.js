@@ -5,6 +5,8 @@ import SignInView from './SignInView';
 
 var ContainerView = Backbone.View.extend({
 	initialize: function () {
+		console.log('Startign model:', this.model);
+		console.log('Startign collection:', this.collection);
 	},
 	events: {
 		'.internal-link' : 'handleInternalLink'

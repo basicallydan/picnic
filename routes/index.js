@@ -9,7 +9,7 @@ var _ = require('underscore');
 /* GET home page. */
 router.get('/', auth({ required : false }), function(req, res, next) {
 	res.render('index', {
-		title: 'Swumo',
+		title: 'Dopic',
 		user: req.user
 	});
 });
@@ -54,7 +54,7 @@ router.get('/a/:shortName', auth({ required : false }), function(req, res, next)
 
 router.get('/sign-in', auth({ required : false }), function(req, res, next) {
 	res.render('signIn', {
-		title: 'Swumo - Sign in',
+		title: 'Dopic - Sign in',
 		user: req.user
 	});
 });

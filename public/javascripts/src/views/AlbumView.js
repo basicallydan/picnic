@@ -22,10 +22,12 @@ var AlbumView = Backbone.View.extend({
 			maxFiles: 6,
 			url: this.model.album.get('links').files
 		});
+
 		this.dropzone.on('success', (file, response) => {
 			this.model.album.set(response);
 			this.render();
 		});
+		
 		this.dropzone.on('successmultiple', (file, response) => {
 			this.model.album.set(response);
 			this.render();

@@ -23,6 +23,4 @@ Dropzone.options.albumDropzone = {
 };
 
 $(document).ready(() => {
-	let pathName = Backbone.history.location.pathname.replace(/^\//g, '');
-	Backbone.history.loadUrl(pathName);
 });
