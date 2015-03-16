@@ -5,7 +5,6 @@ import AlbumView from './views/AlbumView';
 import AlbumsView from './views/AlbumsView';
 import SignInView from './views/SignInView';
 import SignUpView from './views/SignUpView';
-import HomepageView from './views/HomepageView';
 import ContainerView from './views/ContainerView';
 import $ from 'jquery';
 import _ from 'underscore';
@@ -49,25 +48,12 @@ var Router = Backbone.Router.extend({
 
     homepage: function () {
         log('Route: Homepage');
-
-        new HomepageView({
-            el: $('#page-container')[0]
-        });
+        this.containerView.showHomepageView();
     },
 
     albums: function () {
         log('Route: Albums');
-        var model = getAndWipeInjectedViewModel();
-        var albumCollection = new AlbumCollection(model.albums);
-
-        new AlbumsView({
-            el: $('#page-container')[0],
-            collection: {
-                albums: albumCollection
-            }
-        }).delegateEvents();
-
-        albumCollection.fetch();
+        this.containerView.showAlbumListView();
     },
 
     album: function (albumShortName) {

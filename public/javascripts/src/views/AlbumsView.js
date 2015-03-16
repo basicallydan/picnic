@@ -18,6 +18,7 @@ var AlbumsView = Backbone.View.extend({
 			albums : this.collection.albums.toJSON()
 		});
 		this.$el.html(albumsRendered);
+		return this;
 	},
 	handleSubmit: function (e) {
 		e.preventDefault();
