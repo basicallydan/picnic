@@ -20,6 +20,7 @@ var AlbumView = Backbone.View.extend({
 			uploadMultiple: true,
 			parallelUploads: 6,
 			maxFiles: 6,
+			previewTemplate: document.querySelector('#newImagePreviewTemplate').innerHTML,
 			url: this.model.album.get('links').files
 		});
 
