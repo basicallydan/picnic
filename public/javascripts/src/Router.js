@@ -44,7 +44,7 @@ var Router = Backbone.Router.extend({
 
         this.containerView.delegateEvents();
 
-        let route = Backbone.history.loadUrl(pathName);
+        Backbone.history.loadUrl(pathName);
     },
 
     homepage: function () {

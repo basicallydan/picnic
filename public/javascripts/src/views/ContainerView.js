@@ -51,7 +51,7 @@ var ContainerView = Backbone.View.extend({
 	},
 	showHomepageView: function () {
 		this.homepageView.delegateEvents();
-		this.homepageView.render();
+		this.homepageView.initializeDropzone();
 	}
 });
 
