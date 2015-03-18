@@ -18,78 +18,84 @@ cloudinary.config({
 });
 
 /* POST albums listing. */
-// router.post('/', auth({ required : false }), multer({
-// 	dest: './uploads/'
-// }), function(req, res, next) {
-// 	var album; // This will be a new album
-// 	var files = [];
-// 	var newAlbumOptions = {};
-
-// 	if (req.user) {
-// 		newAlbumOptions.owner = req.user;
-// 	} else if (req.cookies.ownershipCode) {
-// 		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
-// 	}
-
-// 	if (!(req.files instanceof Array)) {
-// 		newAlbumOptions.files = _.map(req.files, function(file) {
-// 			return file;
-// 		});
-// 	} else {
-// 		newAlbumOptions.files = req.files;
-// 	}
-// 	album = new Album(newAlbumOptions);
-// 	album.save(function(err, album) {
-// 		res.cookie('ownershipCode', album.ownershipCode);
-// 		res.send({ album : album.viewModel() });
-// 	});
-// });
-
-/* POST albums listing. */
 router.post('/', auth({
 	required: false
 }), function(req, res, next) {
-		var form = new multiparty.Form();
-		var cloudStream = cloudinary.uploader.upload_stream(function() {
-			res.status(200);
-			res.send({
-				message: 'OK'
+	var form = new multiparty.Form();
+	var fileCount = 0;
+	var filesUploaded = [];
+	var doneWithUserRequests = false;
+	var newAlbumOptions = {};
+
+	if (req.user) {
+		newAlbumOptions.owner = req.user;
+	} else if (req.cookies.ownershipCode) {
+		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
+	}
+
+	var finish = function () {
+		if (filesUploaded.length === fileCount && doneWithUserRequests) {
+			newAlbumOptions.files = filesUploaded;
+
+			album = new Album(newAlbumOptions);
+
+			album.save(function(err, album) {
+				res.cookie('ownershipCode', album.ownershipCode);
+				res.send({ album : album.viewModel() });
 			});
-		});
+		}
+	};
 
-		form.on('part', function(part) {
-			// You *must* act on the part by reading it
-			// NOTE: if you want to ignore it, just call "part.resume()"
-
-			if (part.filename === null) {
-				// filename is "null" when this is a field and not a file
-				console.log('got field named ' + part.name);
-				// ignore field's content
-				part.resume();
-			}
-
-			if (part.filename !== null) {
-				console.log(util.inspect(part));
-				cloudStream.write(part);
-				// filename is not "null" when this is a file
-				count++;
-				console.log('got file named ' + part.name);
-				// ignore file's content here
-				part.resume();
-			}
-
-			part.on('error', function(err) {
-				console.error(err);
-			});
-		});
-
-		// Close emitted after form parsed
-		form.on('close', function() {
+	form.on('part', function(part) {
+		var filename;
+		var cloudStream = cloudinary.uploader.upload_stream(function(response) {
+			console.log('Finished uploading', part.name, 'to cloudinary.');
+			var fileObject = {
+				name: filename,
+				size: response.bytes,
+				format: response.format,
+				createdAt: response.created_at,
+				width: response.width,
+				height: response.height,
+				cloudinary: {
+					id: response.public_id,
+					version: response.version,
+					signature: response.signature
+				}
+			};
+			filesUploaded.push(fileObject);
 			cloudStream.end();
+			finish();
 		});
 
-		form.parse(req);
+		if (!part.filename) {
+			console.log('Got field named ', part.name + '.');
+			part.resume();
+		}
+
+		if (part.filename) {
+			filename = part.filename;
+			console.log('Got file named', part.name, 'with name', part.filename + '.');
+			fileCount++;
+			part.pipe(cloudStream);
+			part.resume();
+		}
+
+		part.on('error', function(err) {
+			console.log('Error with uploaded files');
+			console.error(err);
+		});
 	});
+
+	// Close emitted after form parsed
+	form.on('close', function() {
+		console.log('Finished with user upload.');
+		doneWithUserRequests = true;
+		finish();
+	});
+
+	form.parse(req);
+});
 
 router.get('/', auth({
 	required: false
