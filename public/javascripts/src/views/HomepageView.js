@@ -19,6 +19,7 @@ var HomepageView = Backbone.View.extend({
 			uploadMultiple: true,
 			parallelUploads: 6,
 			maxFiles: 6,
+			previewTemplate: document.querySelector('#newAlbumImagePreviewTemplate').innerHTML,
 			url: '/api/albums'
 		});
 

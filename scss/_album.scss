@@ -1,0 +1,25 @@
+.dz-file-preview, .dz-image-preview, .dz-preview {
+	display: inline-block;
+	position: relative;
+	img {
+		display:inherit;
+	}
+}
+
+.dz-progress {
+	height:2px;
+	position:absolute;
+	left:0;
+	bottom:0;
+	right:0;
+
+	.dz-upload {
+		width:0%;
+		background-color:red;
+		border:none;
+		margin:0;
+		padding:0;
+		height: 100%;
+		display: block;
+	}
+}
