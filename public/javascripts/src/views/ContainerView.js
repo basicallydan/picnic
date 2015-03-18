@@ -3,9 +3,13 @@ import $ from 'jquery';
 import Dropzone from 'dropzone';
 import SignInView from './SignInView';
 import AlbumsView from './AlbumsView';
+import AlbumView from './AlbumView';
 import HomepageView from './HomepageView';
 
 var ContainerView = Backbone.View.extend({
+	events: {
+		'click .internal-link' : 'handleInternalLink'
+	},
 	initialize: function () {
 		console.log('Starting model:', this.model);
 		console.log('Starting collection:', this.collection);
@@ -15,32 +19,39 @@ var ContainerView = Backbone.View.extend({
 		});
 
 		this.albumListView = new AlbumsView({
-            el: $('#page-container')[0],
-            collection: this.collection
-        });
+			el: this.$('#page-container')[0],
+			collection: this.collection
+		});
 
-        this.homepageView = new HomepageView({
-            el: $('#page-container')[0]
-        });
+		this.albumView = new AlbumView({
+			el: this.$('#page-container')[0],
+			model: this.model
+		});
+
+		this.homepageView = new HomepageView({
+			el: this.$('#page-container')[0]
+		});
+	},
+	handleInternalLink: function (e) {
+		var link = $(e.currentTarget);
+		e.preventDefault();
+		Backbone.history.navigate(link.attr('href'), { trigger : true });
 	},
 	shouldFetch: function () {
 		return !this.viewState.get('firstLoad');
 	},
 	showAlbumListView: function () {
-        this.albumListView.delegateEvents();
-
-        this.collection.albums.fetch();
+		this.albumListView.delegateEvents();
+		this.collection.albums.fetch();
+	},
+	showAlbumView: function (shortName) {
+		this.albumView.delegateEvents();
+		this.model.album.set('shortName', shortName);
+		this.model.album.fetch();
 	},
 	showHomepageView: function () {
-        this.homepageView.delegateEvents();
-        this.homepageView.render();
-	},
-	events: {
-		'.internal-link' : 'handleInternalLink'
-	},
-	handleInternalLink: function (e) {
-		var link = $(e.currentTarget);
-		Backbone.history.navigate(link.attr('href'));
+		this.homepageView.delegateEvents();
+		this.homepageView.render();
 	}
 });
 

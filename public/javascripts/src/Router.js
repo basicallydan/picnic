@@ -1,7 +1,6 @@
 import Backbone from 'backbone';
 import AlbumModel from './models/AlbumModel';
 import AlbumCollection from './collections/AlbumCollection';
-import AlbumView from './views/AlbumView';
 import AlbumsView from './views/AlbumsView';
 import SignInView from './views/SignInView';
 import SignUpView from './views/SignUpView';
@@ -43,6 +42,8 @@ var Router = Backbone.Router.extend({
             }
         });
 
+        this.containerView.delegateEvents();
+
         let route = Backbone.history.loadUrl(pathName);
     },
 
@@ -58,22 +59,8 @@ var Router = Backbone.Router.extend({
 
     album: function (albumShortName) {
         log('Route: Album');
-        var albumModel = new AlbumModel({
-            shortName:albumShortName
-        });
 
-        albumModel.set(getAndWipeInjectedViewModel(), { remove : false });
-
-        var albumView = new AlbumView({
-            el: $('#page-container')[0],
-            model: {
-                album: albumModel
-            }
-        });
-
-        albumView.initializeDropzone();
-
-        albumModel.fetch();
+        this.containerView.showAlbumView(albumShortName);
     },
 
     signIn: function () {
