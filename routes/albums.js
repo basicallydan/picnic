@@ -17,39 +17,22 @@ cloudinary.config({
 	api_secret: 'vUHsdVarc_Wkye9nw9iPiQzF9cg'
 });
 
-/* POST albums listing. */
-router.post('/', auth({
-	required: false
-}), function(req, res, next) {
+function streamFileRequestToCloudinary(req, callback) {
 	var form = new multiparty.Form();
 	var fileCount = 0;
 	var filesUploaded = [];
 	var doneWithUserRequests = false;
-	var newAlbumOptions = {};
-
-	if (req.user) {
-		newAlbumOptions.owner = req.user;
-	} else if (req.cookies.ownershipCode) {
-		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
-	}
 
 	var finish = function () {
 		if (filesUploaded.length === fileCount && doneWithUserRequests) {
-			newAlbumOptions.files = filesUploaded;
-
-			album = new Album(newAlbumOptions);
-
-			album.save(function(err, album) {
-				res.cookie('ownershipCode', album.ownershipCode);
-				res.send({ album : album.viewModel() });
-			});
+			callback(null, filesUploaded);
 		}
 	};
 
 	form.on('part', function(part) {
 		var filename;
 		var cloudStream = cloudinary.uploader.upload_stream(function(response) {
-			console.log('Finished uploading', part.name, 'to cloudinary.');
+			console.log('Finished uploading', part.name, '(' + filename + ') to cloudinary.');
 			var fileObject = {
 				name: filename,
 				size: response.bytes,
@@ -95,6 +78,30 @@ router.post('/', auth({
 	});
 
 	form.parse(req);
+}
+
+/* POST albums listing. */
+router.post('/', auth({
+	required: false
+}), function(req, res, next) {
+	var newAlbumOptions = {};
+
+	if (req.user) {
+		newAlbumOptions.owner = req.user;
+	} else if (req.cookies.ownershipCode) {
+		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
+	}
+
+	streamFileRequestToCloudinary(req, function (error, filesUploaded) {
+		newAlbumOptions.files = filesUploaded;
+
+		album = new Album(newAlbumOptions);
+
+		album.save(function(err, album) {
+			res.cookie('ownershipCode', album.ownershipCode);
+			res.send({ album : album.viewModel() });
+		});
+	});
 });
 
 router.get('/', auth({
@@ -190,28 +197,18 @@ router.get('/:shortName', auth({
 
 router.post('/:shortName/files', auth({
 	required: false
-}), multer({
-		dest: './uploads/'
-	}), function(req, res, next) {
-		Album.findByShortName(req.params.shortName, function(err, album) {
-			if (!album) {
-				res.status(404);
-				return res.send({
-					message: 'Album with shortname' + req.params.shortname + ' could not be found'
-				});
-			}
+}), function(req, res, next) {
+	Album.findByShortName(req.params.shortName, function(err, album) {
+		if (!album) {
+			res.status(404);
+			return res.send({
+				message: 'Album with shortname' + req.params.shortname + ' could not be found'
+			});
+		}
 
-			var files;
-
-			if (!(req.files instanceof Array)) {
-				files = _.map(req.files, function(file) {
-					return file;
-				});
-			}
-
-			console.log('Adding', files.length, 'files to the album');
-
-			files.forEach(function(file) {
+		streamFileRequestToCloudinary(req, function (error, filesUploaded) {
+			console.log('Adding', filesUploaded.length, 'files to the album');
+			filesUploaded.forEach(function(file) {
 				album.files.push(file);
 			});
 
@@ -222,5 +219,6 @@ router.post('/:shortName/files', auth({
 			});
 		});
 	});
+});
 
 module.exports = router;
