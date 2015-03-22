@@ -1,4 +1,5 @@
 @import "colours";
+@import "sizes";
 @import "album";
 
 * {
@@ -33,7 +34,7 @@
 }
 
 html {
-	font-size:14px;
+	font-size:$standard-font-size;
 	padding:0;
 	margin:0;
 }

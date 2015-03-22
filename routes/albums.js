@@ -109,7 +109,7 @@ router.get('/', auth({
 }), function(req, res, next) {
 		var ownershipCode = req.query.ownershipCode || req.cookies.ownershipCode;
 		var user = req.user;
-		if (!user && ownershipCode) {
+		if (user && ownershipCode) {
 			console.log('Looking for albums with ownershipCode', ownershipCode);
 			Album.findByOwnershipCode(ownershipCode, function(err, albums) {
 				var albumViewModels = _.map(albums, function(album) {
@@ -122,7 +122,7 @@ router.get('/', auth({
 					}
 				});
 			});
-		} else {
+		} else if (ownershipCode) {
 			console.log('Looking for albums with ownershipCode', ownershipCode);
 			Album.findByOwner(user, function(err, albums) {
 				console.log('Found', albums.length, 'albums owned by user', user.username);
@@ -135,6 +135,13 @@ router.get('/', auth({
 						web: '/a'
 					}
 				});
+			});
+		} else {
+			res.send({
+				albums:[],
+				links: {
+					web: '/a'
+				}
 			});
 		}
 	});

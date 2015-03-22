@@ -1,6 +1,7 @@
 input, button {
 	font-size:2rem;
 	border-radius:4px;
+	padding:$small-margin $standard-margin;
 	border:1px solid $mainBlockColour;
 }
 
@@ -51,8 +52,18 @@ input, button {
 }
 
 .leveled-form {
-	input, button {
+	form {
+		margin:$standard-margin auto;
+		max-width:40rem;
+	}
+
+	input, label, button {
 		width:100%;
 		display:block;
+		margin-bottom:$standard-margin;
+		@media only (max-width:$handheld-threshold) {
+			width:100%;
+		}
 	}
+
 }
