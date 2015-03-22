@@ -7,7 +7,7 @@ input, button {
 
 .one-line-form {
 	margin:1em 0;
-	font-size:2rem;
+	font-size:$large-font-size;
 	display:-webkit-flex;
 	display:flex;
 }
@@ -19,7 +19,7 @@ input, button {
 
 .one-line-form input {
 	width:50%;
-	padding:0.5em 0 0.5em 1em;
+	// padding:0.5em 0 0.5em 1em;
 	margin:0 1rem;
 	-webkit-flex:2;
 	flex:2;

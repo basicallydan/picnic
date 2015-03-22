@@ -9,6 +9,7 @@ var AlbumsView = Backbone.View.extend({
 	},
 	initialize: function () {
 		this.listenTo(this.collection.albums, 'sync', this.render);
+		this.listenTo(this.collection.albums, 'sync', this.updateEmptyState);
 	},
 	delegateEvents: function () {
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
@@ -19,6 +20,13 @@ var AlbumsView = Backbone.View.extend({
 		});
 		this.$el.html(albumsRendered);
 		return this;
+	},
+	updateEmptyState: function () {
+		if (!this.collection.albums || !this.collection.albums.length) {
+			this.$('.album-list').addClass('empty');
+		} else {
+			this.$('.album-list').removeClass('empty');
+		}
 	},
 	handleSubmit: function (e) {
 		e.preventDefault();
