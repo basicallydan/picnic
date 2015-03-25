@@ -8,7 +8,12 @@ import HomepageView from './HomepageView';
 
 var ContainerView = Backbone.View.extend({
 	events: {
-		'click .internal-link' : 'handleInternalLink'
+		'click .internal-link' : 'handleInternalLink',
+		'mousedown .autohighlight': 'highlightShortLink',
+		'click .autohighlight': 'highlightShortLink',
+		'keypress .no-edit': 'preventEditing',
+		'keyup .no-edit': 'preventEditing',
+		'keydown .no-edit': 'preventEditing'
 	},
 	initialize: function () {
 		console.log('Starting model:', this.model);
@@ -52,6 +57,15 @@ var ContainerView = Backbone.View.extend({
 	showHomepageView: function () {
 		this.homepageView.delegateEvents();
 		this.homepageView.initializeDropzone();
+	},
+	/* DOM MANIPULATION */
+	highlightShortLink: function (e) {
+		e.preventDefault();
+		let target = $(e.currentTarget);
+		target.select();
+	},
+	preventEditing: function (e) {
+		e.preventDefault();
 	}
 });
 
