@@ -1,12 +1,13 @@
 input, button {
 	font-size:2rem;
 	border-radius:4px;
+	padding:$small-margin $standard-margin;
 	border:1px solid $mainBlockColour;
 }
 
 .one-line-form {
 	margin:1em 0;
-	font-size:2rem;
+	font-size:$large-font-size;
 	display:-webkit-flex;
 	display:flex;
 }
@@ -18,7 +19,7 @@ input, button {
 
 .one-line-form input {
 	width:50%;
-	padding:0.5em 0 0.5em 1em;
+	// padding:0.5em 0 0.5em 1em;
 	margin:0 1rem;
 	-webkit-flex:2;
 	flex:2;
@@ -51,8 +52,18 @@ input, button {
 }
 
 .leveled-form {
-	input, button {
+	form {
+		margin:$standard-margin auto;
+		max-width:40rem;
+	}
+
+	input, label, button {
 		width:100%;
 		display:block;
+		margin-bottom:$standard-margin;
+		@media only (max-width:$handheld-threshold) {
+			width:100%;
+		}
 	}
+
 }

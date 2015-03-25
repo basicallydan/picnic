@@ -1,4 +1,5 @@
 @import "colours";
+@import "sizes";
 @import "album";
 
 * {
@@ -33,7 +34,7 @@
 }
 
 html {
-	font-size:14px;
+	font-size:$standard-font-size;
 	padding:0;
 	margin:0;
 }
@@ -87,7 +88,7 @@ button, input[type=submit] {
 
 .grid {
 	max-width:1136px;
-	padding:0 	A1rem;
+	padding:0 1rem;
 	margin:0 auto;
 }
 
@@ -159,4 +160,11 @@ button, input[type=submit] {
 	margin:0 1rem 1rem 0;
 	display: inline-block;
 	cursor:pointer;
+}
+
+.empty-state {
+	display:none;
+	.empty & {
+		display:block;
+	}
 }
