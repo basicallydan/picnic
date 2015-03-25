@@ -1,10 +1,10 @@
 {
   "name": "projectx",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "start": "npm install && pm2 start processes.json",
-    "start-prod" : "env NODE_ENV=production PORT=9090 ./bin/www",
+    "start-prod": "env NODE_ENV=production PORT=9090 ./bin/www",
     "stop": "pm2 stop processes.json",
     "bundle": "browserify -t hbsfy --debug public/javascripts/main.js > public/javascripts/bundle.js",
     "bundle-watch": "watchify -t hbsfy --debug public/javascripts/main.js -o public/javascripts/bundle.js",
