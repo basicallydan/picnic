@@ -33,7 +33,8 @@
     "serve-favicon": "~2.2.0",
     "shortid": "^2.1.3",
     "underscore": "^1.7.0",
-    "up-hook": "^0.1.2"
+    "up-hook": "^0.1.2",
+    "zeroclipboard": "^2.2.0"
   },
   "devDependencies": {
     "babelify": "^5.0.4",
