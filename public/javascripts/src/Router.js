@@ -59,7 +59,6 @@ var Router = Backbone.Router.extend({
 
     album: function (albumShortName) {
         log('Route: Album');
-
         this.containerView.showAlbumView(albumShortName);
     },
 
@@ -67,6 +66,8 @@ var Router = Backbone.Router.extend({
         log('Route: Sign in');
         new SignInView({
             el: $('#page-container')[0]
+        }).on('signedIn', function (response) {
+            Backbone.history.navigate('/a', { trigger : true });
         });
     }
 });

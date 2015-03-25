@@ -21,9 +21,9 @@ var SignInView = Backbone.View.extend({
 			method: 'post',
 			data: userPostData
 		}).done((response) => {
-			Backbone.history.navigate('/a', { trigger : true });
-		}).fail(function(response) {
-			console.log('Failed to sign in user');
+			this.trigger('signedIn', response);
+		}).fail((response) => {
+			this.trigger('signInFailed', response);
 		});
 	}
 });
