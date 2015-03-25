@@ -61,7 +61,7 @@ function streamFileRequestToCloudinary(req, callback) {
 			console.log('Got file named', part.name, 'with name', part.filename + '.');
 			fileCount++;
 			part.pipe(cloudStream);
-			part.resume();
+			// part.resume();
 		}
 
 		part.on('error', function(err) {
