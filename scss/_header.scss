@@ -1,0 +1,16 @@
+header {
+	width:100%;
+	background-color:$headerColour;
+	padding:1rem 0;
+}
+
+.site-title, .site-title a {
+	font:$site-title-font-size $heading-font-stack;
+	color:$headerFontColour;
+	line-height:31px;
+	text-decoration:none;
+
+	&:hover {
+		color:$linkHighlightedColour;
+	}
+}

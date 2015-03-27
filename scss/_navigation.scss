@@ -1,0 +1,17 @@
+.header-nav {
+	float:right;
+	display:block;
+}
+
+.header-nav a {
+	padding:0.5em 0.5em;
+	display:inline-block;
+	text-decoration: none;
+	border-bottom:2px solid transparent;
+	color:$headerFontColour;
+
+	&:hover {
+		color:$linkHighlightedColour;
+		border-bottom:2px solid $linkHighlightedColour;
+	}
+}

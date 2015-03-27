@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+	<script type="text/javascript">
+		var GLOBAL = {};
+		{{#if @root}}
+		GLOBAL.viewModel = {{{jsonifyViewModel @root}}};
+		{{/if}}
+	</script>
+	<script type="text/javascript" src="/javascripts/bundle.js"></script>
+</head>
+<body>
+	<header>
+		<div class="grid cf">
+			<span class="site-title">
+				<a href="/">Dopic</a>
+			</span>
+			<nav class="header-nav">
+				<a href="/a" class="internal-link">My Albums</a>
+				{{#if user}}
+				<a href="/sign-out">Sign out</a>
+				{{else}}
+				<a href="/sign-in">Sign in</a>
+				{{/if}}
+			</nav>
+		</div>
+	</header>
+	{{!-- The purpose of .page-container is to swap out handlebar-rendered pages later on --}}
+	<div id="page-container" class="grid">
+		{{{body}}}
+	</div>
+</body>
+</html>

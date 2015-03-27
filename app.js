@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost/projectx');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
-    defaultLayout: 'layout',
+    defaultLayout: 'headerLayout',
     helpers: require("./lib/helpers.js").helpers
 }));
 app.set('view engine', 'handlebars');

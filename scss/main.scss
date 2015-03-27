@@ -1,6 +1,9 @@
 @import "colours";
 @import "sizes";
+@import "fonts";
 @import "album";
+@import "header";
+@import "navigation";
 
 * {
 	box-sizing:border-box;
@@ -42,32 +45,11 @@ html {
 body {
 	padding:0;
 	margin:0;
-	font:1rem "Lucida Grande", Helvetica, Arial, sans-serif;
+	font:1rem $body-font-stack;
 }
 
 a {
-  color: $linkColour;
-}
-
-header {
-	width:100%;
-	background-color:$mainBlockColour;
-	padding:1rem 0;
-}
-
-.header-nav {
-	float:right;
-	display:block;
-}
-
-.header-nav a {
-	border:none;
-	padding:0.5em 0.5em;
-	background-color:#fff;
-	color:$mainBlockColour;
-	border-radius:4px;
-	display:inline-block;
-	text-decoration: none;
+  color: $linkHighlightedColour;
 }
 
 button, input[type=submit] {
@@ -77,13 +59,6 @@ button, input[type=submit] {
 	border:none;
 	padding:0.5rem 1rem;
 	cursor: pointer;
-}
-
-.site-title, .site-title a {
-	font-size:1.5rem;
-	color:#fff;
-	line-height:31px;
-	text-decoration:none;
 }
 
 .grid {
@@ -98,9 +73,8 @@ button, input[type=submit] {
 
 .new-album-dropzone {
 	width:100%;
-	border:2px solid $darkGrey;
+	border:1px solid $lightGrey;
 	border-radius:4px;
-	background-color:$lightGrey;
 	height:60vh;
 	vertical-align:middle;
 	text-align:center;
@@ -111,12 +85,12 @@ button, input[type=submit] {
 }
 
 .dz-message {
-	line-height:55vh;
-	font-size:2rem;
-	font-weight:lighter;
-	display:block;
-	vertical-align:middle;
-	text-align:center;
+	margin:$large-margin auto;
+	font-size:$standard-font-size;
+
+	.instruction {
+		font-size:$large-font-size;
+	}
 }
 
 @import "forms";

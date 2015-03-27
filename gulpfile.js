@@ -20,13 +20,6 @@ gulp.task('styles', function() {
 });
 
 gulp.task('browserify', function() {
-	// var b = browserify({
-	// 	extensions: ['.json', '.hbs', '.handlebars'],
-	// 	debug: true,
-	// 	fullPaths: true
-	// });
-	// b.add('./public/javascripts/src/main.js');
-	// b.bundle().pipe(fs.createWriteStream('./public/javascripts/bundle.js'));
 	return gulp.src('./public/javascripts/src/main.js')
 		.pipe(through2.obj(function(file, enc, next) {
 			browserify(file.path, {
@@ -58,6 +51,6 @@ gulp.task('watch-scripts', function() {
 	gulp.watch(['./public/javascripts/*.js', './public/javascripts/**/*.js', './public/javascripts/src/**/*.js', '!./public/javascripts/bundle.js'], ['browserify']);
 });
 
-gulp.task('build', ['styles', 'watch-styles', 'browserify', 'watch-scripts']);
+gulp.task('build', ['styles', 'browserify']);
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build', 'watch-styles', 'watch-scripts']);
