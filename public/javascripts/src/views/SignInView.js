@@ -9,6 +9,7 @@ var SignInView = Backbone.View.extend({
 	render: function () {
 		let signInRendered = this.signInTemplate();
 		this.$el.html(signInRendered);
+		return this;
 	},
 	handleSubmit: function (e) {
 		e.preventDefault();

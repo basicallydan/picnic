@@ -3,13 +3,13 @@
 		<div class="dz-message">
 			<p>The best way to create collaborative image collections.<br/>No account required.</p>
 			<p class="instruction">Drop in some images to get started.</p>
-			<p>Or <a href="/sign-in">click here to sign in</a>.</p>
+			<p>Or <a href="/sign-in" class="signInModalLink">click here to sign in</a>.</p>
 		</div>
 	</form>
 </div>
 {{#if user}}
 {{else}}
-<div class="signInView">
+{{!-- <div class="signInView">
 	<section id="signIn" class="one-line-form cf">
 		<form id="signInForm">
 			<label for="signInEmail">Log in to see existing albums:</label>
@@ -18,7 +18,7 @@
 			<input type="submit" id="signInInput" value="Sign in">
 		</form>
 	</section>
-</div>
+</div> --}}
 {{/if}}
 
 <div id="newAlbumImagePreviewTemplate" style="display: none;">
