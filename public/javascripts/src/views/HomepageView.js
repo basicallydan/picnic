@@ -5,7 +5,10 @@ import ModalViewWrapper from './ModalViewWrapper';
 var HomepageView = Backbone.View.extend({
 	homepageTemplate: require('../../../../views/index.handlebars'),
 	events: {
-		'click .signInModalLink': 'openSignInModal'
+		'click .signInModalLink': 'openSignInModal',
+		// 'mouse .dz-message': function (e) {
+		// 	console.log(e);
+		// }
 	},
 	initialize: function () {
         this.signInView = new SignInView({
