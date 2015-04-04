@@ -50,13 +50,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/users', users);
 app.use('/api/albums', albums);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
 // Set up passport
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());

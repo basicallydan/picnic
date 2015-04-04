@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import $ from 'jquery';
+import _ from 'underscore';
 import Dropzone from 'dropzone';
 import SignInView from './SignInView';
 import ModalViewWrapper from './ModalViewWrapper';
@@ -21,18 +22,23 @@ var HomepageView = Backbone.View.extend({
 
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
 			uploadMultiple: true,
-			parallelUploads: 6,
+			parallelUploads: 4,
 			clickable:false,
-			maxFiles: 6,
+			maxFiles: 50,
 			previewTemplate: document.querySelector('#newAlbumImagePreviewTemplate').innerHTML,
 			url: '/api/albums'
 		});
 
-		this.dropzone.on('successmultiple', (file, response) => {
-			Backbone.history.navigate(response.album.links.web, {
-				trigger: true
-			});
-		});
+		this.dropzone.on('successmultiple', _.bind(function (file, response) {
+			if (this.dropzone.getQueuedFiles().length === 0) {
+				Backbone.history.navigate(response.album.links.web, {
+					trigger: true
+				});
+			} else {
+				this.dropzone.options.url = response.album.links.files;
+				this.dropzone.processQueue();
+			}
+		}, this));
 	},
 	delegateEvents: function () {
 		this.signInView.delegateEvents();
