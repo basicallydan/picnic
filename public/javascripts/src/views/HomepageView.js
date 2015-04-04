@@ -38,6 +38,7 @@ var HomepageView = Backbone.View.extend({
 		}, this));
 	},
 	delegateEvents: function () {
+		this.initializeDropzone();
 		this.signInView.delegateEvents();
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},

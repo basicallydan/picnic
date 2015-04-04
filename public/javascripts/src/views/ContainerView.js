@@ -44,17 +44,26 @@ var ContainerView = Backbone.View.extend({
 		return !this.viewState.get('firstLoad');
 	},
 	showAlbumListView: function () {
-		this.albumListView.delegateEvents();
-		this.collection.albums.fetch();
+		this.loadView(() => {
+			this.albumListView.delegateEvents();
+		}, () => {
+			this.collection.albums.fetch();
+		});
 	},
 	showAlbumView: function (shortName) {
-		this.albumView.delegateEvents();
-		this.model.album.set('shortName', shortName);
-		this.model.album.fetch();
+		this.loadView(() => {
+			this.albumView.delegateEvents();
+		}, () => {
+			this.model.album.set('shortName', shortName);
+			this.model.album.fetch();
+		});
 	},
 	showHomepageView: function () {
-		this.homepageView.delegateEvents();
-		this.homepageView.initializeDropzone();
+		this.loadView(undefined, () => {
+			this.homepageView.render();
+		}, () => {
+			this.homepageView.delegateEvents();
+		});
 	},
 	/* DOM MANIPULATION */
 	highlightShortLink: function (e) {
@@ -64,6 +73,24 @@ var ContainerView = Backbone.View.extend({
 	},
 	preventEditing: function (e) {
 		e.preventDefault();
+	},
+	/**
+	 * Execute a different callback depending on whether this is the first load
+	 * of the page or not. If it is, it'll do the first thing then set the
+	 * firstLoad state to false. Otherwise it'll do the other function.
+	 * @param  {[type]} firstCallback     [description]
+	 * @param  {[type]} otherwiseCallback [description]
+	 * @return {[type]}                   [description]
+	 */
+	loadView: function (firstCallback = () => {}, otherwiseCallback = () => {}, alwaysAfterCallback = () => {}) {
+		let isFirstLoad = this.viewState.get('firstLoad');
+		if (isFirstLoad) {
+			firstCallback();
+		} else {
+			otherwiseCallback();
+		}
+		alwaysAfterCallback();
+		this.viewState.set('firstLoad', false);
 	}
 });
 
