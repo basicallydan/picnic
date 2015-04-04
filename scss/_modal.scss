@@ -1,0 +1,18 @@
+.modal {
+	@include transition(background-color, 0.8s, ease-in-out);
+	position:fixed;
+	background-color:$semiTransparentWhite;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+
+	&.hidden {
+		background-color:$transparentWhite;
+	}
+}
+
+.modal-body {
+	max-width:1136px;
+	background-color:white;
+}

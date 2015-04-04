@@ -6,8 +6,16 @@ var ModalViewWrapper = function(View) {
 		events: _.extend(View.prototype.events || {}, {
 			'click .show': 'showModal',
 			'click .close': 'hideModal',
-			'click .cell': 'closeFromBehind'
+			'click': 'closeFromBehind'
 		}),
+
+		render: function () {
+			let $originalEl = this.$el;
+			this.$el = this.$('.modal-body');
+			View.prototype.render.apply(this, arguments);
+			this.$el = $originalEl;
+			return this;
+		},
 
 		initialize: function () {
 			this.$el = $('#modal-container');
@@ -22,7 +30,7 @@ var ModalViewWrapper = function(View) {
 		},
 
 		closeFromBehind: function(e) {
-			if (e.target === this.$('.cell')[0]) {
+			if (e.target === this.$el[0]) {
 				this.hideModal();
 			}
 		}

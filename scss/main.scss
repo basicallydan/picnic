@@ -3,7 +3,9 @@
 @import "fonts";
 @import "album";
 @import "header";
+@import "mixins";
 @import "navigation";
+@import "modal";
 
 * {
 	box-sizing:border-box;
@@ -141,4 +143,8 @@ button, input[type=submit] {
 	.empty & {
 		display:block;
 	}
+}
+
+.hidden {
+	display:none;
 }
