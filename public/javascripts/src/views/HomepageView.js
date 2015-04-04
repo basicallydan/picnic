@@ -32,13 +32,16 @@ var HomepageView = Backbone.View.extend({
 			url: '/api/albums'
 		});
 
-		this.dropzone.on('dragend', _.bind(function () {
+		let incrementMessage = _.bind(function () {
 			let nextMessageNumber = this.viewState.get('currentMessageNumber') + 1;
 			if (nextMessageNumber > this.$('#dropzoneMessageOptions div').length - 1) {
 				nextMessageNumber = 0;
 			}
 			this.viewState.set('currentMessageNumber', nextMessageNumber);
-		}));
+		}, this);
+
+		this.dropzone.on('dragend', incrementMessage);
+		this.dropzone.on('dragleave', incrementMessage);
 
 		this.dropzone.on('successmultiple', _.bind(function (file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
@@ -72,7 +75,8 @@ var HomepageView = Backbone.View.extend({
 	},
 	updateDropzoneDragMessage: function () {
 		let currentMessageNumber = this.viewState.get('currentMessageNumber');
-		var element = this.$('#dropzoneMessageOptions div')[currentMessageNumber];
+		var element = $(this.$('#dropzoneMessageOptions div')[currentMessageNumber]);
+		this.$('#albumDropzone .dz-hovered-message').html(element.html());
 	}
 });
 
