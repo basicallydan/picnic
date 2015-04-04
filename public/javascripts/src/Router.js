@@ -1,12 +1,9 @@
-import Backbone from 'backbone';
 import AlbumModel from './models/AlbumModel';
 import AlbumCollection from './collections/AlbumCollection';
 import AlbumsView from './views/AlbumsView';
 import SignInView from './views/SignInView';
 import SignUpView from './views/SignUpView';
 import ContainerView from './views/ContainerView';
-import $ from 'jquery';
-import _ from 'underscore';
 import log from './utils/log';
 
 function getAndWipeInjectedViewModel() {
