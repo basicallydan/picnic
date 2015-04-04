@@ -1,6 +1,3 @@
-import _ from 'underscore';
-import $ from 'jquery';
-
 var ModalViewWrapper = function(View) {
 	return View.extend({
 		events: _.extend(View.prototype.events || {}, {

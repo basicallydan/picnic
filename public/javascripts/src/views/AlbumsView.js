@@ -1,5 +1,3 @@
-import Backbone from 'backbone';
-import $ from 'jquery';
 import SignUpView from './SignUpView';
 
 var AlbumsView = Backbone.View.extend({

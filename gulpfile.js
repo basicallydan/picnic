@@ -23,6 +23,7 @@ gulp.task('browserify', function() {
 	return gulp.src('./public/javascripts/src/main.js')
 		.pipe(through2.obj(function(file, enc, next) {
 			browserify(file.path, {
+					globals: ['$', 'Backbone', '_'],
 					debug: true
 				})
 				.transform(require('babelify'))

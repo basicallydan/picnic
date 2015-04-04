@@ -1,6 +1,3 @@
-import Backbone from 'backbone';
-import $ from 'jquery';
-
 var SignUpView = Backbone.View.extend({
 	signUpTemplate: require('../../../../views/signUp.handlebars'),
 	events: {

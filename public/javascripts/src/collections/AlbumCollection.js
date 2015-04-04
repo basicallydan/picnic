@@ -1,6 +1,4 @@
-import Backbone from 'backbone';
 import AlbumModel from '../models/AlbumModel';
-import _ from 'underscore';
 
 var AlbumCollection = Backbone.Collection.extend({
 	model: AlbumModel,

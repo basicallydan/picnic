@@ -1,5 +1,3 @@
-import Backbone from 'backbone';
-import $ from 'jquery';
 import Dropzone from 'dropzone';
 import SignInView from './SignInView';
 import AlbumsView from './AlbumsView';

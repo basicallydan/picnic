@@ -1,6 +1,3 @@
-import Backbone from 'backbone';
-import $ from 'jquery';
-import _ from 'underscore';
 import Dropzone from 'dropzone';
 import SignInView from './SignInView';
 import ModalViewWrapper from './ModalViewWrapper';
