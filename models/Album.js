@@ -4,6 +4,7 @@ var User = require('./User.js');
 var shortId = require('shortid');
 var _ = require('underscore');
 var cloudinary = require('cloudinary');
+var escapeRegexString = require('escape-regex-string');
 
 cloudinary.config({
     cloud_name: 'dys2lsskw',
@@ -110,11 +111,11 @@ albumSchema.methods.viewModel = function (override) {
 };
 
 albumSchema.statics.findByShortName = function (shortName, cb) {
-    this.findOne({ shortName: new RegExp(shortName, 'i') }, cb);
+    this.findOne({ shortName: new RegExp(escapeRegexString(shortName), 'i') }, cb);
 };
 
 albumSchema.statics.findByOwnershipCode = function (ownershipCode, cb) {
-    this.find({ ownershipCode: new RegExp(ownershipCode, 'i') }, cb);
+    this.find({ ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i') }, cb);
 };
 
 albumSchema.statics.findByOwner = function (user, cb) {
