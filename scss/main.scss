@@ -80,20 +80,20 @@ button, input[type=submit] {
 .images {
 	display:block;
 	text-decoration: none;
-	padding:1rem 0 0 1rem;
+	padding:1rem 0 0 0;
 	border-top:1px solid $darkGrey;
 	box-sizing:content-box;
+
+	&.dz-drag-hover {
+		background-color:$lightGrey;
+	}
 }
 
 .images.one-line {
 	display:block;
 	height:10vmax;
 	overflow:hidden;
-	padding:1rem 0 1rem 1rem;
-}
-
-.images:hover {
-	background-color:$lightGrey;
+	padding:1rem 0 1rem 0;
 }
 
 .image {
