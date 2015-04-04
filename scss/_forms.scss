@@ -2,7 +2,18 @@ input, button {
 	font-size:2rem;
 	border-radius:4px;
 	padding:$small-margin $standard-margin;
-	border:1px solid $mainBlockColour;
+	border:1px solid $midGrey;
+}
+
+button, input[type=submit] {
+	background-color:white;
+	border-radius:4px;
+	color:$black;
+	border:none;
+	border-bottom:5px solid $blue;
+	padding:0.5rem 1rem;
+	cursor: pointer;
+	@include box-shadow(0, 0, 5px, $darkGrey);
 }
 
 .one-line-form {

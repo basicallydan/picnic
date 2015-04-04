@@ -76,7 +76,7 @@ var HomepageView = Backbone.View.extend({
 	updateDropzoneDragMessage: function () {
 		let currentMessageNumber = this.viewState.get('currentMessageNumber');
 		var element = $(this.$('#dropzoneMessageOptions div')[currentMessageNumber]);
-		this.$('#albumDropzone .dz-hovered-message').html(element.html());
+		this.$('#albumDropzone .dz-message-hovered div').html(element.html());
 	}
 });
 

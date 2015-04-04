@@ -1,10 +1,10 @@
 @import "colours";
 @import "sizes";
 @import "fonts";
+@import "mixins";
 @import "new-album";
 @import "album";
 @import "header";
-@import "mixins";
 @import "navigation";
 @import "modal";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
@@ -54,15 +54,6 @@ body {
 
 a {
   color: $linkHighlightedColour;
-}
-
-button, input[type=submit] {
-	background-color:$mainBlockColour;
-	border-radius:4px;
-	color:#fff;
-	border:none;
-	padding:0.5rem 1rem;
-	cursor: pointer;
 }
 
 .grid {
