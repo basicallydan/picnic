@@ -17,20 +17,29 @@ var AlbumView = Backbone.View.extend({
 
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
 			uploadMultiple: true,
-			parallelUploads: 6,
-			maxFiles: 6,
+			parallelUploads: 4,
+			clickable:false,
+			maxFiles: 50,
 			previewTemplate: document.querySelector('#newImagePreviewTemplate').innerHTML,
 			url: this.model.album.get('links').files
 		});
 
 		this.dropzone.on('success', _.bind(function (file, response) {
-			this.model.album.set(response.album);
-			this.render();
+			if (this.dropzone.getQueuedFiles().length === 0) {
+				this.model.album.set(response.album);
+				this.render();
+			} else {
+				this.dropzone.processQueue();
+			}
 		}, this));
 		
 		this.dropzone.on('successmultiple', _.bind(function (file, response) {
-			this.model.album.set(response.album);
-			this.render();
+			if (this.dropzone.getQueuedFiles().length === 0) {
+				this.model.album.set(response.album);
+				this.render();
+			} else {
+				this.dropzone.processQueue();
+			}
 		}, this));
 	},
 	render: function() {
