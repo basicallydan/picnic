@@ -1,0 +1,38 @@
+.new-album-dropzone {
+	width:100%;
+	border:1px solid $lightGrey;
+	border-radius:4px;
+	height:60vh;
+	vertical-align:middle;
+	text-align:center;
+
+	.dz-message, .dz-hovered-message {
+		margin:$large-margin auto;
+		font-size:$standard-font-size;
+
+		.instruction {
+			font-size:$large-font-size;
+			display:block;
+		}
+	}
+
+	.dz-hovered-message {
+		display:none;
+	}
+
+	&.dz-drag-hover {
+		background-color:$midGrey;
+		.dz-message {
+			display:none;
+		}
+		.dz-hovered-message {
+			display:block;
+		}
+	}
+
+	&.dz-started {
+		.dz-message, .dz-hovered-message {
+			display:none;
+		}
+	}
+}

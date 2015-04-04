@@ -1,6 +1,7 @@
 @import "colours";
 @import "sizes";
 @import "fonts";
+@import "new-album";
 @import "album";
 @import "header";
 @import "mixins";
@@ -72,28 +73,6 @@ button, input[type=submit] {
 
 .row {
 	margin:2rem auto;
-}
-
-.new-album-dropzone {
-	width:100%;
-	border:1px solid $lightGrey;
-	border-radius:4px;
-	height:60vh;
-	vertical-align:middle;
-	text-align:center;
-}
-
-.new-album-dropzone.dz-drag-hover {
-	background-color:$midGrey;
-}
-
-.dz-message {
-	margin:$large-margin auto;
-	font-size:$standard-font-size;
-
-	.instruction {
-		font-size:$large-font-size;
-	}
 }
 
 @import "forms";
