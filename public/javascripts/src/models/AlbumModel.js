@@ -4,7 +4,10 @@ var AlbumModel = Backbone.Model.extend({
 	},
 	idAttribute:'shortName',
 	parse: function (response) {
-		return response.album;
+		if (_.isObject(response.album)) {
+			return response.album;	
+		}
+		return response;
 	}
 });
 
