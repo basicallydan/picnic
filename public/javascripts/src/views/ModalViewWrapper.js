@@ -27,6 +27,7 @@ var ModalViewWrapper = function(View) {
 
 		hideModal: function() {
 			this.$el.addClass('hidden');
+			this.undelegateEvents();
 		},
 
 		closeFromBehind: function(e) {

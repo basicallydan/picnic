@@ -44,6 +44,9 @@ var HomepageView = Backbone.View.extend({
 		let SignInModalView = ModalViewWrapper(SignInView);
 		let modalView = new SignInModalView();
 		modalView.render().showModal();
+		this.listenTo(modalView, 'signedIn', function () {
+			modalView.hideModal();
+		});
 	},
 	render: function () {
 		let homepageRendered = this.homepageTemplate();

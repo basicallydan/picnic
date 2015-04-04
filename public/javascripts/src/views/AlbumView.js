@@ -26,18 +26,18 @@ var AlbumView = Backbone.View.extend({
 			url: this.model.album.get('links').files
 		});
 
-		this.dropzone.on('success', (file, response) => {
-			this.model.album.set(response);
+		this.dropzone.on('success', _.bind(function (file, response) {
+			this.model.album.set(response.album);
 			this.render();
-		});
+		}, this));
 		
-		this.dropzone.on('successmultiple', (file, response) => {
-			this.model.album.set(response);
+		this.dropzone.on('successmultiple', _.bind(function (file, response) {
+			this.model.album.set(response.album);
 			this.render();
-		});
+		}, this));
 	},
 	render: function() {
-		let albumRendered = this.albumTemplate(this.model.album.toJSON());
+		let albumRendered = this.albumTemplate({ album : this.model.album.toJSON() });
 		this.$el.html(albumRendered);
 		this.initializeDropzone();
 	},

@@ -16,7 +16,7 @@ var AlbumsView = Backbone.View.extend({
 	},
 	render: function () {
 		let albumsRendered = this.albumsTemplate({
-			albums : this.collection.albums.toJSON()
+			albums : this.collection.albums.viewModel()
 		});
 		this.$el.html(albumsRendered);
 		return this;
