@@ -6,9 +6,12 @@ var HomepageView = Backbone.View.extend({
 	homepageTemplate: require('../../../../views/index.handlebars'),
 	events: {
 		'click .signInModalLink': 'openSignInModal',
-		// 'mouse .dz-message': function (e) {
-		// 	console.log(e);
-		// }
+		'dragend .dz-message-empty': function (e) {
+			console.log('Dragend empty done');
+		},
+		'dragend .dz-message-hovered': function (e) {
+			console.log('Dragend hovered done');
+		}
 	},
 	initialize: function () {
         this.signInView = new SignInView({
@@ -40,7 +43,9 @@ var HomepageView = Backbone.View.extend({
 			if (nextMessageNumber > this.$('#dropzoneMessageOptions div').length - 1) {
 				nextMessageNumber = 0;
 			}
-			this.viewState.set('currentMessageNumber', nextMessageNumber);
+			// setTimeout(() => {
+				this.viewState.set('currentMessageNumber', nextMessageNumber);
+			// }, 450);
 		}, this);
 
 		this.dropzone.on('dragend', incrementMessage);
