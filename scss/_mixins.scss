@@ -5,3 +5,30 @@
     -o-transition: $transition-property $transition-time $method;
     transition: $transition-property $transition-time $method;
 }
+
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+	@if $inset {
+		-webkit-box-shadow:inset $top $left $blur $color;
+		-moz-box-shadow:inset $top $left $blur $color;
+		box-shadow:inset $top $left $blur $color;
+	} @else {
+		-webkit-box-shadow: $top $left $blur $color;
+		-moz-box-shadow: $top $left $blur $color;
+		box-shadow: $top $left $blur $color;
+	}
+}
+
+@mixin transform($left, $top) {
+	transform:         translate($left, $top);
+	-moz-transform:    translate($left, $top);
+	-webkit-transform: translate($left, $top);
+	-o-transform:      translate($left, $top);
+	-ms-transform:     translate($left, $top);
+}

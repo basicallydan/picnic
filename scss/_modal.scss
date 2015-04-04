@@ -1,5 +1,5 @@
 .modal {
-	@include transition(background-color, 0.8s, ease-in-out);
+	@include transition(background-color, 0.3s, ease-in-out);
 	position:fixed;
 	background-color:$semiTransparentWhite;
 	top:0;
@@ -7,12 +7,25 @@
 	left:0;
 	right:0;
 
-	&.hidden {
-		background-color:$transparentWhite;
+	.modal-body {
+		@include transform(0, 0);
+		@include transition(all, 0.3s, ease-in-out);
+		max-width:$modalWidth;
+		background-color:white;
+		margin:$large-margin auto;
+		padding:$standard-margin;
+		@include border-radius($border-radius);
+		@include box-shadow(0, 0, 5px, $darkGrey);
 	}
-}
 
-.modal-body {
-	max-width:1136px;
-	background-color:white;
+	&.hidden {
+		display:block;
+		bottom:auto;
+		height:0;
+		background-color:$transparentWhite;
+
+		& .modal-body {
+			@include transform(0, -2000px);
+		}
+	}
 }

@@ -64,7 +64,7 @@ button, input[type=submit] {
 }
 
 .grid {
-	max-width:1136px;
+	max-width:$pageWidth;
 	padding:0 1rem;
 	margin:0 auto;
 }
