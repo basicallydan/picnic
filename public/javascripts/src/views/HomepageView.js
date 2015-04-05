@@ -27,6 +27,14 @@ var HomepageView = Backbone.View.extend({
 			this.dropzone.destroy();
 		}
 
+		function mouseEventOutside(event, $element) {
+			var topBound = $element.offset().top;
+			var leftBound = $element.offset().left;
+			var bottomBound = $element.height() + topBound;
+			var rightBound = $element.width() + leftBound;
+			return event.pageX > rightBound || event.pageY > bottomBound || event.pageX < leftBound || event.pageY < topBound;
+		}
+
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
 			uploadMultiple: true,
 			parallelUploads: 4,
@@ -35,10 +43,27 @@ var HomepageView = Backbone.View.extend({
 			thumbnailWidth: 140,
 			thumbnailHeight: 140,
 			previewTemplate: document.querySelector('#newAlbumImagePreviewTemplate').innerHTML,
-			url: '/api/albums'
+			url: '/api/albums',
+			dragend: function(e) {
+				console.log('Drag end');
+				console.log(e);
+				if (mouseEventOutside(e, $(this.element))) {
+					return this.element.classList.remove('dz-drag-hover');
+				}
+			},
+			dragleave: function(e) {
+				console.log('Drag leave');
+				console.log(e);
+				if (mouseEventOutside(e, $(this.element))) {
+					return this.element.classList.remove('dz-drag-hover');
+				}
+			}
 		});
 
-		let incrementMessage = _.bind(function () {
+		let incrementMessage = _.bind(function (e) {
+			if (/dz-message/g.test(e.toElement.className)) {
+				return;
+			}
 			let nextMessageNumber = this.viewState.get('currentMessageNumber') + 1;
 			if (nextMessageNumber > this.$('#dropzoneMessageOptions div').length - 1) {
 				nextMessageNumber = 0;

@@ -3,17 +3,17 @@
 	border:1px solid $midGrey;
 	border-radius:4px;
 	height:60vh;
+	overflow:hidden;
 
-	.dz-message {
+	& > .dz-message {
 		margin:0 auto;
 		font-size:$standard-font-size;
-		display:table;
-		vertical-align:middle;
 		text-align:center;
-		height:100%;
+		height: 200%;
 		position: relative;
 		width: 100%;
-		overflow:hidden;
+		top:0;
+		@include transition(transform, 0.45s, ease);
 
 		.instruction {
 			font-size:$large-font-size;
@@ -21,37 +21,23 @@
 		}
 
 		.dz-message-empty, .dz-message-hovered {
-			height:100%;
+			height:50%;
 			width:100%;
 			display:table;
-			position:absolute;
 			left:0;
 			div	{
 			    vertical-align:middle;
 				display:table-cell;
 				width:100%;
 			}
-			@include transition(top, 0.45s, ease);
-		}
-		.dz-message-empty {
-			top:0;
-		}
-
-		.dz-message-hovered {
-			// @include transform(0, 1000px);
-			top:100%;
 		}
 	}
 
 	&.dz-drag-hover {
 		background-color:$midGrey;
-		.dz-message-empty {
-			// @include transform(0, -1000px);
-			top:-100%;
-		}
-		.dz-message-hovered {
-			// @include transform(0, 0);
-			top:0;
+		& > .dz-message {
+			@include transform(0, -50%);
+			// top:-100%;
 		}
 	}
 

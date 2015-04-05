@@ -18,7 +18,7 @@ var AlbumView = Backbone.View.extend({
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
 			uploadMultiple: true,
 			parallelUploads: 4,
-			clickable:false,
+			clickable: false,
 			maxFiles: 50,
 			thumbnailWidth: 140,
 			thumbnailHeight: 140,
@@ -26,7 +26,7 @@ var AlbumView = Backbone.View.extend({
 			url: this.model.album.get('links').files
 		});
 
-		this.dropzone.on('success', _.bind(function (file, response) {
+		this.dropzone.on('success', _.bind(function(file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
 				this.model.album.set(response.album);
 				this.render();
@@ -34,8 +34,8 @@ var AlbumView = Backbone.View.extend({
 				this.dropzone.processQueue();
 			}
 		}, this));
-		
-		this.dropzone.on('successmultiple', _.bind(function (file, response) {
+
+		this.dropzone.on('successmultiple', _.bind(function(file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
 				this.model.album.set(response.album);
 				this.render();
@@ -44,28 +44,30 @@ var AlbumView = Backbone.View.extend({
 			}
 		}, this));
 	},
-	initializeZeroClipboard: function () {
+	initializeZeroClipboard: function() {
 		if (this.clipboardClient) {
 			this.clipboardClient.destroy();
 		}
 		this.clipboardClient = new ZeroClipboard(this.$('#shortLinkCopy'));
-		this.clipboardClient.on('ready', function (readyEvent) {
-			this.on('aftercopy', function (copyEvent) {
+		this.clipboardClient.on('ready', function(readyEvent) {
+			this.on('aftercopy', function(copyEvent) {
 				console.log('Copied');
 			});
 		});
 	},
 	render: function() {
-		let albumRendered = this.albumTemplate({ album : this.model.album.toJSON() });
+		let albumRendered = this.albumTemplate({
+			album: this.model.album.toJSON()
+		});
 		this.$el.html(albumRendered);
 		this.initializeDropzone();
 		this.initializeZeroClipboard();
 	},
 	/* EVENTS */
-	delegateEvents: function () {
+	delegateEvents: function() {
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},
-	undelegateEvents: function () {
+	undelegateEvents: function() {
 		if (this.clipboardClient) {
 			this.clipboardClient.destroy();
 		}
