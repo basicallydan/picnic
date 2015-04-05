@@ -1,0 +1,34 @@
+.notification-list {
+	display: block;
+	position: fixed;
+	text-align: center;
+	max-width: $pageWidth;
+	padding: 0 $standard-margin;
+	top: $standard-margin;
+	width: 100%;
+	margin: 0 auto;
+	right: 0;
+	left: 0;
+}
+
+.notification {
+	margin: 0 auto $standard-margin auto;
+	border: 1px solid $midGrey;
+	background-color: $lightGrey;
+	border-radius: $border-radius;
+	display: block;
+	padding: $small-margin $standard-margin;
+	opacity:1;
+	cursor: pointer;
+	@include transition(all, 0.45s, ease);
+
+	&.success {
+		background-color:$green;
+		border-color:$darkGreen;
+	}
+
+	&.removed {
+		opacity:0;
+		@include transform(0, -50px);
+	}
+}

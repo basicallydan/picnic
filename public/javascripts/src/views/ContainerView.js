@@ -4,6 +4,34 @@ import AlbumsView from './AlbumsView';
 import AlbumView from './AlbumView';
 import HomepageView from './HomepageView';
 
+var NotificationView = Backbone.View.extend({
+	events: {
+		'click': 'remove'
+	},
+	render: function () {
+		this.undelegateEvents();
+		this.$el = $('<li></li>');
+		this.$el.addClass('notification');
+		var notification = this.model.notification;
+		this.$el.text(notification.message);
+		if (notification.type === 'success') {
+			this.$el.addClass('success');
+		} else if (notification.type === 'error') {
+			this.$el.addClass('error');
+		} else if (notification.type === 'info') {
+			this.$el.addClass('info');
+		} else if (notification.type === 'warning') {
+			this.$el.addClass('warning');
+		}
+		this.delegateEvents();
+		return this;
+	},
+	remove: function () {
+		this.$el.addClass('removed');
+		setTimeout(_.bind(Backbone.View.prototype.remove, this), 460);
+	}
+});
+
 var ContainerView = Backbone.View.extend({
 	events: {
 		'click .internal-link' : 'handleInternalLink',
@@ -16,6 +44,8 @@ var ContainerView = Backbone.View.extend({
 	initialize: function () {
 		console.log('Starting model:', this.model);
 		console.log('Starting collection:', this.collection);
+
+		this.notificationViews = [];
 
 		this.viewState = new Backbone.Model({
 			firstLoad: true
@@ -33,6 +63,16 @@ var ContainerView = Backbone.View.extend({
 
 		this.homepageView = new HomepageView({
 			el: this.$('#page-container')[0]
+		});
+
+		this.listenTo(this.homepageView, 'notification', function (notification) {
+			var newNotificationView = new NotificationView({
+				model: {
+					notification: notification
+				}
+			});
+			this.notificationViews.push(newNotificationView);
+			this.$('#notifications').append(newNotificationView.render().$el);
 		});
 	},
 	handleInternalLink: function (e) {

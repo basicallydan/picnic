@@ -11,10 +11,12 @@ $mainBlockColour:gray;
 $headerColour:white;
 $headerFontColour:$black;
 
+$green:#25FF06;
+$darkGreen:darken($green, 10%);
+
 $purple:#9013FE;
 $red:#E72A06;
 $orange:#FFC708;
 $blue:#06B0E7;
-$green:#25FF06;
 
 $linkHighlightedColour:$purple;

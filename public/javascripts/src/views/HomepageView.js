@@ -71,6 +71,10 @@ var HomepageView = Backbone.View.extend({
 		let modalView = new SignInModalView();
 		modalView.render().showModal();
 		this.listenTo(modalView, 'signedIn', function () {
+			this.trigger('notification', {
+				type: 'success',
+				message: 'Congrats on signing in!'
+			});
 			modalView.hideModal();
 		});
 	},
