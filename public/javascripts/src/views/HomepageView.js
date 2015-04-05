@@ -96,8 +96,8 @@ var HomepageView = Backbone.View.extend({
 	},
 	render: function () {
 		let homepageRendered = this.homepageTemplate();
-		this.initializeDropzone();
 		this.$el.html(homepageRendered);
+		this.initializeDropzone();
 	},
 	updateDropzoneDragMessage: function () {
 		let currentMessageNumber = this.viewState.get('currentMessageNumber');

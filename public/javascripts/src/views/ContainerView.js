@@ -92,7 +92,8 @@ var ContainerView = Backbone.View.extend({
 	},
 	showAlbumView: function (shortName) {
 		this.loadView(() => {
-			this.albumView.delegateEvents();
+			this.albumView.initializeDropzone();
+			this.albumView.initializeZeroClipboard();
 			this.albumView.updateCopyLink();
 		}, () => {
 			this.model.album.set('shortName', shortName);
