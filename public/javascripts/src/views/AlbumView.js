@@ -44,22 +44,25 @@ var AlbumView = Backbone.View.extend({
 			}
 		}, this));
 	},
+	initializeZeroClipboard: function () {
+		if (this.clipboardClient) {
+			this.clipboardClient.destroy();
+		}
+		this.clipboardClient = new ZeroClipboard(this.$('#shortLinkCopy'));
+		this.clipboardClient.on('ready', function (readyEvent) {
+			this.on('aftercopy', function (copyEvent) {
+				console.log('Copied');
+			});
+		});
+	},
 	render: function() {
 		let albumRendered = this.albumTemplate({ album : this.model.album.toJSON() });
 		this.$el.html(albumRendered);
 		this.initializeDropzone();
+		this.initializeZeroClipboard();
 	},
 	/* EVENTS */
 	delegateEvents: function () {
-		if (this.clipboardClient) {
-			this.clipboardClient.destroy();
-		}
-		this.clipboardClient = new ZeroClipboard(this.$('#shortLinkCopy')[0]);
-		this.clipboardClient.on('ready', _.bind(function (readyEvent) {
-			this.clipboardClient.on('aftercopy', function (copyEvent) {
-				console.log('Copied');
-			});
-		}, this));
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},
 	undelegateEvents: function () {
