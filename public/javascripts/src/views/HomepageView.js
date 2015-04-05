@@ -43,13 +43,10 @@ var HomepageView = Backbone.View.extend({
 			if (nextMessageNumber > this.$('#dropzoneMessageOptions div').length - 1) {
 				nextMessageNumber = 0;
 			}
-			// setTimeout(() => {
-				this.viewState.set('currentMessageNumber', nextMessageNumber);
-			// }, 450);
+			this.viewState.set('currentMessageNumber', nextMessageNumber);
 		}, this);
 
-		this.dropzone.on('dragend', incrementMessage);
-		this.dropzone.on('dragleave', incrementMessage);
+		this.dropzone.on('dragenter', incrementMessage);
 
 		this.dropzone.on('successmultiple', _.bind(function (file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
