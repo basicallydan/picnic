@@ -45,15 +45,11 @@ var HomepageView = Backbone.View.extend({
 			previewTemplate: document.querySelector('#newAlbumImagePreviewTemplate').innerHTML,
 			url: '/api/albums',
 			dragend: function(e) {
-				console.log('Drag end');
-				console.log(e);
 				if (mouseEventOutside(e, $(this.element))) {
 					return this.element.classList.remove('dz-drag-hover');
 				}
 			},
 			dragleave: function(e) {
-				console.log('Drag leave');
-				console.log(e);
 				if (mouseEventOutside(e, $(this.element))) {
 					return this.element.classList.remove('dz-drag-hover');
 				}
