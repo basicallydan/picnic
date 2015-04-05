@@ -93,6 +93,7 @@ var ContainerView = Backbone.View.extend({
 	showAlbumView: function (shortName) {
 		this.loadView(() => {
 			this.albumView.delegateEvents();
+			this.albumView.updateCopyLink();
 		}, () => {
 			this.model.album.set('shortName', shortName);
 			this.model.album.fetch();

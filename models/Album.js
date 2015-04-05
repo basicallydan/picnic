@@ -5,6 +5,7 @@ var shortId = require('shortid');
 var _ = require('underscore');
 var cloudinary = require('cloudinary');
 var escapeRegexString = require('escape-regex-string');
+var config = require('../config/config.js');
 
 cloudinary.config({
     cloud_name: 'dys2lsskw',

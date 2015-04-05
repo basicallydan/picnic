@@ -1,5 +1,6 @@
 import Dropzone from 'dropzone';
 import ZeroClipboard from 'zeroclipboard';
+import url from 'url';
 
 var AlbumView = Backbone.View.extend({
 	albumTemplate: require('../../../../views/album.handlebars'),
@@ -62,6 +63,13 @@ var AlbumView = Backbone.View.extend({
 		this.$el.html(albumRendered);
 		this.initializeDropzone();
 		this.initializeZeroClipboard();
+		this.updateCopyLink();
+	},
+	updateCopyLink: function () {
+		let currentURL = url.parse(document.location.href);
+		let fullCopyURL = url.resolve(currentURL.protocol + '//' + currentURL.host, this.model.album.get('links').web);
+		this.$('#shortLink').val(fullCopyURL);
+		this.$('#shortLinkCopy').attr('data-clipboard-text', fullCopyURL);
 	},
 	/* EVENTS */
 	delegateEvents: function() {

@@ -14,9 +14,6 @@ var HomepageView = Backbone.View.extend({
 		}
 	},
 	initialize: function () {
-        this.signInView = new SignInView({
-            el: this.$('.signInView')[0]
-        });
         this.viewState = new Backbone.Model({
         	currentMessageNumber: 0
         });
@@ -81,8 +78,6 @@ var HomepageView = Backbone.View.extend({
 		}, this));
 	},
 	delegateEvents: function () {
-		this.initializeDropzone();
-		this.signInView.delegateEvents();
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},
 	openSignInModal: function (e) {
@@ -101,6 +96,7 @@ var HomepageView = Backbone.View.extend({
 	},
 	render: function () {
 		let homepageRendered = this.homepageTemplate();
+		this.initializeDropzone();
 		this.$el.html(homepageRendered);
 	},
 	updateDropzoneDragMessage: function () {

@@ -1,4 +1,8 @@
-var Album = require('../../models/Album.js');
+var proxyquire = require('proxyquire');
+var config = {
+	webHost: 'https://dopic.co'
+};
+var Album = proxyquire('../../models/Album.js', { '../config/config.js' : config });
 var User = require('../../models/User.js');
 var assert = require('assert');
 
@@ -58,27 +62,33 @@ describe('Album', function() {
 				shortName: 'blah',
 				ownershipCode: 'bleep',
 				files: [{
-					"buffer": null,
-					"truncated": false,
-					"size": 1234469,
-					"extension": "jpg",
-					"path": "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
-					"mimetype": "image/jpeg",
-					"encoding": "7bit",
-					"name": "4dd049f5a347638ad5566de16a5418a5.jpg",
-					"originalname": "IMG_20140625_133245.jpg",
-					"fieldname": "fileUpload"
+					buffer: null,
+					truncated: false,
+					size: 1234469,
+					extension: "jpg",
+					path: "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
+					mimetype: "image/jpeg",
+					encoding: "7bit",
+					name: "4dd049f5a347638ad5566de16a5418a5.jpg",
+					originalname: "IMG_20140625_133245.jpg",
+					fieldname: "fileUpload",
+					cloudinary: {
+						id: 1
+					}
 				}, {
-					"buffer": null,
-					"truncated": false,
-					"size": 1260809,
-					"extension": "jpg",
-					"path": "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
-					"mimetype": "image/jpeg",
-					"encoding": "7bit",
-					"name": "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
-					"originalname": "IMG_20140625_133308.jpg",
-					"fieldname": "fileUpload"
+					buffer: null,
+					truncated: false,
+					size: 1260809,
+					extension: "jpg",
+					path: "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
+					mimetype: "image/jpeg",
+					encoding: "7bit",
+					name: "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
+					originalname: "IMG_20140625_133308.jpg",
+					fieldname: "fileUpload",
+					cloudinary: {
+						id: 2
+					}
 				}]
 			});
 
@@ -88,19 +98,19 @@ describe('Album', function() {
 				links: {
 					self: '/api/albums/blah',
 					files: '/api/albums/blah/files/',
-					web: '/a/blah'
+					web: 'https://dopic.co/a/blah'
 				},
 				files: [{
-					"size": 1234469,
-					"mimeType": "image/jpeg",
-					"originalName": "IMG_20140625_133245.jpg",
+					size: 1234469,
+					mimeType: "image/jpeg",
+					originalName: "IMG_20140625_133245.jpg",
 					links: {
 						image: '/uploads/4dd049f5a347638ad5566de16a5418a5.jpg'
 					}
 				}, {
-					"size": 1260809,
-					"mimeType": "image/jpeg",
-					"originalName": "IMG_20140625_133308.jpg",
+					size: 1260809,
+					mimeType: "image/jpeg",
+					originalName: "IMG_20140625_133308.jpg",
 					links: {
 						image: '/uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
 					}
@@ -113,27 +123,33 @@ describe('Album', function() {
 				shortName: 'blah',
 				ownershipCode: 'bleep',
 				files: [{
-					"buffer": null,
-					"truncated": false,
-					"size": 1234469,
-					"extension": "jpg",
-					"path": "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
-					"mimetype": "image/jpeg",
-					"encoding": "7bit",
-					"name": "4dd049f5a347638ad5566de16a5418a5.jpg",
-					"originalname": "IMG_20140625_133245.jpg",
-					"fieldname": "fileUpload"
+					buffer: null,
+					truncated: false,
+					size: 1234469,
+					extension: "jpg",
+					path: "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
+					mimetype: "image/jpeg",
+					encoding: "7bit",
+					name: "4dd049f5a347638ad5566de16a5418a5.jpg",
+					originalname: "IMG_20140625_133245.jpg",
+					fieldname: "fileUpload",
+					cloudinary: {
+						id: 1
+					}
 				}, {
-					"buffer": null,
-					"truncated": false,
-					"size": 1260809,
-					"extension": "jpg",
-					"path": "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
-					"mimetype": "image/jpeg",
-					"encoding": "7bit",
-					"name": "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
-					"originalname": "IMG_20140625_133308.jpg",
-					"fieldname": "fileUpload"
+					buffer: null,
+					truncated: false,
+					size: 1260809,
+					extension: "jpg",
+					path: "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
+					mimetype: "image/jpeg",
+					encoding: "7bit",
+					name: "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
+					originalname: "IMG_20140625_133308.jpg",
+					fieldname: "fileUpload",
+					cloudinary: {
+						id: 2
+					}
 				}]
 			});
 
@@ -146,21 +162,21 @@ describe('Album', function() {
 				links: {
 					self: '/api/albums/blah',
 					files: '/api/albums/blah/files/',
-					web: '/a/blah'
+					web: 'https://dopic.co/a/blah'
 				},
 				shortName: 'blah',
 				ownershipCode: 'bleep',
 				files: [{
-					"size": 1234469,
-					"mimeType": "image/jpeg",
-					"originalName": "IMG_20140625_133245.jpg",
+					size: 1234469,
+					mimeType: "image/jpeg",
+					originalName: "IMG_20140625_133245.jpg",
 					links: {
 						image: '/uploads/4dd049f5a347638ad5566de16a5418a5.jpg'
 					}
 				}, {
-					"size": 1260809,
-					"mimeType": "image/jpeg",
-					"originalName": "IMG_20140625_133308.jpg",
+					size: 1260809,
+					mimeType: "image/jpeg",
+					originalName: "IMG_20140625_133308.jpg",
 					links: {
 						image: '/uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
 					}
