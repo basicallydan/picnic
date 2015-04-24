@@ -1,2 +1,16 @@
+@font-face {
+  font-family: 'Asap';
+  src: url('/fonts/Asap/Asap-Regular.ttf');
+  src: url('/fonts/Asap/Asap-Italic.ttf');
+  src: url('/fonts/Asap/Asap-Bold.ttf');
+  src: url('/fonts/Asap/Asap-BoldItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Flamenco';
+  src: url('/fonts/Flamenco/Flamenco-Regular.ttf');
+  src: url('/fonts/Flamenco/Flamenco-Light.ttf');
+}
+
 $body-font-stack:"Asap", Helvetica, Arial, sans-serif;
 $heading-font-stack:"Flamenco", serif;
