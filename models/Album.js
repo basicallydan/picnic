@@ -29,7 +29,21 @@ var albumSchema = new Schema({
         } 
     },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    files: [ Schema.Types.Mixed ]
+    files: [{
+        shortName: {
+            type : String,
+            default : function () {
+                return shortId.generate();
+            } 
+        },
+        bytes: Number,
+        mimetype: String,
+        originalname: String,
+        format: String,
+        cloudinary: Schema.Types.Mixed,
+        width: Number,
+        height: Number
+    }]
 });
 
 albumSchema.methods.authorizeOwnershipCode = function (code) {

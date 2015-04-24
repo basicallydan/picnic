@@ -1,0 +1,13 @@
+<div>
+	<a href="{{album.links.web}}">Back to album</a>
+	{{with file}}
+	<section class="one-line-form cf">
+		<label for="shortLink">Get your friends to contribute:</label>
+		<input type="text" id="shortLink" name="shortLink" class="no-edit autohighlight" value="{{links.web}}" />
+		<button type="button" id="shortLinkCopy" data-clipboard-text="{{links.web}}">Copy</button>
+	</section>
+	<div class="images" id="existingAlbumDropzone">
+		<img src="{{links.image}}">
+	</div>
+	{{/with}}
+</div>

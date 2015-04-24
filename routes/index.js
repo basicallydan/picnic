@@ -52,6 +52,17 @@ router.get('/a/:shortName', auth({ required : false }), function(req, res, next)
 	});
 });
 
+router.get('/a/:shortName/image/:imageShortName', auth({ required : false }), function(req, res, next) {
+	Album.findByShortName(req.params.shortName, function(err, album) {
+		var responseObject = { title : 'Album', user: req.user };
+		if (album) {
+			responseObject.album = album.viewModel();
+			responseObject.image = album.viewModel();
+		}
+		res.render('album', responseObject);
+	});
+});
+
 router.get('/sign-in', auth({ required : false }), function(req, res, next) {
 	res.render('signIn', {
 		title: 'Dopic - Sign in',
