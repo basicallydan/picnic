@@ -1,11 +1,8 @@
 import Dropzone from 'dropzone';
-import SignInView from './SignInView';
-import ModalViewWrapper from './ModalViewWrapper';
 
 var HomepageView = Backbone.View.extend({
 	homepageTemplate: require('../../../../views/index.handlebars'),
 	events: {
-		'click .signInModalLink': 'openSignInModal',
 		'dragend .dz-message-empty': function (e) {
 			console.log('Dragend empty done');
 		},
@@ -79,20 +76,6 @@ var HomepageView = Backbone.View.extend({
 	},
 	delegateEvents: function () {
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
-	},
-	openSignInModal: function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		let SignInModalView = ModalViewWrapper(SignInView);
-		let modalView = new SignInModalView();
-		modalView.render().showModal();
-		this.listenTo(modalView, 'signedIn', function () {
-			this.trigger('notification', {
-				type: 'success',
-				message: 'Congrats on signing in!'
-			});
-			modalView.hideModal();
-		});
 	},
 	render: function () {
 		let homepageRendered = this.homepageTemplate();

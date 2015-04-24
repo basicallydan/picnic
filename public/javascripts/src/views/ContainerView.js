@@ -1,8 +1,10 @@
 import Dropzone from 'dropzone';
-import SignInView from './SignInView';
 import AlbumsView from './AlbumsView';
 import AlbumView from './AlbumView';
 import HomepageView from './HomepageView';
+import ModalViewWrapper from './ModalViewWrapper';
+import SignInView from './SignInView';
+import SignUpView from './SignUpView';
 
 var NotificationView = Backbone.View.extend({
 	events: {
@@ -34,6 +36,8 @@ var NotificationView = Backbone.View.extend({
 
 var ContainerView = Backbone.View.extend({
 	events: {
+		'click a[href$="/sign-in"]': 'openSignInModal',
+		'click a[href$="/sign-up"]': 'openSignUpModal',
 		'click .internal-link' : 'handleInternalLink',
 		'mousedown .autohighlight': 'highlightShortLink',
 		'click .autohighlight': 'highlightShortLink',
@@ -65,15 +69,16 @@ var ContainerView = Backbone.View.extend({
 			el: this.$('#page-container')[0]
 		});
 
-		this.listenTo(this.homepageView, 'notification', function (notification) {
-			var newNotificationView = new NotificationView({
-				model: {
-					notification: notification
-				}
-			});
-			this.notificationViews.push(newNotificationView);
-			this.$('#notifications').append(newNotificationView.render().$el);
+		this.listenTo(this.homepageView, 'notification', this.showNotification);
+	},
+	showNotification: function (notification) {
+		var newNotificationView = new NotificationView({
+			model: {
+				notification: notification
+			}
 		});
+		this.notificationViews.push(newNotificationView);
+		this.$('#notifications').append(newNotificationView.render().$el);
 	},
 	handleInternalLink: function (e) {
 		var link = $(e.currentTarget);
@@ -114,6 +119,34 @@ var ContainerView = Backbone.View.extend({
 		e.preventDefault();
 		let target = $(e.currentTarget);
 		target.select();
+	},
+	openSignInModal: function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		let SignInModalView = ModalViewWrapper(SignInView);
+		let modalView = new SignInModalView();
+		modalView.render().showModal();
+		this.listenTo(modalView, 'signedIn', function () {
+			this.showNotification({
+				type: 'success',
+				message: 'Congrats on signing up!'
+			});
+			modalView.hideModal();
+		});
+	},
+	openSignUpModal: function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		let SignUpModalView = ModalViewWrapper(SignUpView);
+		let modalView = new SignUpModalView();
+		modalView.render().showModal();
+		this.listenTo(modalView, 'signedIn', function () {
+			this.showNotification({
+				type: 'success',
+				message: 'Congrats on signing up!'
+			});
+			modalView.hideModal();
+		});
 	},
 	preventEditing: function (e) {
 		e.preventDefault();

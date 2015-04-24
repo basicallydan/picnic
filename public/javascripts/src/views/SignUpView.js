@@ -18,9 +18,10 @@ var SignUpView = Backbone.View.extend({
 			method: 'post',
 			data: userPostData
 		}).done(function(response) {
-			Backbone.history.navigate('/a', { trigger : true });
+			this.trigger('signedUp', response);
+			this.trigger('signedIn', response);
 		}).fail(function(response) {
-			console.log('Failed to sign up user.');
+			this.trigger('signUpFailed', response);
 		});
 	}
 });
