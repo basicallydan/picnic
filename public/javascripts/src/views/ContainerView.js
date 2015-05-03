@@ -49,6 +49,8 @@ var ContainerView = Backbone.View.extend({
 		console.log('Starting model:', this.model);
 		console.log('Starting collection:', this.collection);
 
+		this.currentDomainRegex = new RegExp('^' + window.location.origin);
+
 		this.notificationViews = [];
 
 		this.viewState = new Backbone.Model({
@@ -82,8 +84,10 @@ var ContainerView = Backbone.View.extend({
 	},
 	handleInternalLink: function (e) {
 		var link = $(e.currentTarget);
+		var url = link.attr('href');
+		url = url.replace(this.currentDomainRegex, '');
 		e.preventDefault();
-		Backbone.history.navigate(link.attr('href'), { trigger : true });
+		Backbone.history.navigate(url, { trigger : true });
 	},
 	shouldFetch: function () {
 		return !this.viewState.get('firstLoad');
