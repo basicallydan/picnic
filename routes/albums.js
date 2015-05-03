@@ -33,6 +33,8 @@ function streamFileRequestToCloudinary(req, callback) {
 		var filename;
 		var cloudStream = cloudinary.uploader.upload_stream(function(response) {
 			console.log('Finished uploading', part.name, '(' + filename + ') to cloudinary.');
+			console.log('Cloudinary response:');
+			console.log(JSON.stringify(response, null, 2));
 			var fileObject = {
 				name: filename,
 				size: response.bytes,

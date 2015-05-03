@@ -118,9 +118,9 @@ describe('Album', function() {
 					web: 'https://dopic.co/a/blah'
 				},
 				files: [{
-					size: 1234469,
-					mimeType: "image/jpeg",
-					originalName: "IMG_20140625_133245.jpg",
+					bytes: 1234469,
+					width:500,
+					height:500,
 					shortName: 'firstOne',
 					links: {
 						image: '/test-url-500x500-nocrop.jpg',
@@ -128,9 +128,9 @@ describe('Album', function() {
 						imageW288: '/test-url-288x288-fill.jpg'
 					}
 				}, {
-					size: 1260809,
-					mimeType: "image/jpeg",
-					originalName: "IMG_20140625_133308.jpg",
+					bytes: 1260809,
+					width:500,
+					height:500,
 					shortName: 'secondOne',
 					links: {
 						image: '/test-url-500x500-nocrop.jpg',
@@ -197,9 +197,9 @@ describe('Album', function() {
 				ownershipCode: 'bleep',
 				files: [{
 					shortName: 'firstOne',
-					size: 1234469,
-					mimeType: "image/jpeg",
-					originalName: "IMG_20140625_133245.jpg",
+					bytes: 1234469,
+					width:500,
+					height:500,
 					links: {
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -207,9 +207,9 @@ describe('Album', function() {
 					}
 				}, {
 					shortName: 'secondOne',
-					size: 1260809,
-					mimeType: "image/jpeg",
-					originalName: "IMG_20140625_133308.jpg",
+					bytes: 1260809,
+					width:500,
+					height:500,
 					links: {
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',

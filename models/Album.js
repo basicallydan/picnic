@@ -31,19 +31,19 @@ var albumSchema = new Schema({
     },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     files: [{
+        name: String,
+        bytes: Number,
         shortName: {
             type : String,
             default : function () {
                 return shortId.generate();
             } 
         },
-        bytes: Number,
-        mimetype: String,
-        originalname: String,
         format: String,
-        cloudinary: Schema.Types.Mixed,
+        createdAt: Date,
         width: Number,
-        height: Number
+        height: Number,
+        cloudinary: Schema.Types.Mixed
     }]
 });
 
@@ -82,9 +82,9 @@ albumSchema.methods.viewModel = function (override) {
     this.files.forEach(function (file) {
         files.push({
             shortName: file.shortName,
-            size: file.bytes,
-            mimeType: file.mimetype,
-            originalName: file.originalname,
+            bytes: file.bytes,
+            width: file.width,
+            height: file.height,
             links: {
                 image: cloudinary.url(
                     file.cloudinary.id + '.' + file.format,

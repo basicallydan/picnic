@@ -1,7 +1,3 @@
-import Dropzone from 'dropzone';
-import ZeroClipboard from 'zeroclipboard';
-import url from 'url';
-
 var AlbumView = Backbone.View.extend({
 	className:'image-view',
 	albumTemplate: require('../../../../views/image.handlebars'),
