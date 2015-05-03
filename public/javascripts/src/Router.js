@@ -35,7 +35,8 @@ var Router = Backbone.Router.extend({
             },
             model: {
                 user: model.user,
-                album: new AlbumModel(model.album)
+                album: new AlbumModel(model.album),
+                file: new Backbone.Model(model.file)
             }
         });
 
