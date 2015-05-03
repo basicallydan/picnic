@@ -24,14 +24,24 @@
 	}
 }
 
+.album-view {
+	.image {
+		border:1px solid transparent;
+
+		@include transition(border-color, 0.35s, ease);
+
+		&:hover {
+			border:1px solid rgb(226, 226, 255);
+		}
+
+		&.blank {
+			// The button which allows you to add an image
+		}
+	}
+}
+
 .image {
 	border:1px solid transparent;
-
-	@include transition(border-color, 0.35s, ease);
-
-	&:hover {
-		border:1px solid rgb(226, 226, 255);
-	}
 
 	&.blank {
 		// The button which allows you to add an image

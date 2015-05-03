@@ -9,7 +9,8 @@ var Album = proxyquire('../../models/Album.js', {
 
 		},
 		url: function (fileName, options) {
-			return fileName;
+			var cropType = options.crop || 'nocrop';
+			return '/test-url-' + options.width + 'x' + options.height + '-' + cropType + '.jpg';
 		}
 	}
 });
@@ -74,28 +75,32 @@ describe('Album', function() {
 				files: [{
 					buffer: null,
 					truncated: false,
-					size: 1234469,
-					extension: "jpg",
+					bytes: 1234469,
+					format: "jpg",
 					path: "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
 					mimetype: "image/jpeg",
 					encoding: "7bit",
 					name: "4dd049f5a347638ad5566de16a5418a5.jpg",
 					originalname: "IMG_20140625_133245.jpg",
 					fieldname: "fileUpload",
+					width: 500,
+					height: 500,
 					cloudinary: {
 						id: 1
 					}
 				}, {
 					buffer: null,
 					truncated: false,
-					size: 1260809,
-					extension: "jpg",
+					bytes: 1260809,
+					format: "jpg",
 					path: "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
 					mimetype: "image/jpeg",
 					encoding: "7bit",
 					name: "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
 					originalname: "IMG_20140625_133308.jpg",
 					fieldname: "fileUpload",
+					width: 500,
+					height: 500,
 					cloudinary: {
 						id: 2
 					}
@@ -115,14 +120,18 @@ describe('Album', function() {
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133245.jpg",
 					links: {
-						image: '/uploads/4dd049f5a347638ad5566de16a5418a5.jpg'
+						image: '/test-url-500x500-nocrop.jpg',
+						imageW144: '/test-url-144x144-fill.jpg',
+						imageW288: '/test-url-288x288-fill.jpg'
 					}
 				}, {
 					size: 1260809,
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133308.jpg",
 					links: {
-						image: '/uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
+						image: '/test-url-500x500-nocrop.jpg',
+						imageW144: '/test-url-144x144-fill.jpg',
+						imageW288: '/test-url-288x288-fill.jpg'
 					}
 				}]
 			});
@@ -135,28 +144,32 @@ describe('Album', function() {
 				files: [{
 					buffer: null,
 					truncated: false,
-					size: 1234469,
-					extension: "jpg",
+					bytes: 1234469,
+					format: "jpg",
 					path: "uploads/4dd049f5a347638ad5566de16a5418a5.jpg",
 					mimetype: "image/jpeg",
 					encoding: "7bit",
 					name: "4dd049f5a347638ad5566de16a5418a5.jpg",
 					originalname: "IMG_20140625_133245.jpg",
 					fieldname: "fileUpload",
+					width: 500,
+					height: 500,
 					cloudinary: {
 						id: 1
 					}
 				}, {
 					buffer: null,
 					truncated: false,
-					size: 1260809,
-					extension: "jpg",
+					bytes: 1260809,
+					format: "jpg",
 					path: "uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
 					mimetype: "image/jpeg",
 					encoding: "7bit",
 					name: "6575ef767a6bc48c5f9c4c48ebe1f91d.jpg",
 					originalname: "IMG_20140625_133308.jpg",
 					fieldname: "fileUpload",
+					width: 500,
+					height: 500,
 					cloudinary: {
 						id: 2
 					}
@@ -181,14 +194,18 @@ describe('Album', function() {
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133245.jpg",
 					links: {
-						image: '/uploads/4dd049f5a347638ad5566de16a5418a5.jpg'
+						image: '/test-url-500x500-nocrop.jpg',
+						imageW144: '/test-url-144x144-fill.jpg',
+						imageW288: '/test-url-288x288-fill.jpg'
 					}
 				}, {
 					size: 1260809,
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133308.jpg",
 					links: {
-						image: '/uploads/6575ef767a6bc48c5f9c4c48ebe1f91d.jpg'
+						image: '/test-url-500x500-nocrop.jpg',
+						imageW144: '/test-url-144x144-fill.jpg',
+						imageW288: '/test-url-288x288-fill.jpg'
 					}
 				}],
 				owner: {

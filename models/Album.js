@@ -6,6 +6,7 @@ var _ = require('underscore');
 var cloudinary = require('cloudinary');
 var escapeRegexString = require('escape-regex-string');
 var config = require('../config/config.js');
+var url = require('url');
 
 cloudinary.config({
     cloud_name: 'dys2lsskw',
@@ -72,7 +73,7 @@ albumSchema.methods.viewModel = function (override) {
         links: {
             self: '/api/albums/' + this.shortName,
             files: '/api/albums/' + this.shortName + '/files/',
-            web: '/a/' + this.shortName
+            web: url.resolve(config.webHost, '/a/' + this.shortName)
         },
         shortName: this.shortName,
         ownershipCode: this.ownershipCode
