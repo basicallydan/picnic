@@ -85,6 +85,7 @@ describe('Album', function() {
 					fieldname: "fileUpload",
 					width: 500,
 					height: 500,
+					shortName: 'firstOne',
 					cloudinary: {
 						id: 1
 					}
@@ -101,6 +102,7 @@ describe('Album', function() {
 					fieldname: "fileUpload",
 					width: 500,
 					height: 500,
+					shortName: 'secondOne',
 					cloudinary: {
 						id: 2
 					}
@@ -119,6 +121,7 @@ describe('Album', function() {
 					size: 1234469,
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133245.jpg",
+					shortName: 'firstOne',
 					links: {
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -128,6 +131,7 @@ describe('Album', function() {
 					size: 1260809,
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133308.jpg",
+					shortName: 'secondOne',
 					links: {
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -154,6 +158,7 @@ describe('Album', function() {
 					fieldname: "fileUpload",
 					width: 500,
 					height: 500,
+					shortName: 'firstOne',
 					cloudinary: {
 						id: 1
 					}
@@ -170,6 +175,7 @@ describe('Album', function() {
 					fieldname: "fileUpload",
 					width: 500,
 					height: 500,
+					shortName: 'secondOne',
 					cloudinary: {
 						id: 2
 					}
@@ -190,6 +196,7 @@ describe('Album', function() {
 				shortName: 'blah',
 				ownershipCode: 'bleep',
 				files: [{
+					shortName: 'firstOne',
 					size: 1234469,
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133245.jpg",
@@ -199,6 +206,7 @@ describe('Album', function() {
 						imageW288: '/test-url-288x288-fill.jpg'
 					}
 				}, {
+					shortName: 'secondOne',
 					size: 1260809,
 					mimeType: "image/jpeg",
 					originalName: "IMG_20140625_133308.jpg",

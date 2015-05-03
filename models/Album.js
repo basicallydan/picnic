@@ -81,6 +81,7 @@ albumSchema.methods.viewModel = function (override) {
     var files = [];
     this.files.forEach(function (file) {
         files.push({
+            shortName: file.shortName,
             size: file.bytes,
             mimeType: file.mimetype,
             originalName: file.originalname,
