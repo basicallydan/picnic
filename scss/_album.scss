@@ -47,3 +47,15 @@
 		// The button which allows you to add an image
 	}
 }
+
+.short-link-form {
+	label {
+		display:block;
+		text-align:center;
+	}
+
+	input {
+		font-size:1em;
+		width:20em;
+	}
+}

@@ -1,5 +1,5 @@
 input, button {
-	font-size:2rem;
+	font-size:$standard-font-size;
 	border-radius:4px;
 	padding:$small-margin $standard-margin;
 	border:1px solid $midGrey;
@@ -10,7 +10,6 @@ button, input[type=submit] {
 	border-radius:4px;
 	color:$black;
 	border:none;
-	border-bottom:5px solid $blue;
 	padding:0.5rem 1rem;
 	cursor: pointer;
 	@include box-shadow(0, 0, 5px, $darkGrey);
@@ -18,7 +17,7 @@ button, input[type=submit] {
 
 .one-line-form {
 	margin:1em 0;
-	font-size:$large-font-size;
+	font-size:$standard-font-size;
 	display:-webkit-flex;
 	display:flex;
 }
