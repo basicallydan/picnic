@@ -79,13 +79,14 @@ albumSchema.methods.viewModel = function (override) {
         ownershipCode: this.ownershipCode
     };
     var files = [];
-    this.files.forEach(function (file) {
+    this.files.forEach(_.bind(function (file) {
         files.push({
             shortName: file.shortName,
             bytes: file.bytes,
             width: file.width,
             height: file.height,
             links: {
+                web: url.resolve(config.webHost, '/a/' + this.shortName + '/images/' + file.shortName),
                 image: cloudinary.url(
                     file.cloudinary.id + '.' + file.format,
                     {
@@ -114,7 +115,7 @@ albumSchema.methods.viewModel = function (override) {
                 )
             }
         });
-    });
+    }, this));
 
     if (this.owner) {
         viewModel.owner = this.owner;

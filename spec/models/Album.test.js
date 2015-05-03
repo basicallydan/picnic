@@ -123,6 +123,7 @@ describe('Album', function() {
 					height:500,
 					shortName: 'firstOne',
 					links: {
+						web: 'https://dopic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
 						imageW288: '/test-url-288x288-fill.jpg'
@@ -133,6 +134,7 @@ describe('Album', function() {
 					height:500,
 					shortName: 'secondOne',
 					links: {
+						web: 'https://dopic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
 						imageW288: '/test-url-288x288-fill.jpg'
@@ -201,6 +203,7 @@ describe('Album', function() {
 					width:500,
 					height:500,
 					links: {
+						web: 'https://dopic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
 						imageW288: '/test-url-288x288-fill.jpg'
@@ -211,6 +214,7 @@ describe('Album', function() {
 					width:500,
 					height:500,
 					links: {
+						web: 'https://dopic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
 						imageW288: '/test-url-288x288-fill.jpg'
