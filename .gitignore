@@ -31,6 +31,7 @@ node_modules
 uploads
 public/javascripts/bundle.js
 public/stylesheets/main.css
+config/config.js
 
 # Mac OSX Shit
 .DS_Store
