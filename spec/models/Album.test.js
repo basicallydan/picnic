@@ -2,7 +2,17 @@ var proxyquire = require('proxyquire');
 var config = {
 	webHost: 'https://dopic.co'
 };
-var Album = proxyquire('../../models/Album.js', { '../config/config.js' : config });
+var Album = proxyquire('../../models/Album.js', {
+	'../config/config.js' : config,
+	'cloudinary' : {
+		config: function (options) {
+
+		},
+		url: function (fileName, options) {
+			return fileName;
+		}
+	}
+});
 var User = require('../../models/User.js');
 var assert = require('assert');
 

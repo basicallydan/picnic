@@ -1,5 +1,5 @@
 import Dropzone from 'dropzone';
-import AlbumsView from './AlbumsView';
+import AlbumListView from './AlbumListView';
 import AlbumView from './AlbumView';
 import HomepageView from './HomepageView';
 import ModalViewWrapper from './ModalViewWrapper';
@@ -55,7 +55,7 @@ var ContainerView = Backbone.View.extend({
 			firstLoad: true
 		});
 
-		this.albumListView = new AlbumsView({
+		this.albumListView = new AlbumListView({
 			el: this.$('#page-container')[0],
 			collection: this.collection
 		});

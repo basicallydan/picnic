@@ -3,6 +3,7 @@ import ZeroClipboard from 'zeroclipboard';
 import url from 'url';
 
 var AlbumView = Backbone.View.extend({
+	className:'album-view',
 	albumTemplate: require('../../../../views/album.handlebars'),
 	initialize: function() {
 		this.listenTo(this.model.album, 'sync', this.render);

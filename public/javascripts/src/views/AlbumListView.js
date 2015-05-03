@@ -1,7 +1,8 @@
 import SignUpView from './SignUpView';
 
-var AlbumsView = Backbone.View.extend({
+var AlbumListView = Backbone.View.extend({
 	albumsTemplate: require('../../../../views/albums.handlebars'),
+	className: 'albuml-list-view',
 	events: {
 		'submit #signUpForm': 'handleSubmit'
 	},
@@ -44,4 +45,4 @@ var AlbumsView = Backbone.View.extend({
 	}
 });
 
-export default AlbumsView;
+export default AlbumListView;
