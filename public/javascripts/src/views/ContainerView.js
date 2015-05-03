@@ -78,6 +78,9 @@ var ContainerView = Backbone.View.extend({
 		});
 
 		this.listenTo(this.homepageView, 'notification', this.showNotification);
+		this.listenTo(this.homepageView, 'finishedUpload', function (url) {
+			this.navigateInternalLink(url);
+		});
 	},
 	showNotification: function (notification) {
 		var newNotificationView = new NotificationView({
@@ -91,8 +94,11 @@ var ContainerView = Backbone.View.extend({
 	handleInternalLink: function (e) {
 		var link = $(e.currentTarget);
 		var url = link.attr('href');
-		url = url.replace(this.currentDomainRegex, '');
 		e.preventDefault();
+		this.navigateInternalLink(url);
+	},
+	navigateInternalLink: function (url) {
+		url = url.replace(this.currentDomainRegex, '');
 		Backbone.history.navigate(url, { trigger : true });
 	},
 	shouldFetch: function () {

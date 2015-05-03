@@ -65,9 +65,7 @@ var HomepageView = Backbone.View.extend({
 
 		this.dropzone.on('successmultiple', _.bind(function (file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
-				Backbone.history.navigate(response.album.links.web, {
-					trigger: true
-				});
+				this.trigger('finishedUpload', response.album.links.web);
 			} else {
 				this.dropzone.options.url = response.album.links.files;
 				this.dropzone.processQueue();
