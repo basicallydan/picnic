@@ -49,7 +49,7 @@ gulp.task('watch-styles', function() {
 });
 
 gulp.task('watch-scripts', function() {
-	gulp.watch(['./public/javascripts/*.js', './public/javascripts/**/*.js', './public/javascripts/src/**/*.js', '!./public/javascripts/bundle.js'], ['browserify']);
+	gulp.watch(['./views/*.handlebars', './views/layouts/*.handlebars', './public/javascripts/*.js', './public/javascripts/**/*.js', './public/javascripts/src/**/*.js', '!./public/javascripts/bundle.js'], ['browserify']);
 });
 
 gulp.task('build', ['styles', 'browserify']);

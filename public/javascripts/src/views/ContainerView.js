@@ -1,6 +1,7 @@
 import Dropzone from 'dropzone';
 import AlbumListView from './AlbumListView';
 import AlbumView from './AlbumView';
+import ImageView from './ImageView';
 import HomepageView from './HomepageView';
 import ModalViewWrapper from './ModalViewWrapper';
 import SignInView from './SignInView';
@@ -67,6 +68,11 @@ var ContainerView = Backbone.View.extend({
 			model: this.model
 		});
 
+		this.imageView = new ImageView({
+			el: this.$('#page-container')[0],
+			model: this.model
+		});
+
 		this.homepageView = new HomepageView({
 			el: this.$('#page-container')[0]
 		});
@@ -107,6 +113,23 @@ var ContainerView = Backbone.View.extend({
 		}, () => {
 			this.model.album.set('shortName', shortName);
 			this.model.album.fetch();
+		});
+	},
+	showImageView: function (albumShortName, imageShortName) {
+		this.loadView(() => {
+		}, () => {
+			var fileModel;
+			if (this.model.album) {
+				fileModel = this.model.album.getFileWithShortname(imageShortName);
+			}
+			this.imageView = new ImageView({
+				el: this.$('#page-container')[0],
+				model: {
+					album: this.model.album,
+					file: fileModel
+				}
+			});
+			this.imageView.render();
 		});
 	},
 	showHomepageView: function () {

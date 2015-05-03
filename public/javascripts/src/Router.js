@@ -19,6 +19,7 @@ var Router = Backbone.Router.extend({
     routes: {
         '':'homepage',
         'a':'albums',
+        'a/:albumShortName/images/:imageShortName':'image',
         'a/:albumShortName':'album',
         'sign-in':'signIn'
     },
@@ -35,7 +36,7 @@ var Router = Backbone.Router.extend({
             },
             model: {
                 user: model.user,
-                album: new AlbumModel(model.album),
+                album: new AlbumModel(model.album, { parse : true }),
                 file: new Backbone.Model(model.file)
             }
         });
@@ -58,6 +59,11 @@ var Router = Backbone.Router.extend({
     album: function (albumShortName) {
         log('Route: Album');
         this.containerView.showAlbumView(albumShortName);
+    },
+
+    image: function (albumShortName, imageShortName) {
+        log('Route: Image');
+        this.containerView.showImageView(albumShortName, imageShortName);
     },
 
     signIn: function () {

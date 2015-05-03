@@ -91,7 +91,7 @@ albumSchema.methods.viewModel = function (override) {
                     file.cloudinary.id + '.' + file.format,
                     {
                         width: file.width,
-                        height: file.width,
+                        height: file.height,
                         version: file.cloudinary.version
                     }
                 ),
