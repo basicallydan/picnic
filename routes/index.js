@@ -52,14 +52,14 @@ router.get('/a/:shortName', auth({ required : false }), function(req, res, next)
 	});
 });
 
-router.get('/a/:shortName/image/:imageShortName', auth({ required : false }), function(req, res, next) {
+router.get('/a/:shortName/images/:imageShortName', auth({ required : false }), function(req, res, next) {
 	Album.findByShortName(req.params.shortName, function(err, album) {
-		var responseObject = { title : 'Album', user: req.user };
+		var responseObject = { title : 'Image', user: req.user };
 		if (album) {
 			responseObject.album = album.viewModel();
-			responseObject.image = album.viewModel();
+			responseObject.file = album.viewModel();
 		}
-		res.render('album', responseObject);
+		res.render('image', responseObject);
 	});
 });
 
