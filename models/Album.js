@@ -79,7 +79,7 @@ albumSchema.methods.viewModel = function (override) {
         ownershipCode: this.ownershipCode
     };
     var files = [];
-    this.files.forEach(_.bind(function (file) {
+    this.files.forEach(_.bind(function (file, index) {
         files.push({
             shortName: file.shortName,
             bytes: file.bytes,
