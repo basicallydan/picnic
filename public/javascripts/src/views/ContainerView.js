@@ -112,14 +112,14 @@ var ContainerView = Backbone.View.extend({
 		});
 	},
 	showAlbumView: function (shortName) {
-		this.loadView(() => {
+		this.loadView(function () {
 			this.albumView.initializeDropzone();
 			this.albumView.initializeZeroClipboard();
 			this.albumView.updateCopyLink();
-		}, () => {
+		}.bind(this), function () {
 			this.model.album.set('shortName', shortName);
 			this.model.album.fetch();
-		});
+		}.bind(this));
 	},
 	showImageView: function (albumShortName, imageShortName) {
 		this.loadView(() => {
@@ -195,11 +195,11 @@ var ContainerView = Backbone.View.extend({
 	loadView: function (firstCallback = () => {}, otherwiseCallback = () => {}, alwaysAfterCallback = () => {}) {
 		let isFirstLoad = this.viewState.get('firstLoad');
 		if (isFirstLoad) {
-			firstCallback();
+			firstCallback(this);
 		} else {
-			otherwiseCallback();
+			otherwiseCallback(this);
 		}
-		alwaysAfterCallback();
+		alwaysAfterCallback(this);
 		this.viewState.set('firstLoad', false);
 	}
 });

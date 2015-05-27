@@ -9,6 +9,8 @@ var AlbumListView = Backbone.View.extend({
 	initialize: function () {
 		this.listenTo(this.collection.albums, 'sync', this.render);
 		this.listenTo(this.collection.albums, 'sync', this.updateEmptyState);
+
+		this.updateEmptyState();
 	},
 	delegateEvents: function () {
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
@@ -22,9 +24,9 @@ var AlbumListView = Backbone.View.extend({
 	},
 	updateEmptyState: function () {
 		if (!this.collection.albums || !this.collection.albums.length) {
-			this.$('.album-list').addClass('empty');
+			this.$('.' + this.className).addClass('empty');
 		} else {
-			this.$('.album-list').removeClass('empty');
+			this.$('.' + this.className).removeClass('empty');
 		}
 	},
 	handleSubmit: function (e) {

@@ -1,6 +1,6 @@
 var AlbumModel = Backbone.Model.extend({
 	url: function () {
-		return '/api/albums/' + this.id;
+		return '/api/albums/' + this.get('shortName');
 	},
 	idAttribute:'shortName',
 	getFileWithShortname: function (shortName) {
