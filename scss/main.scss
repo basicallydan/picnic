@@ -98,14 +98,14 @@ a {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
-	width:12%;
+	width:15%;
 	float:left;
 	height:10vmax;
-	margin:0 2.66% 1rem 0;
+	margin:0 2% 1rem 0;
 	display: inline-block;
 	cursor:pointer;
 
-	&:last-child {
+	&:nth-of-type(6n) {
 		margin-right:0;
 	}
 }
