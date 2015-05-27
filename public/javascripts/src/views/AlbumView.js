@@ -30,7 +30,7 @@ var AlbumView = Backbone.View.extend({
 
 		this.dropzone.on('success', _.bind(function(file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
-				this.model.album.set(response.album);
+				this.model.album.set(response.album, { parse : true });
 				this.render();
 			} else {
 				this.dropzone.processQueue();
@@ -39,7 +39,7 @@ var AlbumView = Backbone.View.extend({
 
 		this.dropzone.on('successmultiple', _.bind(function(file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
-				this.model.album.set(response.album);
+				this.model.album.set(response.album, { parse : true });
 				this.render();
 			} else {
 				this.dropzone.processQueue();
@@ -61,9 +61,21 @@ var AlbumView = Backbone.View.extend({
 		let albumRendered = this.albumTemplate({
 			album: this.model.album.toJSON()
 		});
+		var existingClipboardSection;
+
+		if (this.clipboardClient) {
+			existingClipboardSection = this.$('.short-link-form');
+		}
+
 		this.$el.html(albumRendered);
+
+		if (existingClipboardSection) {
+			this.$('.short-link-form').replaceWith(existingClipboardSection);
+		} else {
+			this.initializeZeroClipboard();
+		}
+
 		this.initializeDropzone();
-		this.initializeZeroClipboard();
 		this.updateCopyLink();
 	},
 	updateCopyLink: function () {
