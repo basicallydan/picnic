@@ -8,8 +8,12 @@ var AlbumCollection = Backbone.Collection.extend({
 	parse: function (response) {
 		return response.albums;
 	},
-	viewModel: function () {
-		let viewModel = this.toJSON();
+	viewModel: function (options={}) {
+		let viewModel = this.map((album) => {
+			return album.viewModel({
+				limit: options.fileLimit
+			});
+		});
 		return viewModel;
 	}
 });
