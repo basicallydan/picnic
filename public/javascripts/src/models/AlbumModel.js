@@ -29,6 +29,7 @@ var AlbumModel = Backbone.Model.extend({
 		if (arguments.length === 3) {
 			return Backbone.Model.prototype.set.call(this, name, object, options);
 		} else {
+			// THIS IS WHERE THE PROBLEM IS
 			return Backbone.Model.prototype.set.call(this, object, options);
 		}
 	},
