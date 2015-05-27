@@ -1,15 +1,18 @@
 @font-face {
   font-family: 'Asap';
-  src: url('/fonts/Asap/Asap-Regular.ttf');
-  src: url('/fonts/Asap/Asap-Italic.ttf');
-  src: url('/fonts/Asap/Asap-Bold.ttf');
-  src: url('/fonts/Asap/Asap-BoldItalic.ttf');
+  src: url('/fonts/Asap/Asap-Regular.otf'),
+  	url('/fonts/Asap/Asap-BoldItalic.otf'),
+  	url('/fonts/Asap/Asap-Italic.otf'),
+  	url('/fonts/Asap/Asap-Bold.otf'),
+  	url('/fonts/Asap/Asap-Medium.otf'),
+  	url('/fonts/Asap/Asap-MediumItalic.otf'),
+  	url('/fonts/Asap/Asap-BoldItalic.otf');
 }
 
 @font-face {
   font-family: 'Flamenco';
-  src: url('/fonts/Flamenco/Flamenco-Regular.ttf');
-  src: url('/fonts/Flamenco/Flamenco-Light.ttf');
+  src: url('/fonts/Flamenco/Flamenco-Regular.ttf'),
+  	url('/fonts/Flamenco/Flamenco-Light.ttf');
 }
 
 $body-font-stack:"Asap", Helvetica, Arial, sans-serif;
