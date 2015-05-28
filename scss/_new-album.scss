@@ -25,12 +25,15 @@
 			width:100%;
 			display:table;
 			left:0;
-			pointer-events:none;
 			div	{
 			    vertical-align:middle;
 				display:table-cell;
 				width:100%;
 			}
+		}
+
+		.dz-message-hovered {
+			pointer-events:none;
 		}
 	}
 
