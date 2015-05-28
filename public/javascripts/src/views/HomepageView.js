@@ -34,8 +34,9 @@ var HomepageView = Backbone.View.extend({
 			parallelUploads: 2,
 			clickable:false,
 			maxFiles: 50,
-			thumbnailWidth: 140,
-			thumbnailHeight: 140,
+			thumbnailWidth: 500,
+			thumbnailHeight: 500,
+			previewsContainer: '#newAlbumImagePreviewsContainer',
 			previewTemplate: document.querySelector('#newAlbumImagePreviewTemplate').innerHTML,
 			url: '/api/albums',
 			dragend: function(e) {
@@ -60,6 +61,10 @@ var HomepageView = Backbone.View.extend({
 
 		this.dropzone.on('dragenter', incrementMessage);
 
+		this.dropzone.on('addedfile', _.bind(function (file, response) {
+			this.$('#albumDropzone').addClass('dz-populated')
+		}, this));
+
 		this.dropzone.on('successmultiple', _.bind(function (file, response) {
 			if (this.dropzone.getQueuedFiles().length === 0) {
 				this.trigger('finishedUpload', response.album.links.web);
@@ -67,6 +72,12 @@ var HomepageView = Backbone.View.extend({
 				this.dropzone.options.url = response.album.links.files;
 				this.dropzone.processQueue();
 			}
+		}, this));
+
+		this.dropzone.on('thumbnail', _.bind(function (file, dataUrl) {
+			this.$('#newAlbumImagePreviewsContainer .image:contains(' + file.name + ')').css({
+				backgroundImage: 'url(' + dataUrl + ')'
+			});
 		}, this));
 	},
 	delegateEvents: function () {

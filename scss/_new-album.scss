@@ -4,12 +4,13 @@
 	border-radius:4px;
 	height:60vh;
 	overflow:hidden;
+	position:relative;
 
 	& > .dz-message {
 		margin:0 auto;
 		font-size:$standard-font-size;
 		text-align:center;
-		height: 200%;
+		height: 300%;
 		position: relative;
 		width: 100%;
 		top:0;
@@ -20,8 +21,8 @@
 			display:block;
 		}
 
-		.dz-message-empty, .dz-message-hovered {
-			height:50%;
+		.dz-message-empty, .dz-message-hovered, .dz-message-populated {
+			height:33%;
 			width:100%;
 			display:table;
 			left:0;
@@ -35,12 +36,23 @@
 		.dz-message-hovered {
 			pointer-events:none;
 		}
+
+		.dz-message-populated {
+			pointer-events:none;
+		}
 	}
 
 	&.dz-drag-hover {
 		background-color:$midGrey;
 		& > .dz-message {
-			@include transform(0, -50%);
+			@include transform(0, -33.33%);
+			// top:-100%;
+		}
+	}
+
+	&.dz-populated {
+		& > .dz-message {
+			@include transform(0, -66.66%);
 			// top:-100%;
 		}
 	}
@@ -48,6 +60,27 @@
 	&.dz-started {
 		.dz-message {
 			display:none;
+		}
+	}
+
+	&.dz-populated {
+		color:$midGrey;
+		.images {
+			display:block;
+		}
+	}
+
+	.images {
+		display:none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border:none;
+
+		.image {
+			cursor: default;
 		}
 	}
 }
