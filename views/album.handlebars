@@ -4,6 +4,7 @@
 		<p>Get your friends to contribute: <input type="text" id="shortLink" name="shortLink" class="no-edit autohighlight" value="{{links.web}}" /> <a id="shortLinkCopy">Copy to clipboard</a></p>
 	</section>
 	<div class="images cf" id="existingAlbumDropzone">
+		<h2>{{{albumNameOrDefault @root.album}}}</h2>
 		{{#each files}}
 		<a class="image internal-link" href="{{links.web}}" style="background-image:url({{links.imageW288}})"></a>
 		{{/each}}

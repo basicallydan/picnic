@@ -1,6 +1,6 @@
 var AlbumModel = Backbone.Model.extend({
 	url: function () {
-		return '/api/albums/' + this.get('shortName');
+		return '/api/albums/' + this.id;
 	},
 	idAttribute:'shortName',
 	getFileWithShortname: function (shortName) {
@@ -17,21 +17,15 @@ var AlbumModel = Backbone.Model.extend({
 		return json;
 	},
 	set: function (name, object, options = {}) {
-		if (_.isObject(name)) {
-			options = object;
-			object = name;
-		}
+		var args = [name, object, options];
 
 		if (options.parse) {
-			object = this.parse(object);
+			if (_.isObject(args[0])) {
+				args[0] = this.parse(args[0]);
+			}
 		}
 
-		if (arguments.length === 3) {
-			return Backbone.Model.prototype.set.call(this, name, object, options);
-		} else {
-			// THIS IS WHERE THE PROBLEM IS
-			return Backbone.Model.prototype.set.call(this, object, options);
-		}
+		return Backbone.Model.prototype.set.apply(this, args);
 	},
 	parse: function (response) {
 		if (_.isObject(response.album)) {
