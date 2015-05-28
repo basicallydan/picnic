@@ -51,9 +51,9 @@ var HomepageView = Backbone.View.extend({
 		});
 
 		let incrementMessage = _.bind(function (e) {
-			if (/dz-message/g.test(e.toElement.className)) {
-				return;
-			}
+			// if (/dz-message/g.test(e.toElement.className)) {
+			// 	return;
+			// }
 			let nextMessageNumber = this.viewState.get('currentMessageNumber') + 1;
 			if (nextMessageNumber > this.$('#dropzoneMessageOptions div').length - 1) {
 				nextMessageNumber = 0;
