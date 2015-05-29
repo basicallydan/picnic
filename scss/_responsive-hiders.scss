@@ -5,7 +5,7 @@
 }
 
 .res-not-hh {
-	@media (max-width: 500px) {
+	@include mobile-only {
 		display:none!important;
 	}
 }

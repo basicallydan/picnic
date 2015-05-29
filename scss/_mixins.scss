@@ -32,3 +32,9 @@
 	-o-transform:      translate($left, $top);
 	-ms-transform:     translate($left, $top);
 }
+
+@mixin mobile-only {
+	@media (max-width: 500px) {
+		@content;
+	}
+}
