@@ -12,15 +12,15 @@ var SignUpView = Backbone.View.extend({
 		var userPostData = $(e.currentTarget).serializeArray();
 		userPostData[2] = {
 			name: 'username',
-			value: this.$('#signInEmail').val()
+			value: this.$('#signUpEmail').val()
 		};
 		$.ajax('/api/users', {
 			method: 'post',
 			data: userPostData
-		}).done(function(response) {
+		}).done((response) => {
 			this.trigger('signedUp', response);
 			this.trigger('signedIn', response);
-		}).fail(function(response) {
+		}).fail((response) => {
 			this.trigger('signUpFailed', response);
 		});
 	}
