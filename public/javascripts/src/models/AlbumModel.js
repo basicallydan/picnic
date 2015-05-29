@@ -16,10 +16,10 @@ var AlbumModel = Backbone.Model.extend({
 		json.files = json.files.toJSON().slice(0, options.limit || undefined);
 		return json;
 	},
-	set: function (name, object, options = {}) {
+	set: function (name, object, options) {
 		var args = [name, object, options];
 
-		if (options.parse) {
+		if (_.isObject(name) && object.parse) {
 			if (_.isObject(args[0])) {
 				args[0] = this.parse(args[0]);
 			}
