@@ -12,6 +12,7 @@ button, input[type=submit], .button {
 	border:none;
 	padding:0.5rem 1rem;
 	cursor: pointer;
+	display: inline-block;
 	@include box-shadow(0, 0, 5px, $darkGrey);
 
 	&.primary {
