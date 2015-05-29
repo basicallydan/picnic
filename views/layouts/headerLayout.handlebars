@@ -14,20 +14,7 @@
 </head>
 <body>
 	<header>
-		<div class="grid cf">
-			<span class="site-title">
-				<a href="/" class="internal-link">Dopic</a>
-			</span>
-			<nav class="header-nav">
-				<a href="/a" class="internal-link">My Albums</a>
-				{{#if user}}
-				<a href="/sign-out">Sign out</a>
-				{{else}}
-				<a href="/sign-in">Sign in</a>
-				<a href="/sign-up">Sign up</a>
-				{{/if}}
-			</nav>
-		</div>
+		{{> header}}
 	</header>
 	{{!-- The purpose of .page-container is to swap out handlebar-rendered pages later on --}}
 	<div id="page-container" class="grid">

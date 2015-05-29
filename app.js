@@ -28,7 +28,8 @@ mongoose.connect('mongodb://localhost/dopic');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
     defaultLayout: 'headerLayout',
-    helpers: require("./lib/helpers.js").helpers
+    helpers: require("./lib/helpers.js").helpers,
+    partialsDir: path.join(__dirname, 'views/partials')
 }));
 app.set('view engine', 'handlebars');
 // app.set('view engine', 'jade');

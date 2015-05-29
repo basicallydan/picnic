@@ -35,6 +35,21 @@ var NotificationView = Backbone.View.extend({
 	}
 });
 
+var HeaderView = Backbone.View.extend({
+	headerTemplate: require('../../../../views/partials/header.handlebars'),
+	initialize: function () {
+		this.listenTo(this.model.user, 'change', this.render);
+	},
+	render: function () {
+		var viewModel = {};
+		if (this.model.user.get('email')) {
+			viewModel.user = this.model.user.toJSON();
+		}
+		let headerRendered = this.headerTemplate(viewModel);
+		this.$el.html(headerRendered);
+	}
+});
+
 var ContainerView = Backbone.View.extend({
 	events: {
 		'click a[href$="/sign-in"]': 'openSignInModal',
@@ -66,6 +81,11 @@ var ContainerView = Backbone.View.extend({
 			firstLoad: true
 		});
 
+		this.headerView = new HeaderView({
+			el: this.$('header')[0],
+			model: this.model
+		});
+
 		this.albumListView = new AlbumListView({
 			el: this.$('#page-container')[0],
 			collection: this.collection,
@@ -90,6 +110,8 @@ var ContainerView = Backbone.View.extend({
 		this.listenTo(this.homepageView, 'finishedUpload', function (url) {
 			this.navigateInternalLink(url);
 		});
+
+		// this.listenTo(this.model.user, 'change', )
 	},
 	showNotification: function (notification) {
 		var newNotificationView = new NotificationView({
@@ -169,7 +191,7 @@ var ContainerView = Backbone.View.extend({
 		let modalView = new SignInModalView();
 		modalView.render().showModal();
 		this.listenTo(modalView, 'signedIn', function (response) {
-			this.model.user.set(response);
+			this.model.user.set(response.user);
 			this.showNotification({
 				type: 'success',
 				message: 'Congrats on signing up!'
@@ -184,7 +206,7 @@ var ContainerView = Backbone.View.extend({
 		let modalView = new SignUpModalView();
 		modalView.render().showModal();
 		this.listenTo(modalView, 'signedIn', function (response) {
-			this.model.user.set(response);
+			this.model.user.set(response.user);
 			this.showNotification({
 				type: 'success',
 				message: 'Congrats on signing up!'
