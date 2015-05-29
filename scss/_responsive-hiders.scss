@@ -1,0 +1,11 @@
+.res-hh {
+	@media (min-width: 500px) {
+		display:none!important;
+	}
+}
+
+.res-not-hh {
+	@media (max-width: 500px) {
+		display:none!important;
+	}
+}

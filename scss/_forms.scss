@@ -5,7 +5,7 @@ input, button {
 	border:1px solid $midGrey;
 }
 
-button, input[type=submit] {
+button, input[type=submit], .button {
 	background-color:white;
 	border-radius:4px;
 	color:$black;
@@ -13,6 +13,11 @@ button, input[type=submit] {
 	padding:0.5rem 1rem;
 	cursor: pointer;
 	@include box-shadow(0, 0, 5px, $darkGrey);
+
+	&.primary {
+		background-color:$primaryHighlight;
+		color:$primaryOverlay;
+	}
 }
 
 .one-line-form {

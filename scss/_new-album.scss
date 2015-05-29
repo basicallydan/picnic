@@ -16,6 +16,10 @@
 		top:0;
 		@include transition(transform, 0.45s, ease);
 
+		p {
+			margin:$standard-margin;
+		}
+
 		.instruction {
 			font-size:$large-font-size;
 			display:block;

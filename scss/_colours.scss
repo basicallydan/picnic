@@ -6,9 +6,10 @@ $textInputFontColor:$black;
 $darkGrey:#ddd;
 $midGrey:#eeeeee;
 $lightGrey:#fcfcfc;
+$white:#fefefe;
 
 $mainBlockColour:gray;
-$headerColour:white;
+$headerColour:$white;
 $headerFontColour:$black;
 
 $green:#25FF06;
@@ -20,3 +21,6 @@ $orange:#FFC708;
 $blue:#06B0E7;
 
 $linkHighlightedColour:$purple;
+
+$primaryHighlight:$blue;
+$primaryOverlay:$white;

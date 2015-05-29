@@ -32,7 +32,7 @@ var HomepageView = Backbone.View.extend({
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
 			uploadMultiple: true,
 			parallelUploads: 2,
-			clickable:false,
+			clickable:this.$('#addImagesButton').get(0),
 			maxFiles: 50,
 			thumbnailWidth: 500,
 			thumbnailHeight: 500,
