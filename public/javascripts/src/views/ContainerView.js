@@ -50,6 +50,14 @@ var ContainerView = Backbone.View.extend({
 		console.log('Starting model:', this.model);
 		console.log('Starting collection:', this.collection);
 
+		if (!this.model) {
+			this.model = {};
+		}
+
+		if (!this.model.user) {
+			this.model.user = new Backbone.Model();
+		}
+
 		this.currentDomainRegex = new RegExp('^' + window.location.origin);
 
 		this.notificationViews = [];
@@ -60,7 +68,8 @@ var ContainerView = Backbone.View.extend({
 
 		this.albumListView = new AlbumListView({
 			el: this.$('#page-container')[0],
-			collection: this.collection
+			collection: this.collection,
+			model: this.model
 		});
 
 		this.albumView = new AlbumView({
@@ -159,7 +168,8 @@ var ContainerView = Backbone.View.extend({
 		let SignInModalView = ModalViewWrapper(SignInView);
 		let modalView = new SignInModalView();
 		modalView.render().showModal();
-		this.listenTo(modalView, 'signedIn', function () {
+		this.listenTo(modalView, 'signedIn', function (response) {
+			this.model.user.set(response);
 			this.showNotification({
 				type: 'success',
 				message: 'Congrats on signing up!'
@@ -173,7 +183,8 @@ var ContainerView = Backbone.View.extend({
 		let SignUpModalView = ModalViewWrapper(SignUpView);
 		let modalView = new SignUpModalView();
 		modalView.render().showModal();
-		this.listenTo(modalView, 'signedIn', function () {
+		this.listenTo(modalView, 'signedIn', function (response) {
+			this.model.user.set(response);
 			this.showNotification({
 				type: 'success',
 				message: 'Congrats on signing up!'

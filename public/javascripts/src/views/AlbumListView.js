@@ -17,6 +17,7 @@ var AlbumListView = Backbone.View.extend({
 	},
 	render: function () {
 		let albumsRendered = this.albumsTemplate({
+			user : this.model.user,
 			albums : this.collection.albums.viewModel({ fileLimit : 6 })
 		});
 		this.$el.html(albumsRendered);
