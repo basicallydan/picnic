@@ -51,17 +51,39 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
-	width:15%;
 	float:left;
-	height:10vmax;
 	margin:0 2% 1rem 0;
 	display: inline-block;
 	cursor:pointer;
 	border:1px solid transparent;
 
-	&:nth-of-type(6n) {
-		margin-right:0;
+	width: 15%;
+	display: inline-block;
+	position: relative;
+
+	&:after {
+		// 4:3 ratio (3/4)
+		padding-top:100%;
+		display: block;
+		content: '';
 	}
+
+	// &:nth-of-type(6n) {
+	// 	margin-right:0;
+	// }
+}
+
+.image a {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display:block;
+	/* fill parent */
+	// background-color: deepskyblue;
+	/* let's see it! */
+	// color: white;
 }
 
 .new-image-button {

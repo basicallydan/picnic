@@ -6,7 +6,9 @@
 	<div class="images cf" id="existingAlbumDropzone">
 		<h2>{{{albumNameOrDefault @root.album}}}</h2>
 		{{#each files}}
-		<a class="image internal-link" href="{{links.web}}" style="background-image:url({{links.imageW288}})"></a>
+		<div class="image">
+			<a class="internal-link" href="{{links.web}}" style="background-image:url({{links.imageW288}})"></a>
+		</div>
 		{{/each}}
 		<a class="new-image-button" id="newImageButton"><span class="new-image-button-plus">+</span><span class="res-not-hh">Drag or select a new image</span></a>
 	</div>
