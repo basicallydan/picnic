@@ -41,22 +41,8 @@
 }
 
 .new-image-button, .image {
-	overflow-y: hidden ! important;
-	overflow-x: hidden ! important;
-	background-color:$lightGrey;
-	background-image: url('index.png');
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: top center;
 	float:left;
 	margin:0 2% 1rem 0;
-	display: inline-block;
-	cursor:pointer;
-	border:1px solid transparent;
-
 	width: 15%;
 	display: inline-block;
 	position: relative;
@@ -68,9 +54,9 @@
 		content: '';
 	}
 
-	// &:nth-of-type(6n) {
-	// 	margin-right:0;
-	// }
+	&:nth-of-type(6n) {
+		margin-right:0;
+	}
 }
 
 .image a {
@@ -80,10 +66,17 @@
 	right: 0;
 	left: 0;
 	display:block;
-	/* fill parent */
-	// background-color: deepskyblue;
-	/* let's see it! */
-	// color: white;
+	cursor:pointer;
+	overflow-y: hidden ! important;
+	overflow-x: hidden ! important;
+	background-color:$lightGrey;
+	background-image: url('index.png');
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
 }
 
 .new-image-button {
