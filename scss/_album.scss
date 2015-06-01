@@ -57,53 +57,50 @@
 	&:nth-of-type(6n) {
 		margin-right:0;
 	}
-}
 
-.image a {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	display:block;
-	cursor:pointer;
-	overflow-y: hidden ! important;
-	overflow-x: hidden ! important;
-	background-color:$lightGrey;
-	background-image: url('index.png');
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: top center;
+	a {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		display:block;
+		cursor:pointer;
+		overflow-y: hidden ! important;
+		overflow-x: hidden ! important;
+		background-color:$lightGrey;
+		background-image: url('index.png');
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: top center;
+	}
 }
 
 .new-image-button {
 	background-color:$lightGrey;
-	color:$darkGrey;
 	line-height:100%;
 	vertical-align:center;
 	text-align:center;
-	font-size:$large-font-size;
+	font-size:$standard-font-size;
 
-	@include transition(color, 0.3s, ease-in-out);
-
-	&-plus {
-		font-size:7em;
-		display:block;
-		height:50%;
-		margin:$standard-margin;
-
+	a {
+		opacity:0.5;
+		background-image:url(/images/add-new-plus-desktop.png);
+		background-image:url(/images/add-new-plus-desktop.svg);
+		
 		@include mobile-only {
-			font-size: 2em;
-			margin: 0.7rem;
+			background-image:url(/images/add-new-plus-handheld.png);
+			background-image:url(/images/add-new-plus-handheld.svg);
 		}
-	}
 
+		&:hover {
+			opacity:1;
+		}
 
-	&:hover {
-		color:$black;
+		@include transition(opacity, 0.3s, ease-in-out);
 	}
 }
 
