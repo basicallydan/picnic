@@ -24,6 +24,7 @@ var AlbumView = Backbone.View.extend({
 			maxFiles: 50,
 			thumbnailWidth: 140,
 			thumbnailHeight: 140,
+			previewsContainer: '#newImagePreviewsContainer',
 			previewTemplate: document.querySelector('#newImagePreviewTemplate').innerHTML,
 			url: this.model.album.get('links').files
 		});
