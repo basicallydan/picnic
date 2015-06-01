@@ -56,6 +56,10 @@ body {
 	font:1rem $body-font-stack;
 }
 
+p {
+	margin:0 auto $standard-margin auto;
+}
+
 a {
   color: $linkHighlightedColour;
 }
@@ -75,7 +79,7 @@ a {
 .images {
 	display:block;
 	text-decoration: none;
-	padding:1rem 0 0 0;
+	padding:0;
 	border-top:1px solid $darkGrey;
 	box-sizing:content-box;
 

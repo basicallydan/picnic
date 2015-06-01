@@ -16,7 +16,9 @@
 	<a class="images cf one-line internal-link" href="{{links.web}}">
 		<h2>{{{albumNameOrDefaultInList}}}</h2>
 		{{#each files}}
-		<div class="image" style="background-image:url({{links.imageW288}})"></div>
+		<div class="image">
+			<div style="background-image:url({{links.imageW288}})"></div>
+		</div>
 		{{/each}}
 	</a>
 	{{/each}}

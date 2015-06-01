@@ -65,7 +65,7 @@
 		margin-right:0;
 	}
 
-	a {
+	a, div {
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -120,5 +120,9 @@
 	input {
 		font-size:1em;
 		width:20em;
+	}
+
+	h1 > & {
+		margin-top:0;
 	}
 }

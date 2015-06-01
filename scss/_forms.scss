@@ -19,6 +19,11 @@ button, input[type=submit], .button {
 		background-color:$primaryHighlight;
 		color:$primaryOverlay;
 	}
+
+	@include mobile-only {
+		width:100%;
+		text-align: center;
+	}
 }
 
 .one-line-form {
