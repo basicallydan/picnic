@@ -16,8 +16,12 @@ var AlbumListView = Backbone.View.extend({
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},
 	render: function () {
+		let user = this.model.user.toJSON();
+		if (!user.email) {
+			user = undefined;
+		}
 		let albumsRendered = this.albumsTemplate({
-			user : this.model.user,
+			user : user,
 			albums : this.collection.albums.viewModel({ fileLimit : 6 })
 		});
 		this.$el.html(albumsRendered);

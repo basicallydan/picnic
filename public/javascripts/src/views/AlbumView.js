@@ -61,7 +61,7 @@ var AlbumView = Backbone.View.extend({
 		let albumRendered = this.albumTemplate({
 			album: this.model.album.toJSON()
 		});
-		var existingClipboardSection;
+		var existingClipboardSection = [];
 
 		if (this.clipboardClient) {
 			existingClipboardSection = this.$('.short-link-form');
