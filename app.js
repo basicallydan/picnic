@@ -22,7 +22,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var app = express();
 
 // connect to the db
-mongoose.connect('mongodb://localhost/dopic');
+mongoose.connect('mongodb://localhost/picnic');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

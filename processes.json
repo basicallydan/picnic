@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name": "Dopic",
+    "name": "Picnic",
     "script": "bin/www",
     "log_date_format": "YYYY-MM-DD HH:mm Z",
     "error_file": "error.log",

@@ -20,9 +20,11 @@ button, input[type=submit], .button {
 		color:$primaryOverlay;
 	}
 
-	@include mobile-only {
-		width:100%;
-		text-align: center;
+	&.wide-on-hh {
+		@include mobile-only {
+			width:100%;
+			text-align: center;
+		}
 	}
 }
 
