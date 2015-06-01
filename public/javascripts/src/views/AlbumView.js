@@ -69,7 +69,7 @@ var AlbumView = Backbone.View.extend({
 
 		this.$el.html(albumRendered);
 
-		if (existingClipboardSection) {
+		if (existingClipboardSection.length) {
 			this.$('.short-link-form').replaceWith(existingClipboardSection);
 		} else {
 			this.initializeZeroClipboard();
