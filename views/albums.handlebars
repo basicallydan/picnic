@@ -1,4 +1,4 @@
-<div class="album-list-view empty">
+<div class="album-list empty">
 	<div class="signUpView">
 		{{#if user}}
 		{{else}}
@@ -13,8 +13,11 @@
 		{{/if}}
 	</div>
 	{{#each albums}}
-	<a class="images cf one-line internal-link" href="{{links.web}}">
-		<h2>{{{albumNameOrDefaultInList}}}</h2>
+	<a class="album-list-item images cf one-line internal-link" href="{{links.web}}">
+		<header class="album-list-item-header cf">
+			<h2>{{{albumNameOrDefaultInList}}}</h2>
+			<span class="album-list-item-url">{{links.web}}</span>
+		</header>
 		{{#each files}}
 		<div class="image">
 			<div style="background-image:url({{links.imageW288}})"></div>
