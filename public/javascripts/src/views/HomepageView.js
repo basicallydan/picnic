@@ -30,6 +30,7 @@ var HomepageView = Backbone.View.extend({
 		}
 
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
+			autoProcessQueue: false,
 			uploadMultiple: true,
 			parallelUploads: 2,
 			clickable:this.$('#addImagesButton').get(0),
@@ -62,7 +63,7 @@ var HomepageView = Backbone.View.extend({
 		this.dropzone.on('dragenter', incrementMessage);
 
 		this.dropzone.on('addedfile', _.bind(function (file, response) {
-			this.$('#albumDropzone').addClass('dz-populated')
+			this.$('#albumDropzone').addClass('dz-populated');
 		}, this));
 
 		this.dropzone.on('successmultiple', _.bind(function (file, response) {

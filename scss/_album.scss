@@ -25,6 +25,8 @@
 }
 
 .album-view {
+	min-height:80vh;
+
 	.image {
 		border:1px solid transparent;
 
@@ -38,6 +40,26 @@
 			// The button which allows you to add an image
 		}
 	}
+
+	&.dz-drag-hover {
+		background-color:$midGrey;
+		& > .dz-message {
+			@include transform(0, -33.33%);
+		}
+	}
+}
+
+.images {
+	display:block;
+	text-decoration: none;
+	padding:0;
+	border-top:1px solid $darkGrey;
+	box-sizing:content-box;
+
+
+	&.dz-drag-hover {
+		background-color:$lightGrey;
+	}
 }
 
 .new-image-button, .image {
@@ -46,6 +68,7 @@
 	width: 15%;
 	display: inline-block;
 	position: relative;
+	background-size:contain;
 
 	@include mobile-only {
 		width: 49%;
@@ -83,6 +106,14 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: top center;
+	}
+
+	.image-inner {
+		z-index:1;
+	}
+	
+	.dz-progress {
+		z-index:2;
 	}
 }
 

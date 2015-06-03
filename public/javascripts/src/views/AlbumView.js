@@ -20,6 +20,7 @@ var AlbumView = Backbone.View.extend({
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
 			uploadMultiple: true,
 			parallelUploads: 4,
+			autoProcessQueue: false,
 			clickable: this.$('#newImageButton').get(0),
 			maxFiles: 50,
 			thumbnailWidth: 140,
@@ -45,6 +46,12 @@ var AlbumView = Backbone.View.extend({
 			} else {
 				this.dropzone.processQueue();
 			}
+		}, this));
+
+		this.dropzone.on('thumbnail', _.bind(function (file, dataUrl) {
+			this.$('#newImagePreviewsContainer .image:contains(' + file.name + ') .image-inner').css({
+				backgroundImage: 'url(' + dataUrl + ')'
+			});
 		}, this));
 	},
 	initializeZeroClipboard: function() {

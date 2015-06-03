@@ -76,18 +76,6 @@ a {
 
 @import "forms";
 
-.images {
-	display:block;
-	text-decoration: none;
-	padding:0;
-	border-top:1px solid $darkGrey;
-	box-sizing:content-box;
-
-	&.dz-drag-hover {
-		background-color:$lightGrey;
-	}
-}
-
 .empty-state {
 	display:none;
 	.empty & {

@@ -1,6 +1,6 @@
 {{#with album}}
-<div class="album-view">
-	<div class="images cf" id="existingAlbumDropzone">
+<div class="album-view" id="existingAlbumDropzone">
+	<div class="images cf">
 		<h2>{{{albumNameOrDefault @root.album}}}</h2>
 		<section class="short-link-form cf">
 			<p>Get your friends to contribute: <input type="text" id="shortLink" name="shortLink" class="no-edit autohighlight res-not-hh" value="{{links.web}}" /> <a id="shortLinkCopy" class="button primary wide-on-hh"><span class="res-not-hh">Copy to clipboard</span><span class="res-hh">Copy link to clipboard</span></a></p>
@@ -20,8 +20,9 @@
 {{/with}}
 
 <div id="newImagePreviewTemplate" style="display: none;">
-	<div class="dz-preview dz-file-preview image">
-		<img data-dz-thumbnail />
+	<div class="image">
+		<div class="image-inner"></div>
+		<span class="hidden" data-dz-name></span>
 		<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
 	</div>
 	{{!-- <div class="dz-preview dz-file-preview">
