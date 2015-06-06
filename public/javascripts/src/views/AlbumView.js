@@ -81,7 +81,7 @@ var AlbumView = Backbone.View.extend({
 	},
 	handleCopyLinkClick: function (e) {
 		e.preventDefault();
-		if (true || ZeroClipboard.isFlashUnusable()) {
+		if (ZeroClipboard.isFlashUnusable()) {
 			this.$('.share-hint').removeClass('hidden');
 			setTimeout(function () {
 				this.$('.share-hint').addClass('hidden');
@@ -90,7 +90,7 @@ var AlbumView = Backbone.View.extend({
 	},
 	initializeZeroClipboard: function() {
 		var that = this;
-		if (true || ZeroClipboard.isFlashUnusable()) {
+		if (ZeroClipboard.isFlashUnusable()) {
 			$('body').addClass('no-flash');
 			return;
 		}
