@@ -1,4 +1,5 @@
 import Dropzone from 'dropzone';
+import shortId from 'shortId';
 
 var HomepageView = Backbone.View.extend({
 	homepageTemplate: require('../../../../views/index.handlebars'),
@@ -12,7 +13,8 @@ var HomepageView = Backbone.View.extend({
 	},
 	initialize: function () {
         this.viewState = new Backbone.Model({
-        	currentMessageNumber: 0
+        	currentMessageNumber: 0,
+        	currentShortId: shortId.generate()
         });
         this.listenTo(this.viewState, 'change:currentMessageNumber', this.updateDropzoneDragMessage);
 	},
@@ -31,15 +33,15 @@ var HomepageView = Backbone.View.extend({
 
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
 			// autoProcessQueue: false,
-			uploadMultiple: true,
-			parallelUploads: 2,
+			uploadMultiple: false,
+			parallelUploads: 6,
 			clickable:this.$('#addImagesButton').get(0),
 			maxFiles: 50,
 			thumbnailWidth: 500,
 			thumbnailHeight: 500,
 			previewsContainer: '#newAlbumImagePreviewsContainer',
 			previewTemplate: document.querySelector('#newAlbumImagePreviewTemplate').innerHTML,
-			url: '/api/albums',
+			url: 'https://api.cloudinary.com/v1_1/dys2lsskw/image/upload',
 			dragend: function(e) {
 				if (mouseEventOutside(e, $(this.element))) {
 					return this.element.classList.remove('dz-drag-hover');
@@ -74,6 +76,13 @@ var HomepageView = Backbone.View.extend({
 				this.dropzone.processQueue();
 			}
 		}, this));
+
+		this.dropzone.on('sending', function (file, xhr, formData) {
+			formData.append('api_key', 976447557551824);
+			formData.append('timestamp', Date.now() / 1000 | 0);
+			formData.append('upload_preset', 'luv2jxnn');
+			formData.append('tags', 'album:' + this.viewState.get('currentShortId'));
+		}.bind(this));
 
 		this.dropzone.on('thumbnail', _.bind(function (file, dataUrl) {
 			this.$('#newAlbumImagePreviewsContainer .image:contains(' + file.name + ')').css({
