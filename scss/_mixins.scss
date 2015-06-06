@@ -33,12 +33,25 @@
 	}
 }
 
-@mixin transform($left, $top) {
-	transform:         translate($left, $top);
-	-moz-transform:    translate($left, $top);
-	-webkit-transform: translate($left, $top);
-	-o-transform:      translate($left, $top);
-	-ms-transform:     translate($left, $top);
+@mixin transform($transforms) {
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+}
+// rotate
+@mixin rotate ($deg) {
+	@include transform(rotate(#{$deg}deg));
+}
+ 
+// scale
+@mixin scale($scale) {
+	@include transform(scale($scale));
+} 
+// translate
+@mixin translate ($x, $y) {
+	@include transform(translate($x, $y));
 }
 
 @mixin mobile-only {

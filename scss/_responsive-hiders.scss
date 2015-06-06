@@ -9,3 +9,15 @@
 		display:none!important;
 	}
 }
+
+.flash-available {
+	body.no-flash & {
+		display:none;
+	}
+}
+
+.flash-available {
+	body.flash & {
+		display:none;
+	}
+}

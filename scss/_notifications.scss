@@ -29,6 +29,6 @@
 
 	&.removed {
 		opacity:0;
-		@include transform(0, -50px);
+		@include translate(0, -50px);
 	}
 }

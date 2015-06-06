@@ -49,14 +49,14 @@
 	&.dz-drag-hover {
 		background-color:$midGrey;
 		& > .dz-message {
-			@include transform(0, -33.33%);
+			@include translate(0, -33.33%);
 			// top:-100%;
 		}
 	}
 
 	&.dz-populated {
 		& > .dz-message {
-			@include transform(0, -66.66%);
+			@include translate(0, -66.66%);
 			// top:-100%;
 		}
 	}

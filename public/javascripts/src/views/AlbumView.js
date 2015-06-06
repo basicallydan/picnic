@@ -5,6 +5,9 @@ import url from 'url';
 var AlbumView = Backbone.View.extend({
 	className:'album-view',
 	albumTemplate: require('../../../../views/album.handlebars'),
+	events: {
+		'click #shortLinkCopy':'handleCopyLinkClick'
+	},
 	initialize: function() {
 		this.listenTo(this.model.album, 'sync', this.render);
 	},
@@ -76,11 +79,19 @@ var AlbumView = Backbone.View.extend({
 			});
 		}, this));
 	},
+	handleCopyLinkClick: function (e) {
+		e.preventDefault();
+		if (true || ZeroClipboard.isFlashUnusable()) {
+			this.$('.share-hint').removeClass('hidden');
+			setTimeout(function () {
+				this.$('.share-hint').addClass('hidden');
+			}.bind(that), 5000);
+		}
+	},
 	initializeZeroClipboard: function() {
 		var that = this;
-		if (ZeroClipboard.isFlashUnusable()) {
-			this.$('#shortLink').removeClass('res-not-hh');
-			this.$('#shortLinkCopy').addClass('res-not-hh').removeClass('res-hh');
+		if (true || ZeroClipboard.isFlashUnusable()) {
+			$('body').addClass('no-flash');
 			return;
 		}
 		if (this.clipboardClient) {
@@ -92,7 +103,7 @@ var AlbumView = Backbone.View.extend({
 				that.$('#shortLinkCopy').addClass('success');
 				setTimeout(function () {
 					this.$('#shortLinkCopy').removeClass('success');
-				}.bind(that), 2000);
+				}.bind(this), 2000);
 				console.log('Copied');
 			});
 		});
@@ -132,7 +143,7 @@ var AlbumView = Backbone.View.extend({
 		if (this.clipboardClient) {
 			this.clipboardClient.destroy();
 		}
-		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
+		return Backbone.View.prototype.undelegateEvents.apply(this, arguments);
 	}
 });
 

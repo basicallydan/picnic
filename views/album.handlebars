@@ -3,7 +3,7 @@
 	<div class="images cf">
 		<h2>{{{albumNameOrDefault @root.album}}}</h2>
 		<section class="short-link-form cf">
-			<p>Get your friends to contribute: <input type="text" id="shortLink" name="shortLink" class="no-edit autohighlight res-not-hh wide-on-hh" value="{{links.web}}" /> <a href="{{links.web}}" id="shortLinkCopy" class="button primary wide-on-hh"><span class="res-not-hh">Copy to clipboard</span><span class="res-hh">Copy link to clipboard</span></a></p>
+			<p>Get your friends to contribute: <input type="text" id="shortLink" name="shortLink" class="no-edit autohighlight res-not-hh wide-on-hh" value="{{links.web}}" /> <a href="{{links.web}}" id="shortLinkCopy" class="button primary wide-on-hh"><span class="res-not-hh flash-available">Copy to clipboard</span><span class="res-hh flash-available">Copy link to clipboard</span><span class="flash-not-available">Share this link</span></a></p>
 		</section>
 		<div id="newImagePreviewsContainer">
 			{{#each files}}
@@ -18,6 +18,11 @@
 	</div>
 </div>
 {{/with}}
+
+<div class="share-hint hidden">
+	<p class="share-hint-in-chrome"></p>
+	<p class="share-hint-in-safari"></p>
+</div>
 
 <div id="newImagePreviewTemplate" style="display: none;">
 	<div class="image">

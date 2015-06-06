@@ -13,6 +13,7 @@ button, input[type=submit], .button {
 	padding:0.5rem 1rem;
 	cursor: pointer;
 	display: inline-block;
+	text-decoration:none;
 	@include box-shadow(0, 0, 5px, $darkGrey);
 	@include transition(background-color, 200ms, ease-in-out);
 
