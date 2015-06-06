@@ -26,6 +26,8 @@ var HomepageView = Backbone.View.extend({
 
 		var newAlbum;
 
+		this.viewState.set('currentShortName', shortId.generate());
+
 		function mouseEventOutside(event, $element) {
 			var topBound = $element.offset().top;
 			var leftBound = $element.offset().left;
