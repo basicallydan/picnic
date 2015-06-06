@@ -13,40 +13,62 @@ var AlbumView = Backbone.View.extend({
 			return;
 		}
 
+		var newFiles = [];
+
 		if (this.dropzone) {
 			this.dropzone.destroy();
 		}
 
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
-			uploadMultiple: true,
-			parallelUploads: 4,
-			// autoProcessQueue: false,
+			uploadMultiple: false,
+			parallelUploads: 6,
 			clickable: this.$('#newImageButton').get(0),
 			maxFiles: 50,
 			thumbnailWidth: 140,
 			thumbnailHeight: 140,
 			previewsContainer: '#newImagePreviewsContainer',
 			previewTemplate: document.querySelector('#newImagePreviewTemplate').innerHTML,
-			url: this.model.album.get('links').files
+			url: 'https://api.cloudinary.com/v1_1/dys2lsskw/image/upload'
 		});
 
-		this.dropzone.on('success', _.bind(function(file, response) {
-			if (this.dropzone.getQueuedFiles().length === 0) {
-				this.model.album.set(response.album, { parse : true });
-				this.render();
-			} else {
-				this.dropzone.processQueue();
+		this.dropzone.on('success', _.bind(function (file, response) {
+			var fileObject = {
+				name: file.name,
+				size: response.bytes,
+				format: response.format,
+				createdAt: response.created_at,
+				width: response.width,
+				height: response.height,
+				cloudinary: {
+					id: response.public_id,
+					version: response.version,
+					signature: response.signature,
+					tags: response.tags
+				}
+			};
+			newFiles.push(fileObject);
+			if (this.dropzone.getQueuedFiles().length === 0 &&
+				this.dropzone.getActiveFiles().length === 0) {
+				Backbone.sync('create', this.model.album.attributes.files, {
+					attrs: {
+						files: newFiles
+					},
+					parse : true,
+					url: this.model.album.url() + '/files/',
+					success : function (response) {
+						this.model.album.set(response.album, { parse : true });
+						this.render();
+					}.bind(this)
+				});
 			}
 		}, this));
 
-		this.dropzone.on('successmultiple', _.bind(function(file, response) {
-			if (this.dropzone.getQueuedFiles().length === 0) {
-				this.model.album.set(response.album, { parse : true });
-				this.render();
-			} else {
-				this.dropzone.processQueue();
-			}
-		}, this));
+		this.dropzone.on('sending', function (file, xhr, formData) {
+			formData.append('api_key', 976447557551824);
+			formData.append('timestamp', Date.now() / 1000 | 0);
+			formData.append('upload_preset', 'luv2jxnn');
+			formData.append('tags', 'album:' + this.model.album.get('shortName'));
+		}.bind(this));
 
 		this.dropzone.on('thumbnail', _.bind(function (file, dataUrl) {
 			this.$('#newImagePreviewsContainer .image:contains(' + file.name + ') .image-inner').css({

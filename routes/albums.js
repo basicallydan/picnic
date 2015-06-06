@@ -103,17 +103,6 @@ router.post('/', auth({
 		res.cookie('ownershipCode', album.ownershipCode);
 		res.send({ album : album.viewModel() });
 	});
-
-	// streamFileRequestToCloudinary(req, function (error, filesUploaded) {
-	// 	newAlbumOptions.files = filesUploaded;
-
-	// 	album = new Album(newAlbumOptions);
-
-	// 	album.save(function(err, album) {
-	// 		res.cookie('ownershipCode', album.ownershipCode);
-	// 		res.send({ album : album.viewModel() });
-	// 	});
-	// });
 });
 
 router.get('/', auth({
@@ -194,6 +183,7 @@ router.patch('/:shortName', function(req, res, next) {
 					message: 'You are not authorized to transfer ownership of this album'
 				});
 			}
+
 			user = User.findByEmail(email, function(err, user) {
 				if (!user) {
 					user = new User({
@@ -245,16 +235,14 @@ router.post('/:shortName/files', auth({
 			});
 		}
 
-		streamFileRequestToCloudinary(req, function (error, filesUploaded) {
-			console.log('Adding', filesUploaded.length, 'files to the album');
-			filesUploaded.forEach(function(file) {
-				album.files.push(file);
-			});
+		console.log('Adding', req.body.files.length, 'files to the album');
+		req.body.files.forEach(function(file) {
+			album.files.push(file);
+		});
 
-			album.save(function(err, album) {
-				res.send({
-					album: album.viewModel()
-				});
+		album.save(function(err, album) {
+			res.send({
+				album: album.viewModel()
 			});
 		});
 	});

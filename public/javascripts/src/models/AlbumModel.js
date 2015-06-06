@@ -33,7 +33,8 @@ var AlbumModel = Backbone.Model.extend({
 		}
 
 		if (!(response.files instanceof Backbone.Collection)) {
-			response.files = new Backbone.Collection(response.files);			
+			response.files = new Backbone.Collection(response.files);
+			response.files.url = this.url() + '/files/';
 		}
 
 		return response;
