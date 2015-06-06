@@ -85,7 +85,7 @@ var AlbumView = Backbone.View.extend({
 			this.$('.share-hint').removeClass('hidden');
 			setTimeout(function () {
 				this.$('.share-hint').addClass('hidden');
-			}.bind(that), 5000);
+			}.bind(this), 5000);
 		}
 	},
 	initializeZeroClipboard: function() {
