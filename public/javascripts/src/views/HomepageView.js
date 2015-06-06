@@ -30,7 +30,7 @@ var HomepageView = Backbone.View.extend({
 		}
 
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
-			autoProcessQueue: false,
+			// autoProcessQueue: false,
 			uploadMultiple: true,
 			parallelUploads: 2,
 			clickable:this.$('#addImagesButton').get(0),

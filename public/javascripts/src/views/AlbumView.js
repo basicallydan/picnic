@@ -20,7 +20,7 @@ var AlbumView = Backbone.View.extend({
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
 			uploadMultiple: true,
 			parallelUploads: 4,
-			autoProcessQueue: false,
+			// autoProcessQueue: false,
 			clickable: this.$('#newImageButton').get(0),
 			maxFiles: 50,
 			thumbnailWidth: 140,
