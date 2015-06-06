@@ -6,6 +6,7 @@ import HomepageView from './HomepageView';
 import ModalViewWrapper from './ModalViewWrapper';
 import SignInView from './SignInView';
 import SignUpView from './SignUpView';
+import ZeroClipboard from 'zeroclipboard';
 
 var NotificationView = Backbone.View.extend({
 	events: {
@@ -120,6 +121,12 @@ var ContainerView = Backbone.View.extend({
 			this.$el.addClass('chrome');
 		} else if (isSafari) {
 			this.$el.addClass('safari');
+		}
+
+		if (!window.ClipboardEvent || ZeroClipboard.isFlashUnusable()) {
+			$('body').addClass('not-copyable');
+		} else {
+			$('body').addClass('copyable');
 		}
 
 		// this.listenTo(this.model.user, 'change', )

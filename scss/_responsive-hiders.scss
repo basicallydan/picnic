@@ -10,14 +10,10 @@
 	}
 }
 
-.flash-available {
-	body.no-flash & {
-		display:none;
-	}
+body.not-copyable .copy-available {
+	display:none;
 }
 
-.flash-available {
-	body.flash & {
-		display:none;
-	}
+body.copyable .copy-not-available {
+	display:none;
 }

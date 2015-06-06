@@ -80,7 +80,29 @@ var AlbumView = Backbone.View.extend({
 		}, this));
 	},
 	handleCopyLinkClick: function (e) {
+		this.$('#shortLink').select();
+		// var range = document.createRange();
+		// range.selectNode(node);
+		// window.getSelection().addRange(range);
+
+		try {
+			// Now that we've selected the anchor text, execute the copy command  
+			var successful = document.execCommand('copy');
+			this.$('#shortLink').blur();
+			this.$('#shortLinkCopy').addClass('success');
+			setTimeout(function () {
+				this.$('#shortLinkCopy').removeClass('success');
+			}.bind(this), 2000);
+			e.preventDefault();
+			return;
+		} catch (err) {
+			console.log('Unable to copy:', err);
+		}
+
+		this.$('#shortLink').blur();
+
 		e.preventDefault();
+
 		if (ZeroClipboard.isFlashUnusable()) {
 			this.$('.share-hint').removeClass('hidden');
 			setTimeout(function () {
@@ -90,8 +112,7 @@ var AlbumView = Backbone.View.extend({
 	},
 	initializeZeroClipboard: function() {
 		var that = this;
-		if (ZeroClipboard.isFlashUnusable()) {
-			$('body').addClass('no-flash');
+		if (window.ClipboardEvent || ZeroClipboard.isFlashUnusable()) {
 			return;
 		}
 		if (this.clipboardClient) {
