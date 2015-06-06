@@ -36,7 +36,7 @@ userSchema.methods.takeOwnershipOfAlbums = function (ownershipCode, cb) {
             album.transferOwnership(user, ownershipCode);
             album.save();
         });
-        cb();
+        cb(null, albums);
     });
 };
 

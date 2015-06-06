@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
 		}
 
 		if (ownershipCode) {
-			user.takeOwnershipOfAlbums(ownershipCode, function(err) {
+			user.takeOwnershipOfAlbums(ownershipCode, function(err, albums) {
 				passport.authenticate('local')(req, res, function() {
 					res.status(201);
 					res.send(user.viewModel({
