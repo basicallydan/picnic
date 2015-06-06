@@ -1,5 +1,5 @@
 import Dropzone from 'dropzone';
-import shortId from 'shortId';
+import shortId from 'shortid';
 import AlbumModel from '../models/AlbumModel';
 
 var HomepageView = Backbone.View.extend({
