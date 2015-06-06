@@ -123,7 +123,7 @@ var ContainerView = Backbone.View.extend({
 			this.$el.addClass('safari');
 		}
 
-		if (!window.ClipboardEvent || ZeroClipboard.isFlashUnusable()) {
+		if (!window.ClipboardEvent && ZeroClipboard.isFlashUnusable()) {
 			$('body').addClass('not-copyable');
 		} else {
 			$('body').addClass('copyable');
