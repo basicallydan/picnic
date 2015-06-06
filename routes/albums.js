@@ -94,16 +94,26 @@ router.post('/', auth({
 		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
 	}
 
-	streamFileRequestToCloudinary(req, function (error, filesUploaded) {
-		newAlbumOptions.files = filesUploaded;
+	newAlbumOptions.shortName = req.body.shortName;
+	newAlbumOptions.files = req.body.files;
 
-		album = new Album(newAlbumOptions);
+	album = new Album(newAlbumOptions);
 
-		album.save(function(err, album) {
-			res.cookie('ownershipCode', album.ownershipCode);
-			res.send({ album : album.viewModel() });
-		});
+	album.save(function(err, album) {
+		res.cookie('ownershipCode', album.ownershipCode);
+		res.send({ album : album.viewModel() });
 	});
+
+	// streamFileRequestToCloudinary(req, function (error, filesUploaded) {
+	// 	newAlbumOptions.files = filesUploaded;
+
+	// 	album = new Album(newAlbumOptions);
+
+	// 	album.save(function(err, album) {
+	// 		res.cookie('ownershipCode', album.ownershipCode);
+	// 		res.send({ album : album.viewModel() });
+	// 	});
+	// });
 });
 
 router.get('/', auth({
@@ -147,6 +157,26 @@ router.get('/', auth({
 			});
 		}
 	});
+
+router.put('/:shortName', function(req, res, next) {
+	var newAlbumOptions = {};
+
+	if (req.user) {
+		newAlbumOptions.owner = req.user;
+	} else if (req.cookies.ownershipCode) {
+		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
+	}
+
+	newAlbumOptions.shortName = req.params.shortName;
+	newAlbumOptions.files = req.body.files;
+
+	album = new Album(newAlbumOptions);
+
+	album.save(function(err, album) {
+		res.cookie('ownershipCode', album.ownershipCode);
+		res.send({ album : album.viewModel() });
+	});
+});
 
 router.patch('/:shortName', function(req, res, next) {
 	var album;

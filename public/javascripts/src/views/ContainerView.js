@@ -103,7 +103,9 @@ var ContainerView = Backbone.View.extend({
 		});
 
 		this.homepageView = new HomepageView({
-			el: this.$('#page-container')[0]
+			el: this.$('#page-container')[0],
+			collection: this.collection,
+			model: this.model
 		});
 
 		this.listenTo(this.homepageView, 'notification', this.showNotification);

@@ -1,5 +1,6 @@
 import Dropzone from 'dropzone';
 import shortId from 'shortId';
+import AlbumModel from '../models/AlbumModel';
 
 var HomepageView = Backbone.View.extend({
 	homepageTemplate: require('../../../../views/index.handlebars'),
@@ -14,7 +15,7 @@ var HomepageView = Backbone.View.extend({
 	initialize: function () {
         this.viewState = new Backbone.Model({
         	currentMessageNumber: 0,
-        	currentShortId: shortId.generate()
+        	currentShortName: shortId.generate()
         });
         this.listenTo(this.viewState, 'change:currentMessageNumber', this.updateDropzoneDragMessage);
 	},
@@ -22,6 +23,8 @@ var HomepageView = Backbone.View.extend({
 		if (this.dropzone) {
 			this.dropzone.destroy();
 		}
+
+		var newAlbum;
 
 		function mouseEventOutside(event, $element) {
 			var topBound = $element.offset().top;
@@ -65,15 +68,39 @@ var HomepageView = Backbone.View.extend({
 		this.dropzone.on('dragenter', incrementMessage);
 
 		this.dropzone.on('addedfile', _.bind(function (file, response) {
+			if (!newAlbum) {
+				newAlbum = {
+					shortName: this.viewState.get('currentShortName'),
+					files: []
+				};
+			}
 			this.$('#albumDropzone').addClass('dz-populated');
 		}, this));
 
-		this.dropzone.on('successmultiple', _.bind(function (file, response) {
-			if (this.dropzone.getQueuedFiles().length === 0) {
-				this.trigger('finishedUpload', response.album.links.web);
-			} else {
-				this.dropzone.options.url = response.album.links.files;
-				this.dropzone.processQueue();
+		this.dropzone.on('success', _.bind(function (file, response) {
+			var fileObject = {
+				name: file.name,
+				size: response.bytes,
+				format: response.format,
+				createdAt: response.created_at,
+				width: response.width,
+				height: response.height,
+				cloudinary: {
+					id: response.public_id,
+					version: response.version,
+					signature: response.signature,
+					tags: response.tags
+				}
+			};
+			newAlbum.files.push(fileObject);
+			if (this.dropzone.getQueuedFiles().length === 0 &&
+				this.dropzone.getActiveFiles().length === 0) {
+				this.collection.albums.create(newAlbum, {
+					parse : true,
+					success : function (model, response) {
+						this.trigger('finishedUpload', response.album.links.web);
+					}.bind(this)
+				});
 			}
 		}, this));
 
@@ -81,7 +108,7 @@ var HomepageView = Backbone.View.extend({
 			formData.append('api_key', 976447557551824);
 			formData.append('timestamp', Date.now() / 1000 | 0);
 			formData.append('upload_preset', 'luv2jxnn');
-			formData.append('tags', 'album:' + this.viewState.get('currentShortId'));
+			formData.append('tags', 'album:' + this.viewState.get('currentShortName'));
 		}.bind(this));
 
 		this.dropzone.on('thumbnail', _.bind(function (file, dataUrl) {
