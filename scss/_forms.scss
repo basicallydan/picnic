@@ -42,7 +42,9 @@ button, input[type=submit], .button {
 		background-color:$successHighlight;
 		color:$successOverlay;
 	}
+}
 
+input, a, button {
 	&.wide-on-hh {
 		@include mobile-only {
 			width:100%;

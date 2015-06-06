@@ -78,6 +78,11 @@ var AlbumView = Backbone.View.extend({
 	},
 	initializeZeroClipboard: function() {
 		var that = this;
+		if (ZeroClipboard.isFlashUnusable()) {
+			this.$('#shortLink').removeClass('res-not-hh');
+			this.$('#shortLinkCopy').addClass('res-not-hh').removeClass('res-hh');
+			return;
+		}
 		if (this.clipboardClient) {
 			this.clipboardClient.destroy();
 		}
