@@ -156,3 +156,16 @@
 		margin-top:0;
 	}
 }
+
+.copy-to-clipboard {
+	&.copied {
+		&:before {
+			content:'Copied!';
+			position:absolute;
+			margin-top:-100%;
+			display:inline-block;
+			padding:$small-margin;
+			margin-left:-100%;
+		}
+	}
+}

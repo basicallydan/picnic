@@ -77,12 +77,17 @@ var AlbumView = Backbone.View.extend({
 		}, this));
 	},
 	initializeZeroClipboard: function() {
+		var that = this;
 		if (this.clipboardClient) {
 			this.clipboardClient.destroy();
 		}
 		this.clipboardClient = new ZeroClipboard(this.$('#shortLinkCopy'));
 		this.clipboardClient.on('ready', function(readyEvent) {
 			this.on('aftercopy', function(copyEvent) {
+				that.$('#shortLinkCopy').addClass('success');
+				setTimeout(function () {
+					this.$('#shortLinkCopy').removeClass('success');
+				}.bind(that), 2000);
 				console.log('Copied');
 			});
 		});

@@ -14,10 +14,33 @@ button, input[type=submit], .button {
 	cursor: pointer;
 	display: inline-block;
 	@include box-shadow(0, 0, 5px, $darkGrey);
+	@include transition(background-color, 200ms, ease-in-out);
+
+	& > span {
+		&:before {
+			@include transitionFlexible(width 200ms ease-in-out, height, 200ms, ease-in-out);
+			content:'✓';
+			display:inline-block;
+			width:0;
+			height:0;
+			overflow:hidden;
+		}
+	}
 
 	&.primary {
 		background-color:$primaryHighlight;
 		color:$primaryOverlay;
+	}
+
+	&.success {
+		& > span {
+			&:before {
+				width:1em;
+			height:1em;
+			}
+		}
+		background-color:$successHighlight;
+		color:$successOverlay;
 	}
 
 	&.wide-on-hh {

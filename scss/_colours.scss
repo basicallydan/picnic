@@ -12,7 +12,7 @@ $mainBlockColour:gray;
 $headerColour:$white;
 $headerFontColour:$black;
 
-$green:#25FF06;
+$green:#2CA11C;
 $darkGreen:darken($green, 10%);
 
 $purple:#9013FE;
@@ -24,3 +24,6 @@ $linkHighlightedColour:$purple;
 
 $primaryHighlight:$blue;
 $primaryOverlay:$white;
+
+$successHighlight:$green;
+$successOverlay:$white;
