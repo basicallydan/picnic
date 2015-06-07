@@ -114,6 +114,10 @@
 	.dz-progress {
 		z-index:2;
 	}
+
+	&.dz-processing {
+		opacity:0.6;
+	}
 }
 
 .new-image-button {
