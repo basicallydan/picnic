@@ -207,6 +207,7 @@ var ContainerView = Backbone.View.extend({
 		e.stopPropagation();
 		let SignInModalView = ModalViewWrapper(SignInView);
 		let modalView = new SignInModalView();
+		modalView.signInTemplate = require('../../../../views/signInModal.handlebars');
 		modalView.render().showModal();
 		this.listenTo(modalView, 'signedIn', function (response) {
 			this.model.user.set(response.user);
@@ -222,6 +223,7 @@ var ContainerView = Backbone.View.extend({
 		e.stopPropagation();
 		let SignUpModalView = ModalViewWrapper(SignUpView);
 		let modalView = new SignUpModalView();
+		modalView.signUpTemplate = require('../../../../views/signUpModal.handlebars');
 		modalView.render().showModal();
 		this.listenTo(modalView, 'signedIn', function (response) {
 			this.model.user.set(response.user);

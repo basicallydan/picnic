@@ -3,6 +3,7 @@ var ModalViewWrapper = function(View) {
 		events: _.extend(View.prototype.events || {}, {
 			'click .show': 'showModal',
 			'click .close': 'hideModal',
+			'click .cancel': 'hideModal',
 			'click': 'closeFromBehind'
 		}),
 
@@ -22,7 +23,10 @@ var ModalViewWrapper = function(View) {
 			this.$el.removeClass('hidden');
 		},
 
-		hideModal: function() {
+		hideModal: function(e) {
+			if (e) {
+				e.preventDefault();
+			}
 			this.$el.addClass('hidden');
 			this.undelegateEvents();
 		},
