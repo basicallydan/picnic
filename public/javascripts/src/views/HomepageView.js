@@ -119,7 +119,7 @@ var HomepageView = Backbone.View.extend({
 
 		this.dropzone.on('processing', function (file, xhr, formData) {
 			// console.log('Dropzone error');
-			if (this.dropzone.getQueuedFiles().length > 0 &&
+			if (this.dropzone.getQueuedFiles().length > 0 ||
 				this.dropzone.getActiveFiles().length > 0) {
 				this.$('#albumDropzone').addClass('dz-populated');
 			}
