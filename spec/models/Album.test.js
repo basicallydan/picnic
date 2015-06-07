@@ -202,5 +202,69 @@ describe('Album', function() {
 				}
 			});
 		});
+
+		it('should produce a delete link if the "canDelete" option is true', function() {
+			var album = new Album({
+				shortName: 'blah',
+				ownershipCode: 'bleep',
+				files: [{
+					bytes: 1234469,
+					format: "jpg",
+					name: "IMG_20140625_133245.jpg",
+					width: 500,
+					height: 500,
+					shortName: 'firstOne',
+					cloudinary: {
+						id: 1
+					}
+				}, {
+					bytes: 1260809,
+					format: "jpg",
+					name: "IMG_20140625_133308.jpg",
+					width: 500,
+					height: 500,
+					shortName: 'secondOne',
+					cloudinary: {
+						id: 2
+					}
+				}]
+			});
+
+			assert.deepEqual(album.viewModel(null, { canDelete : true }), {
+				links: {
+					self: '/api/albums/blah',
+					delete: '/api/albums/blah',
+					files: '/api/albums/blah/files/',
+					web: 'https://picnic.co/a/blah'
+				},
+				shortName: 'blah',
+				ownershipCode: 'bleep',
+				files: [{
+					shortName: 'firstOne',
+					bytes: 1234469,
+					width:500,
+					height:500,
+					links: {
+						web: 'https://picnic.co/a/blah/images/firstOne',
+						image: '/test-url-500x500-nocrop.jpg',
+						imageW144: '/test-url-144x144-fill.jpg',
+						imageW288: '/test-url-288x288-fill.jpg',
+						imageW1136: '/test-url-1136xundefined-scale.jpg'
+					}
+				}, {
+					shortName: 'secondOne',
+					bytes: 1260809,
+					width:500,
+					height:500,
+					links: {
+						web: 'https://picnic.co/a/blah/images/secondOne',
+						image: '/test-url-500x500-nocrop.jpg',
+						imageW144: '/test-url-144x144-fill.jpg',
+						imageW288: '/test-url-288x288-fill.jpg',
+						imageW1136: '/test-url-1136xundefined-scale.jpg'
+					}
+				}]
+			});
+		});
 	});
 });

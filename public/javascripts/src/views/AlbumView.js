@@ -6,7 +6,8 @@ var AlbumView = Backbone.View.extend({
 	className:'album-view',
 	albumTemplate: require('../../../../views/album.handlebars'),
 	events: {
-		'click #shortLinkCopy':'handleCopyLinkClick'
+		'click #shortLinkCopy':'handleCopyLinkClick',
+		'click .delete':'handleDeleteLinkClick'
 	},
 	initialize: function() {
 		this.listenTo(this.model.album, 'sync', this.render);
@@ -122,6 +123,10 @@ var AlbumView = Backbone.View.extend({
 				this.$('.share-hint').addClass('hidden');
 			}.bind(this), 5000);
 		}
+	},
+	handleDeleteLinkClick: function (e) {
+		e.preventDefault();
+		this.model.album.destroy();
 	},
 	initializeZeroClipboard: function() {
 		var that = this;

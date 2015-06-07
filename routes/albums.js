@@ -206,23 +206,51 @@ router.patch('/:shortName', function(req, res, next) {
 router.get('/:shortName', auth({
 	required: false
 }), function(req, res, next) {
-		Album.findByShortName(req.params.shortName, function(err, album) {
-			var responseObject = {
-				title: 'Album',
-				user: req.user
-			};
-			if (album) {
-				res.send({
-					album: album.viewModel()
-				});
-			} else {
-				res.status(404);
-				res.send({
-					message: 'Album with shortname' + req.params.shortname + ' could not be found'
-				});
-			}
+	Album.findByShortName(req.params.shortName, function(err, album) {
+		var responseObject = {
+			title: 'Album',
+			user: req.user
+		};
+		if (album) {
+			res.send({
+				album: album.viewModel()
+			});
+		} else {
+			res.status(404);
+			res.send({
+				message: 'Album with shortname' + req.params.shortname + ' could not be found'
+			});
+		}
+	});
+});
+
+router.delete('/:shortName', auth({
+	required: true
+}), function(req, res, next) {
+	Album.findByShortName(req.params.shortName, function(err, album) {
+		if (!album) {
+			res.status(404);
+			return res.send({
+				message: 'Album with shortname' + req.params.shortname + ' could not be found'
+			});
+		}
+
+		console.log(req.user);
+
+		if (!req.user && !album.ownedBy(req.user)) {
+			res.status(403);
+			return res.send({
+				message: 'The authenticated user does not have permission to delete this album'
+			});
+		}
+
+		album.softDelete();
+		album.save(function () {
+			res.status(200);
+			res.send();
 		});
 	});
+});
 
 router.post('/:shortName/files', auth({
 	required: false

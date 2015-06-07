@@ -16,6 +16,11 @@ cloudinary.config({
 
 shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
+var statusCodes = {
+    active:0,
+    deleted:1
+};
+
 var albumSchema = new Schema({
     shortName: {
         type : String,
@@ -29,6 +34,7 @@ var albumSchema = new Schema({
             return shortId.generate();
         } 
     },
+    status: Number,
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     files: [{
         name: String,
@@ -68,7 +74,18 @@ albumSchema.methods.ownedBy = function (user) {
     return user.equals(owner);
 };
 
-albumSchema.methods.viewModel = function (override) {
+albumSchema.methods.softDelete = function () {
+    this.status = statusCodes.deleted;
+};
+
+albumSchema.methods.isDeleted = function () {
+    return this.status === statusCodes.deleted;
+};
+
+albumSchema.methods.viewModel = function (override, options) {
+    options = _.defaults(options || {}, {
+        canDelete : false
+    });
     var viewModel = {
         links: {
             self: '/api/albums/' + this.shortName,
@@ -78,6 +95,11 @@ albumSchema.methods.viewModel = function (override) {
         shortName: this.shortName,
         ownershipCode: this.ownershipCode
     };
+
+    if (options.canDelete) {
+        viewModel.links.delete = '/api/albums/' + this.shortName;
+    }
+
     var files = [];
     this.files.forEach(_.bind(function (file, index) {
         files.push({
