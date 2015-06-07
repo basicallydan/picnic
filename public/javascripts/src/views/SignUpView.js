@@ -21,7 +21,11 @@ var SignUpView = Backbone.View.extend({
 			this.trigger('signedUp', response);
 			this.trigger('signedIn', response);
 		}).fail((response) => {
-			this.trigger('signUpFailed', response);
+			if (response.responseText.toLowerCase().indexOf('already exists') !== -1) {
+				this.trigger('emailTaken');
+			} else {
+				this.trigger('signUpFailed', response);
+			}
 		});
 	}
 });

@@ -241,6 +241,22 @@ var ContainerView = Backbone.View.extend({
 			});
 			modalView.hideModal();
 		});
+
+		this.listenTo(modalView, 'signUpFailed', function () {
+			this.showNotification({
+				type: 'warning',
+				message: 'Sorry, something went wrong trying to sign you up',
+				id: 'signUpFailed'
+			});
+		});
+
+		this.listenTo(modalView, 'emailTaken', function () {
+			this.showNotification({
+				type: 'warning',
+				message: 'Sorry, that email address is already taken',
+				id: 'emailTaken'
+			});
+		});
 	},
 	preventEditing: function (e) {
 		e.preventDefault();
