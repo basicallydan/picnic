@@ -101,7 +101,8 @@ albumSchema.methods.viewModel = function (override) {
                         width: 144,
                         height: 144,
                         crop: 'fill',
-                        version: file.cloudinary.version
+                        version: file.cloudinary.version,
+                        quality: 75
                     }
                 ),
                 imageW288: cloudinary.url(
@@ -110,7 +111,17 @@ albumSchema.methods.viewModel = function (override) {
                         width: 288,
                         height: 288,
                         crop: 'fill',
-                        version: file.cloudinary.version
+                        version: file.cloudinary.version,
+                        quality: 75
+                    }
+                ),
+                imageW1136: cloudinary.url(
+                    file.cloudinary.id + '.' + file.format,
+                    {
+                        width: 1136,
+                        crop: 'scale',
+                        version: file.cloudinary.version,
+                        quality: 75
                     }
                 )
             }

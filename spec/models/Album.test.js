@@ -112,7 +112,8 @@ describe('Album', function() {
 						web: 'https://picnic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
-						imageW288: '/test-url-288x288-fill.jpg'
+						imageW288: '/test-url-288x288-fill.jpg',
+						imageW1136: '/test-url-1136xundefined-scale.jpg'
 					}
 				}, {
 					bytes: 1260809,
@@ -123,7 +124,8 @@ describe('Album', function() {
 						web: 'https://picnic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
-						imageW288: '/test-url-288x288-fill.jpg'
+						imageW288: '/test-url-288x288-fill.jpg',
+						imageW1136: '/test-url-1136xundefined-scale.jpg'
 					}
 				}]
 			});
@@ -178,7 +180,8 @@ describe('Album', function() {
 						web: 'https://picnic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
-						imageW288: '/test-url-288x288-fill.jpg'
+						imageW288: '/test-url-288x288-fill.jpg',
+						imageW1136: '/test-url-1136xundefined-scale.jpg'
 					}
 				}, {
 					shortName: 'secondOne',
@@ -189,7 +192,8 @@ describe('Album', function() {
 						web: 'https://picnic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
-						imageW288: '/test-url-288x288-fill.jpg'
+						imageW288: '/test-url-288x288-fill.jpg',
+						imageW1136: '/test-url-1136xundefined-scale.jpg'
 					}
 				}],
 				owner: {

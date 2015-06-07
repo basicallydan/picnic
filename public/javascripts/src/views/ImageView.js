@@ -14,7 +14,6 @@ var AlbumView = Backbone.View.extend({
 	},
 	updateLoadedImage: function () {
 		let album = this.model.album.toJSON();
-
 	},
 	updateRenderedImage: function () {
 		let loadedImage = this.viewState.get('loadedImage');
