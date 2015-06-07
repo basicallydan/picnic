@@ -18,6 +18,7 @@ $darkGreen:darken($green, 10%);
 $purple:#9013FE;
 $red:#E72A06;
 $orange:#FFC708;
+$darkOrange:darken($orange, 10%);
 $blue:#06B0E7;
 
 $linkHighlightedColour:$purple;
@@ -25,5 +26,10 @@ $linkHighlightedColour:$purple;
 $primaryHighlight:$blue;
 $primaryOverlay:$white;
 
+$warningHighlight:$orange;
+$warningOverlay:$black;
+$warningBorder:$darkOrange;
+
 $successHighlight:$green;
 $successOverlay:$white;
+$successBorder:$darkGreen;

@@ -7,6 +7,7 @@ import ModalViewWrapper from './ModalViewWrapper';
 import SignInView from './SignInView';
 import SignUpView from './SignUpView';
 import ZeroClipboard from 'zeroclipboard';
+import shortId from 'shortid';
 
 var NotificationView = Backbone.View.extend({
 	events: {
@@ -33,6 +34,9 @@ var NotificationView = Backbone.View.extend({
 	remove: function () {
 		this.$el.addClass('removed');
 		setTimeout(_.bind(Backbone.View.prototype.remove, this), 460);
+	},
+	visible: function () {
+		return !this.$el.hasClass('removed');
 	}
 });
 
@@ -76,7 +80,7 @@ var ContainerView = Backbone.View.extend({
 
 		this.currentDomainRegex = new RegExp('^' + window.location.origin);
 
-		this.notificationViews = [];
+		this.notificationViews = {};
 
 		this.viewState = new Backbone.Model({
 			firstLoad: true
@@ -132,12 +136,16 @@ var ContainerView = Backbone.View.extend({
 		// this.listenTo(this.model.user, 'change', )
 	},
 	showNotification: function (notification) {
+		var notificationId = notification.id || shortId.generate();
+		if (this.notificationViews[notificationId] && this.notificationViews[notificationId].visible()) {
+			return;
+		}
 		var newNotificationView = new NotificationView({
 			model: {
 				notification: notification
 			}
 		});
-		this.notificationViews.push(newNotificationView);
+		this.notificationViews[notificationId] = newNotificationView;
 		this.$('#notifications').append(newNotificationView.render().$el);
 	},
 	handleInternalLink: function (e) {

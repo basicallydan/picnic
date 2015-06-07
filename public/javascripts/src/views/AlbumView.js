@@ -26,6 +26,7 @@ var AlbumView = Backbone.View.extend({
 			uploadMultiple: false,
 			parallelUploads: 6,
 			clickable: this.$('#newImageButton').get(0),
+			acceptedFiles:'.jpg,.png,.jpeg,.gif',
 			maxFiles: 50,
 			thumbnailWidth: 140,
 			thumbnailHeight: 140,
@@ -71,6 +72,18 @@ var AlbumView = Backbone.View.extend({
 			formData.append('timestamp', Date.now() / 1000 | 0);
 			formData.append('upload_preset', 'luv2jxnn');
 			formData.append('tags', 'album:' + this.model.album.get('shortName'));
+		}.bind(this));
+
+		this.dropzone.on('error', function (file, xhr, formData) {
+			console.log('Dropzone error');
+		}.bind(this));
+
+		this.dropzone.on('canceled', function (file, xhr, formData) {
+			console.log('Dropzone canceled');
+		}.bind(this));
+
+		this.dropzone.on('removedfile', function (file, xhr, formData) {
+			console.log('Dropzone file removed');
 		}.bind(this));
 
 		this.dropzone.on('thumbnail', _.bind(function (file, dataUrl) {

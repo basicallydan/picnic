@@ -39,6 +39,7 @@ var HomepageView = Backbone.View.extend({
 		this.dropzone = new Dropzone(this.$('#albumDropzone')[0], {
 			// autoProcessQueue: false,
 			uploadMultiple: false,
+			acceptedFiles:'.jpg,.png,.jpeg,.gif',
 			parallelUploads: 6,
 			clickable:this.$('#addImagesButton').get(0),
 			maxFiles: 50,
@@ -76,7 +77,6 @@ var HomepageView = Backbone.View.extend({
 					files: []
 				};
 			}
-			this.$('#albumDropzone').addClass('dz-populated');
 		}, this));
 
 		this.dropzone.on('success', _.bind(function (file, response) {
@@ -105,6 +105,33 @@ var HomepageView = Backbone.View.extend({
 				});
 			}
 		}, this));
+
+		this.dropzone.on('error', function (file, xhr, formData) {
+			console.log('Dropzone error');
+			if (!file.accepted) {
+				this.trigger('notification', {
+					type: 'warning',
+					message: 'Sorry, you can only upload PNG, JPG or GIF files',
+					id: 'typeNotAccepted'
+				});
+			}
+		}.bind(this));
+
+		this.dropzone.on('processing', function (file, xhr, formData) {
+			// console.log('Dropzone error');
+			if (this.dropzone.getQueuedFiles().length > 0 &&
+				this.dropzone.getActiveFiles().length > 0) {
+				this.$('#albumDropzone').addClass('dz-populated');
+			}
+		}.bind(this));
+
+		this.dropzone.on('canceled', function (file, xhr, formData) {
+			console.log('Dropzone canceled');
+		}.bind(this));
+
+		this.dropzone.on('removedfile', function (file, xhr, formData) {
+			console.log('Dropzone file removed');
+		}.bind(this));
 
 		this.dropzone.on('sending', function (file, xhr, formData) {
 			formData.append('api_key', 976447557551824);

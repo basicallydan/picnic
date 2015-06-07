@@ -23,8 +23,15 @@
 	@include transition(all, 0.45s, ease);
 
 	&.success {
-		background-color:$green;
-		border-color:$darkGreen;
+		background-color:$successHighlight;
+		border-color:$successBorder;
+		color:$successOverlay;
+	}
+
+	&.warning {
+		background-color:$warningHighlight;
+		border-color:$warningBorder;
+		color:$warningOverlay;
 	}
 
 	&.removed {
