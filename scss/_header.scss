@@ -1,7 +1,7 @@
 .site-header {
 	width:100%;
 	background-color:$headerColour;
-	padding:1rem 0;
+	padding:1rem 0 0 0;
 }
 
 .site-title, .site-title a {
@@ -12,5 +12,14 @@
 
 	&:hover {
 		color:$linkHighlightedColour;
+	}
+}
+
+@include mobile-only {
+	.site-title {
+		line-height: 27px;
+		a {
+			font-size:$large-font-size;
+		}
 	}
 }
