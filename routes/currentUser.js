@@ -101,7 +101,7 @@ router.post('/authenticate', function(req, res, next) {
 	})(req, res, next);
 });
 
-router.put('/:id/password', auth({ required : true }), function(req, res, next) {
+router.put('/password', auth({ required : true }), function(req, res, next) {
 	console.log('User is changing password');
 	console.log(req.body);
 	// req.user.setPassword

@@ -12,7 +12,8 @@ var userSchema = new Schema({
 userSchema.methods.viewModel = function (override) {
     var viewModel = {
         links: {
-            self: '/api/user/' + this.id,
+            self: '/api/users/' + this.id,
+            password: '/api/users/' + this.id + '/password',
             web: '/u/' + this.id
         },
         email: this.email

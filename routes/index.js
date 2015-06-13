@@ -10,7 +10,7 @@ var _ = require('underscore');
 router.get('/', auth({ required : false }), function(req, res, next) {
 	res.render('index', {
 		title: 'Picnic',
-		user: req.user
+		user: req.userViewModel
 	});
 });
 
@@ -26,7 +26,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.render('albums', { title : 'My Albums', albums : albumViewModels, user: req.user });
+			res.render('albums', { title : 'My Albums', albums : albumViewModels, user: req.user.viewModel() });
 		});
 	} else if (user) {
 		console.log('Looking for albums with user', user.email);
@@ -35,7 +35,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel();
 			});
-			res.render('albums', { albums : albumViewModels, user: req.user });
+			res.render('albums', { albums : albumViewModels, user: req.user.viewModel() });
 		});
 	} else {
 		res.render('albums', []);
@@ -78,14 +78,21 @@ router.get('/a/:shortName/images/:imageShortName', auth({
 router.get('/sign-in', auth({ required : false }), function(req, res, next) {
 	res.render('signIn', {
 		title: 'Picnic - Sign in',
-		user: req.user
+		user: req.userViewModel
 	});
 });
 
 router.get('/profile', auth({ required : true }), function(req, res, next) {
 	res.render('profile', {
 		title: 'Picnic - User profile',
-		user: req.user
+		user: req.userViewModel
+	});
+});
+
+router.get('/profile/password', auth({ required : true }), function(req, res, next) {
+	res.render('profile', {
+		title: 'Picnic - User profile',
+		user: req.userViewModel
 	});
 });
 

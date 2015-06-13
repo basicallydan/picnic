@@ -1,4 +1,5 @@
 import AlbumModel from './models/AlbumModel';
+import UserModel from './models/UserModel';
 import AlbumCollection from './collections/AlbumCollection';
 import AlbumListView from './views/AlbumListView';
 import SignInView from './views/SignInView';
@@ -21,7 +22,8 @@ var Router = Backbone.Router.extend({
         'a':'albums',
         'a/:albumShortName/images/:imageShortName':'image',
         'a/:albumShortName':'album',
-        'sign-in':'signIn'
+        'sign-in':'signIn',
+        'profile':'profile'
     },
 
     initialize: function () {
@@ -35,7 +37,7 @@ var Router = Backbone.Router.extend({
                 albums: new AlbumCollection(model.albums)
             },
             model: {
-                user: new Backbone.Model(model.user),
+                user: new UserModel(model.user),
                 album: new AlbumModel(model.album, { parse : true }),
                 file: new Backbone.Model(model.file)
             }
@@ -73,6 +75,11 @@ var Router = Backbone.Router.extend({
         }).on('signedIn', function (response) {
             Backbone.history.navigate('/a', { trigger : true });
         });
+    },
+
+    profile: function () {
+        log('Route: Profile');
+        this.containerView.showProfileView();
     }
 });
 

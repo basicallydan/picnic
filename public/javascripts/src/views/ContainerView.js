@@ -6,6 +6,7 @@ import HomepageView from './HomepageView';
 import ModalViewWrapper from './ModalViewWrapper';
 import SignInView from './SignInView';
 import SignUpView from './SignUpView';
+import ProfileView from './ProfileView';
 import ZeroClipboard from 'zeroclipboard';
 import shortId from 'shortid';
 
@@ -113,6 +114,12 @@ var ContainerView = Backbone.View.extend({
 			model: this.model
 		});
 
+		this.profileView = new ProfileView({
+			el: this.$('#page-container')[0],
+			collection: this.collection,
+			model: this.model
+		});
+
 		this.listenTo(this.homepageView, 'notification', this.showNotification);
 		this.listenTo(this.homepageView, 'finishedUpload', function (url) {
 			this.navigateInternalLink(url);
@@ -203,6 +210,11 @@ var ContainerView = Backbone.View.extend({
 			this.homepageView.render();
 		}, () => {
 			this.homepageView.delegateEvents();
+		});
+	},
+	showProfileView: function () {
+		this.loadView(undefined, () => {
+			this.profileView.render();
 		});
 	},
 	/* DOM MANIPULATION */
