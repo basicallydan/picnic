@@ -1,4 +1,5 @@
 import SignUpView from './SignUpView';
+import NewAlbumDropzoneMixin from './mixins/NewAlbumDropzoneMixin';
 
 var AlbumListView = Backbone.View.extend({
 	albumsTemplate: require('../../../../views/albums.handlebars'),
@@ -12,6 +13,7 @@ var AlbumListView = Backbone.View.extend({
 
 		this.updateEmptyState();
 	},
+	initializeDropzone: NewAlbumDropzoneMixin.initializeDropzone,
 	delegateEvents: function () {
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},

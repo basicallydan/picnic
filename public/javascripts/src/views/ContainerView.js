@@ -164,6 +164,7 @@ var ContainerView = Backbone.View.extend({
 	showAlbumListView: function () {
 		this.loadView(() => {
 			this.albumListView.delegateEvents();
+			this.homepageView.initializeDropzone();
 		}, () => {
 			this.collection.albums.fetch();
 		});

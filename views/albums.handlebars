@@ -25,9 +25,42 @@
 		{{/each}}
 	</a>
 	{{/each}}
-	<div class="empty-state">
-		<div class="important information">
-			<p>You don't have any albums yet! Drag some images in here to make one.</p>
+	<div class="empty-state hidden">
+		<div class="row album-images">
+			<form class="new-album-dropzone" id="albumDropzone">
+				<div class="dz-message">
+					<div class="dz-message-empty dz-message">
+						<div class="dz-message">
+							<p class="dz-message">You don't have any albums yet!</p>
+							<p class="instruction dz-message res-not-hh">Drop in some images to create one now.</p>
+							<a class="button primary" id="addImagesButton"><span class="res-hh">Upload images to get started</span><span class="res-not-hh">Or click here to choose images</span></a>
+							{{#if user}}
+							{{else}}
+							<p class="dz-message">Or <a href="/sign-in" class="signInModalLink">click here to sign in</a>.</p>
+							{{/if}}
+						</div>
+					</div>
+					<div class="dz-message-hovered dz-message">
+						<div class="dz-message">
+							<p class="dz-message"><span class="instruction dz-message">Drop it</span> like it's hot</p>
+						</div>
+					</div>
+					<div class="dz-message-populated dz-message">
+						<div class="dz-message">
+							<p class="instruction dz-message">Here they go!</p>
+						</div>
+					</div>
+				</div>
+				<div class="images cf" id="newAlbumImagePreviewsContainer">
+				</div>
+			</form>
 		</div>
+	</div>
+</div>
+
+<div id="newAlbumImagePreviewTemplate" style="display: none;">
+	<div class="image">
+		<span class="hidden" data-dz-name></span>
+		<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
 	</div>
 </div>
