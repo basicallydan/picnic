@@ -131,6 +131,25 @@ input, a, button {
 		}
 	}
 
+	&.centered {
+		form {
+			margin:$standard-margin auto;
+			max-width:30rem;
+		}
+		input[type=submit] {
+			width:auto;
+			float:right;
+			@include mobile-only {
+				width:100%;
+				float:none;
+			}
+			.modal-body & {
+				width:100%;
+				float:none;
+			}
+		}
+	}
+
 	input[type=submit] {
 		width:auto;
 		@include mobile-only {

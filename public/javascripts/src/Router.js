@@ -70,6 +70,7 @@ var Router = Backbone.Router.extend({
 
     signIn: function () {
         log('Route: Sign in');
+        this.containerView.viewState.set('firstLoad', false);
         new SignInView({
             el: $('#page-container')[0]
         }).on('signedIn', function (response) {

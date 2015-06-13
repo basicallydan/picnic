@@ -169,12 +169,13 @@ var ContainerView = Backbone.View.extend({
 		return !this.viewState.get('firstLoad');
 	},
 	showAlbumListView: function () {
-		this.loadView(() => {
-			this.albumListView.delegateEvents();
-			this.homepageView.initializeDropzone();
-		}, () => {
+		this.loadView(undefined, () => {
+			this.albumListView.render();
 			this.collection.albums.fetch();
-		});
+		}, () => {
+			this.albumListView.delegateEvents();
+			this.albumListView.initializeDropzone();
+		}.bind(this));
 	},
 	showAlbumView: function (shortName) {
 		this.loadView(function () {

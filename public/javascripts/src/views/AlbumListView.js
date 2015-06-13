@@ -8,6 +8,8 @@ var AlbumListView = Backbone.View.extend({
 		'submit #signUpForm': 'handleSubmit'
 	},
 	initialize: function () {
+		this.viewState = new Backbone.Model();
+
 		this.listenTo(this.collection.albums, 'sync', this.render);
 		this.listenTo(this.collection.albums, 'sync', this.updateEmptyState);
 
