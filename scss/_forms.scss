@@ -103,7 +103,11 @@ input, a, button {
 
 .leveled-form {
 	form {
-		margin:$standard-margin auto;
+		@extend .cf;
+		margin:$standard-margin 0;
+		@include mobile-only {
+			margin:$standard-margin auto;
+		}
 		max-width:40rem;
 	}
 
@@ -111,7 +115,28 @@ input, a, button {
 		width:100%;
 		display:block;
 		margin-bottom:$standard-margin;
-		@media only (max-width:$handheld-threshold) {
+	}
+
+	&.inline-inputs {
+		label {
+			width:30%;
+			padding:$small-margin $small-margin $small-margin 0;
+			float:left;
+			text-align:left;
+
+			& + input {
+				width:70%;
+				float:left;
+			}
+		}
+	}
+
+	input[type=submit] {
+		width:auto;
+		@include mobile-only {
+			width:100%;
+		}
+		.modal-body & {
 			width:100%;
 		}
 	}
