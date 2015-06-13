@@ -140,6 +140,18 @@ input, a, button {
 			width:100%;
 		}
 	}
+
+	.inline-notification-area {
+		height:0;
+		display:block;
+		border:none;
+		margin-bottom:$standard-margin;
+		text-align:center;
+		&.error {
+			height:auto;
+			color:$red;
+		}
+	}
 }
 
 .autohighlight {

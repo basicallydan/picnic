@@ -17,6 +17,7 @@ var ModalViewWrapper = function(View) {
 
 		initialize: function () {
 			this.$el = $('#modal-container');
+			return View.prototype.initialize.apply(this, arguments);
 		},
 
 		showModal: function() {
