@@ -56,26 +56,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(errorhandler({ dumpExceptions: true, showStack: true }));
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    if (err.status === 403) {
+        return res.redirect('/sign-in');
+    }
+    if (app.get('env') === 'development') {
+        errorhandler({ dumpExceptions: true, showStack: true })(err);
+    }
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: err
     });
 });
 
