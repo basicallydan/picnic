@@ -129,6 +129,10 @@ input, a, button {
 				float:left;
 			}
 		}
+
+		.inline-notification-area {
+			text-align:left;
+		}
 	}
 
 	&.centered {
@@ -166,9 +170,14 @@ input, a, button {
 		border:none;
 		margin-bottom:$standard-margin;
 		text-align:center;
+
 		&.error {
 			height:auto;
 			color:$red;
+		}
+		&.success {
+			height:auto;
+			color:$green;
 		}
 	}
 

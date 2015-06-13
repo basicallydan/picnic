@@ -5,16 +5,36 @@ var ProfileView = Backbone.View.extend({
 		'submit #changePasswordForm': 'handlePasswordFormSubmit'
 	},
 	initialize: function() {
-		// this.viewState = new Backbone.Model();
+		this.viewState = new Backbone.Model();
 		this.listenTo(this.model.user, 'passwordChanged', function () {
-			console.log('Password changed!');
+			this.viewState.set('passwordMessage', { type : 'success', message : 'Your password has been changed' });
 		});
+		this.listenTo(this.model.user, 'passwordChangeFailed', function () {
+			this.viewState.set('passwordMessage', { type : 'error', message : 'Your password could not be changed' });
+		});
+		this.listenTo(this.viewState, 'change:passwordMessage', this.updatePasswordMessage);
 	},
 	render: function() {
 		let profileRendered = this.profileTemplate({
 			file: this.model.user.toJSON()
 		});
 		this.$el.html(profileRendered);
+	},
+	updatePasswordMessage: function () {
+		var passwordMessage = this.viewState.get('passwordMessage');
+
+		if (passwordMessage) {
+			this.$('#passwordNotificationArea')
+				.removeClass('error')
+				.removeClass('success')
+				.addClass(passwordMessage.type)
+				.text(passwordMessage.message);
+		} else {
+			this.$('#passwordNotificationArea')
+				.removeClass('error')
+				.removeClass('success')
+				.text('');
+		}
 	},
 	handlePasswordFormSubmit: function (e) {
 		e.preventDefault();

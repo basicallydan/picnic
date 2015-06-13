@@ -10,7 +10,13 @@ var UserModel = Backbone.Model.extend({
 			data: JSON.stringify({
 				oldPassword: oldPassword,
 				newPassword: newPassword
-			})
+			}),
+			success: function () {
+				this.trigger('passwordChanged');
+			}.bind(this),
+			error: function () {
+				this.trigger('passwordChangeFailed');
+			}.bind(this)
 		});
 	}
 });
