@@ -19,3 +19,21 @@
 		<input class="button primary" type="submit" value="Change">
 	</form>
 </div>
+<h3>Privacy</h3>
+<div class="leveled-form inline-inputs">
+	<p>By default, any images you upload can be used by Picnic for promotional reasons. However, we understand that many users would prefer to opt out of this, so you may do so below. Read more in our <a href="/privacy">privacy policy</a>.</p>
+	<form id="changePrivacyForm" method="PUT" disabled="disabled">
+		<section class="radio-buttons">
+			<p>Opt-in to image sharing?</p>
+			<div class="radio-buttons-option">
+				<input name="opt-in" id="optInTrue" type="radio" value="true" checked="checked">
+				<label for="optInTrue">Yes, you may use my images</label>
+			</div>
+			<div class="radio-buttons-option">
+				<input name="opt-in" type="radio" id="optInFalse" value="false">
+				<label for="optInFalse">No, do not use my images</label>
+			</div>
+		</section>
+		<input class="button primary" type="submit" value="Change">
+	</form>
+</div>

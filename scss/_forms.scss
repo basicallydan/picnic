@@ -171,6 +171,25 @@ input, a, button {
 			color:$red;
 		}
 	}
+
+	.radio-buttons {
+		margin-bottom:$standard-margin;
+		.radio-buttons-option {
+			display:block;
+			width:100%;
+			input[type=radio] {
+				width: auto;
+				float: none;
+				display:inline;
+
+				& + label {
+					float: none;
+					display:inline;
+					padding:$small-margin 0 $small-margin $small-margin;
+				}
+			}
+		}
+	}
 }
 
 .autohighlight {
