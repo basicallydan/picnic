@@ -6,7 +6,10 @@
 					<p class="dz-message">The best way to create collaborative image collections.<br/>No account required.</p>
 					<p class="instruction dz-message res-not-hh">Drop in some images to get started.</p>
 					<a class="button primary" id="addImagesButton"><span class="res-hh">Upload images to get started</span><span class="res-not-hh">Or click here to choose images</span></a>
+					{{#if user}}
+					{{else}}
 					<p class="dz-message">Or <a href="/sign-in" class="signInModalLink">click here to sign in</a>.</p>
+					{{/if}}
 				</div>
 			</div>
 			<div class="dz-message-hovered dz-message">
@@ -30,16 +33,6 @@
 		<span class="hidden" data-dz-name></span>
 		<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
 	</div>
-	{{!-- <div class="dz-preview dz-file-preview">
-		<div class="dz-details">
-			<div class="dz-filename"><span data-dz-name></span></div>
-			<div class="dz-size" data-dz-size></div>
-		</div>
-		<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-		<div class="dz-success-mark"><span>✔</span></div>
-		<div class="dz-error-mark"><span>✘</span></div>
-		<div class="dz-error-message"><span data-dz-errormessage></span></div>
-	</div> --}}
 </div>
 
 <div id="dropzoneMessageOptions" class="hidden">
