@@ -82,6 +82,13 @@ router.get('/sign-in', auth({ required : false }), function(req, res, next) {
 	});
 });
 
+router.get('/profile', auth({ required : true }), function(req, res, next) {
+	res.render('profile', {
+		title: 'Picnic - User profile',
+		user: req.user
+	});
+});
+
 router.get('/sign-out', auth({ required : false }), function(req, res, next) {
 	req.logout();
 	res.redirect('/');
