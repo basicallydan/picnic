@@ -120,6 +120,19 @@ var ContainerView = Backbone.View.extend({
 			model: this.model
 		});
 
+		this.signInView = new SignInView({
+            el: $('#page-container')[0]
+        });
+
+        this.listenTo(this.signInView, 'signedIn', function (response) {
+			this.model.user.set(response.user);
+			this.showNotification({
+				type: 'success',
+				message: 'Welcome back!'
+			});
+			Backbone.history.navigate('/a', { trigger : true });
+        });
+
 		this.listenTo(this.homepageView, 'notification', this.showNotification);
 		this.listenTo(this.homepageView, 'finishedUpload', function (url) {
 			this.navigateInternalLink(url);
@@ -218,6 +231,11 @@ var ContainerView = Backbone.View.extend({
 			this.profileView.render();
 		});
 	},
+	showSignInView: function () {
+		this.loadView(undefined, () => {
+			this.signInView.render();
+		});
+	},
 	/* DOM MANIPULATION */
 	highlightShortLink: function (e) {
 		e.preventDefault();
@@ -235,7 +253,7 @@ var ContainerView = Backbone.View.extend({
 			this.model.user.set(response.user);
 			this.showNotification({
 				type: 'success',
-				message: 'Congrats on signing up!'
+				message: 'Welcome back!'
 			});
 			modalView.hideModal();
 		});
