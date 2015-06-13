@@ -6,7 +6,14 @@ var _ = require('underscore');
 
 var userSchema = new Schema({
     email: String,
-    password: String
+    username: String,
+    password: String,
+    privacy: {
+        type: Object,
+        default: {
+            imagesOwnershipOptIn: true
+        }
+    }
 });
 
 userSchema.methods.viewModel = function (override) {
