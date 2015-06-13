@@ -104,16 +104,25 @@ router.post('/authenticate', function(req, res, next) {
 router.put('/:id/password', auth({ required : true }), function(req, res, next) {
 	console.log('User is changing password');
 	console.log(req.body);
-	req.user.setPassword(req.body.newPassword, function (err) {
+	req.user.authenticate(req.body.oldPassword, function (err, user, reason) {
 		if (err) {
 			return next(err);
 		}
-		req.user.save(function (err) {
+		if (user === false) {
+			console.log('User not authenticated, reason:', reason.message);
+			return next({ statusCode: 400, message: reason.message });
+		}
+		req.user.setPassword(req.body.newPassword, function (err) {
 			if (err) {
 				return next(err);
 			}
-			res.status(204);
-			res.send();
+			req.user.save(function (err) {
+				if (err) {
+					return next(err);
+				}
+				res.status(204);
+				res.send();
+			});
 		});
 	});
 });
