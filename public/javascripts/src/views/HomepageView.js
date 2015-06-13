@@ -22,7 +22,9 @@ var HomepageView = Backbone.View.extend({
 		return Backbone.View.prototype.delegateEvents.apply(this, arguments);
 	},
 	render: function () {
-		let homepageRendered = this.homepageTemplate();
+		let homepageRendered = this.homepageTemplate({
+			user: this.model.user.toJSON()
+		});
 		this.$el.html(homepageRendered);
 		this.initializeDropzone();
 	},

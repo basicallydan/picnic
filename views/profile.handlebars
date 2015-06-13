@@ -1,7 +1,15 @@
 <h2>User Profile</h2>
+<h3>Details</h3>
+<div class="leveled-form inline-inputs">
+	<form id="changeEmail" method="PUT" disabled="disabled">
+		<label for="emailAddress">Email address</label>
+		<input type="text" type="email" value="{{user.email}}" id="emailAddress" disabled="disabled">
+		{{!-- <input class="button primary" type="submit" value="Change"> --}}
+	</form>
+</div>
 <h3>Change your password</h3>
 <div class="leveled-form inline-inputs">
-	<form id="changePasswordForm" action="/users/password" method="PUT">
+	<form id="changePasswordForm" method="PUT">
 		<label for="oldPassword">Current password</label>
 		<input type="password" id="oldPassword">
 		<label for="newPassword">New password</label>
