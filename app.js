@@ -57,13 +57,16 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(function(err, req, res, next) {
-    if (err.status === 403) {
+    if (!err) {
+        return next();
+    }
+    if (err.statusCode === 403) {
         return res.redirect('/sign-in');
     }
-    if (app.get('env') === 'development') {
-        errorhandler({ dumpExceptions: true, showStack: true })(err);
-    }
-    res.status(err.status || 500);
+    // if (app.get('env') === 'development') {
+    //     errorhandler({ dumpExceptions: true, showStack: true })(err);
+    // }
+    res.status(err.statusCode || 500);
     res.render('error', {
         message: err.message,
         error: err

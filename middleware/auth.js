@@ -6,14 +6,14 @@ var customPassportAuthenticate = function(options) {
 		required: true
 	});
 	return function (req, res, next) {
-		var user = req.user;
-		// passport.authenticate('local', function(err, user, info) {
-		if (!user && options.required) {
-			next({ status : 403, message : 'No user is signed in' });
+		if (req.user) {
+			req.userViewModel = req.user.viewModel();
+		}
+		if (!req.user && options.required) {
+			next({ statusCode : 403, message : 'No user is signed in' });
 		} else {
 			next();
 		}
-		// })(req, res);
 	};
 };
 
