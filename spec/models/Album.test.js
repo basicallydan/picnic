@@ -4,15 +4,18 @@ var config = {
 };
 var Album = proxyquire('../../models/Album.js', {
 	'../config/config.js' : config,
-	'cloudinary' : {
-		config: function (options) {
+	'./schema/FileSchema': proxyquire('../../models/schema/FileSchema.js', {
+		'../../config/config.js' : config,
+		'cloudinary' : {
+			config: function (options) {
 
-		},
-		url: function (fileName, options) {
-			var cropType = options.crop || 'nocrop';
-			return '/test-url-' + options.width + 'x' + options.height + '-' + cropType + '.jpg';
+			},
+			url: function (fileName, options) {
+				var cropType = options.crop || 'nocrop';
+				return '/test-url-' + options.width + 'x' + options.height + '-' + cropType + '.jpg';
+			}
 		}
-	}
+	})
 });
 var User = require('../../models/User.js');
 var assert = require('assert');
