@@ -12,6 +12,11 @@ var AlbumView = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(this.model.album, 'sync', this.render);
 	},
+	destroyExistingDropzone: function () {
+		if (this.dropzone) {
+			this.dropzone.destroy();
+		}
+	},
 	initializeDropzone: function() {
 		if (!this.model.album.get('links')) {
 			return;
@@ -19,8 +24,10 @@ var AlbumView = Backbone.View.extend({
 
 		var newFiles = [];
 
-		if (this.dropzone) {
-			this.dropzone.destroy();
+		this.destroyExistingDropzone();
+
+		if (!this.model.album.get('links').files) {
+			return;
 		}
 
 		this.dropzone = new Dropzone(this.$('#existingAlbumDropzone')[0], {
@@ -126,6 +133,11 @@ var AlbumView = Backbone.View.extend({
 	},
 	handleDeleteLinkClick: function (e) {
 		e.preventDefault();
+		this.listenToOnce(this.model.album, 'sync', function () {
+			if (this.model.get('deleted')) {
+				this.destroyExistingDropzone();
+			}
+		});
 		this.model.album.destroy();
 	},
 	initializeZeroClipboard: function() {
