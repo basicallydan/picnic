@@ -5,6 +5,7 @@ var auth = require('../middleware/auth');
 var passport = require('passport');
 var Album = require('../models/Album');
 var User = require('../models/User');
+var File = require('../models/File.js');
 var _ = require('underscore');
 var cloudinary = require('cloudinary');
 var fs = require('fs');
@@ -95,13 +96,17 @@ router.post('/', auth({
 	}
 
 	newAlbumOptions.shortName = req.body.shortName;
-	newAlbumOptions.files = req.body.files;
 
-	album = new Album(newAlbumOptions);
+	File.collection.insert(req.body.files, function (err, files) {
+		newAlbumOptions.files = files;
+		album = new Album(newAlbumOptions);
 
-	album.save(function(err, album) {
-		res.cookie('ownershipCode', album.ownershipCode);
-		res.send({ album : album.viewModel(undefined, { user : req.user }) });
+		album.save(function(err, album) {
+			Album.populate(album, { path : 'files' }, function (err, album) {
+				res.cookie('ownershipCode', album.ownershipCode);
+				res.send({ album : album.viewModel(undefined, { user : req.user }) });
+			});
+		});
 	});
 });
 
@@ -155,21 +160,26 @@ router.put('/:shortName', function(req, res, next) {
 
 	if (req.user) {
 		newAlbumOptions.owner = req.user;
-		newAlbumOptions.files.forEach(function (f) {
+		req.body.files.forEach(function (f) {
 			f.owner = req.user;
 		});
 	} else if (req.cookies.ownershipCode) {
 		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
-		newAlbumOptions.files.forEach(function (f) {
+		req.body.files.forEach(function (f) {
 			f.ownershipCode = req.cookies.ownershipCode;
 		});
 	}
 
-	album = new Album(newAlbumOptions);
+	File.collection.insert(req.body.files, function (err, files) {
+		newAlbumOptions.files = files;
+		album = new Album(newAlbumOptions);
 
-	album.save(function(err, album) {
-		res.cookie('ownershipCode', album.ownershipCode);
-		res.send({ album : album.viewModel(undefined, { user : req.user }) });
+		album.save(function(err, album) {
+			Album.populate(album, { path : 'files' }, function (err, album) {
+				res.cookie('ownershipCode', album.ownershipCode);
+				res.send({ album : album.viewModel(undefined, { user : req.user }) });
+			});
+		});
 	});
 });
 
@@ -271,14 +281,19 @@ router.post('/:shortName/files', auth({
 			});
 		}
 
-		console.log('Adding', req.body.files.length, 'files to the album');
-		req.body.files.forEach(function(file) {
-			album.files.push(file);
-		});
 
-		album.save(function(err, album) {
-			res.send({
-				album: album.viewModel(undefined, { user : req.user })
+		File.collection.insert(req.body.files, function (err, files) {
+			console.log('Adding', files.length, 'files to the album');
+
+			files.forEach(function(file) {
+				album.files.push(file);
+			});
+
+			album.save(function(err, album) {
+				Album.populate(album, { path : 'files' }, function (err, album) {
+					res.cookie('ownershipCode', album.ownershipCode);
+					res.send({ album : album.viewModel(undefined, { user : req.user }) });
+				});
 			});
 		});
 	});

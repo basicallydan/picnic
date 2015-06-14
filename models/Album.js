@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = require('./User.js');
+var File = require('./File.js');
 var shortId = require('shortid');
 var _ = require('underscore');
 var escapeRegexString = require('escape-regex-string');
 var config = require('../config/config.js');
 var url = require('url');
-var fileSchema = require('./schema/FileSchema');
 var Album;
 
 shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
@@ -26,7 +26,7 @@ var albumSchema = new Schema({
     },
     status: Number,
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    files: [ fileSchema ]
+    files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
 });
 
 albumSchema.methods.authorizeOwnershipCode = function (code) {
@@ -113,14 +113,14 @@ albumSchema.methods.viewModel = function (override, options) {
 };
 
 albumSchema.statics.findByShortName = function (shortName, cb) {
-    this.findOne({ shortName: new RegExp(escapeRegexString(shortName), 'i') }).populate('owner').exec(cb);
+    this.findOne({ shortName: new RegExp(escapeRegexString(shortName), 'i') }).populate('owner').populate('files').exec(cb);
 };
 
 albumSchema.statics.findByOwnershipCode = function (ownershipCode, cb) {
-    this.find({ ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i') }).populate('owner').exec(cb);
+    this.find({ ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i') }).populate('owner').populate('files').exec(cb);
 };
 albumSchema.statics.findByOwner = function (user, cb) {
-    this.find({ owner: user }).populate('owner').exec(cb);
+    this.find({ owner: user }).populate('owner').populate('files').exec(cb);
 };
 
 // Only finds non-deleted albums
@@ -128,7 +128,7 @@ albumSchema.statics.findActiveByOwnershipCode = function (ownershipCode, cb) {
     this.find({
         ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i'),
         status : { '$ne' : Album.statusCodes.deleted }
-    }).populate('owner').exec(cb);
+    }).populate('owner').populate('files').exec(cb);
 };
 
 // Only finds non-deleted albums
@@ -136,7 +136,7 @@ albumSchema.statics.findActiveByOwner = function (user, cb) {
     this.find({
         owner: user,
         status : { '$ne' : Album.statusCodes.deleted }
-    }).populate('owner').exec(cb);
+    }).populate('owner').populate('files').exec(cb);
 };
 
 albumSchema.statics.statusCodes = {
