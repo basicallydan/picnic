@@ -243,7 +243,7 @@ router.delete('/:shortName', auth({
 
 		console.log(req.user);
 
-		if (!req.user && !album.ownedBy(req.user)) {
+		if (!req.user || !album.ownedBy(req.user)) {
 			res.status(403);
 			return res.send({
 				message: 'The authenticated user does not have permission to delete this album'
@@ -252,7 +252,7 @@ router.delete('/:shortName', auth({
 
 		album.softDelete();
 		album.save(function () {
-			res.status(200);
+			res.status(204);
 			res.send();
 		});
 	});

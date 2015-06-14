@@ -92,6 +92,24 @@ describe('Album', function() {
 		});
 	});
 
+	describe('#isDeleted', function () {
+		it('should return false', function () {
+			assert.equal(album.isDeleted(), false);
+		});
+
+		describe('#softDelete', function () {
+			beforeEach(function () {
+				album.softDelete();
+			});
+
+			describe('#isDeleted', function () {
+				it('should return true', function () {
+					assert.equal(album.isDeleted(), true);
+				});
+			});
+		});
+	});
+
 	describe('#viewModel', function() {
 		it('should transform the object into a useful, restful-like resource', function() {
 			var album = new Album({
