@@ -252,8 +252,10 @@ router.delete('/:shortName', auth({
 
 		album.softDelete();
 		album.save(function () {
-			res.status(204);
-			res.send();
+			res.status(200);
+			res.send({
+				album : this.viewModel()
+			});
 		});
 	});
 });

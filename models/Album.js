@@ -7,6 +7,7 @@ var cloudinary = require('cloudinary');
 var escapeRegexString = require('escape-regex-string');
 var config = require('../config/config.js');
 var url = require('url');
+var Album;
 
 cloudinary.config({
     cloud_name: 'dys2lsskw',
@@ -15,11 +16,6 @@ cloudinary.config({
 });
 
 shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
-
-var statusCodes = {
-    active:0,
-    deleted:1
-};
 
 var fileSchema = new Schema({
     name: String,
@@ -158,11 +154,11 @@ albumSchema.methods.ownedBy = function (user) {
 };
 
 albumSchema.methods.softDelete = function () {
-    this.status = statusCodes.deleted;
+    this.status = Album.statusCodes.deleted;
 };
 
 albumSchema.methods.isDeleted = function () {
-    return this.status === statusCodes.deleted;
+    return this.status === Album.statusCodes.deleted;
 };
 
 albumSchema.methods.viewModel = function (override, options) {
@@ -173,7 +169,8 @@ albumSchema.methods.viewModel = function (override, options) {
             files: '/api/albums/' + this.shortName + '/files/',
             web: url.resolve(config.webHost, '/a/' + this.shortName)
         },
-        shortName: this.shortName
+        shortName: this.shortName,
+        deleted: false
     };
 
     if (options.user && this.ownedBy(options.user)) {
@@ -186,6 +183,10 @@ albumSchema.methods.viewModel = function (override, options) {
 
     if (options.canDelete) {
         viewModel.links.delete = '/api/albums/' + this.shortName;
+    }
+
+    if (this.status === Album.statusCodes.deleted) { 
+        viewModel.deleted = true;
     }
 
     var files = [];
@@ -222,7 +223,7 @@ albumSchema.statics.findByOwner = function (user, cb) {
 albumSchema.statics.findActiveByOwnershipCode = function (ownershipCode, cb) {
     this.find({
         ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i'),
-        status : { '$ne' : statusCodes.deleted }
+        status : { '$ne' : Album.statusCodes.deleted }
     }).populate('owner').exec(cb);
 };
 
@@ -230,8 +231,15 @@ albumSchema.statics.findActiveByOwnershipCode = function (ownershipCode, cb) {
 albumSchema.statics.findActiveByOwner = function (user, cb) {
     this.find({
         owner: user,
-        status : { '$ne' : statusCodes.deleted }
+        status : { '$ne' : Album.statusCodes.deleted }
     }).populate('owner').exec(cb);
 };
 
-module.exports = mongoose.model('Album', albumSchema);
+albumSchema.statics.statusCodes = {
+    active:0,
+    deleted:1
+};
+
+Album = mongoose.model('Album', albumSchema);
+
+module.exports = Album;

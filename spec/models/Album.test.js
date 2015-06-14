@@ -25,15 +25,24 @@ describe('Album', function() {
 			ownershipCode: 'eggs',
 			files: [{
 				name: 'ownerfile1',
-				bytes: 100000
+				bytes: 100000,
+				cloudinary: {
+					id: 1
+				}
 			},{
 				name: 'ownerfile2',
 				ownershipCode: 'eggs',
-				bytes: 100000
+				bytes: 100000,
+				cloudinary: {
+					id: 2
+				}
 			},{
 				name: 'otherpersonfile1',
 				bytes: 100000,
-				ownershipCode: 'peas'
+				ownershipCode: 'peas',
+				cloudinary: {
+					id: 3
+				}
 			}]
 		});
 	});
@@ -107,6 +116,16 @@ describe('Album', function() {
 					assert.equal(album.isDeleted(), true);
 				});
 			});
+
+			describe('#viewModel', function() {
+				var albumViewModel;
+				beforeEach(function () {
+					albumViewModel = album.viewModel();
+				});
+				it('should report that it is in fact deleted', function () {
+					assert(albumViewModel.deleted, true);
+				});
+			});
 		});
 	});
 
@@ -141,6 +160,7 @@ describe('Album', function() {
 			assert.deepEqual(album.viewModel(), {
 				shortName: 'blah',
 				ownershipCode: 'bleep',
+				deleted: false,
 				links: {
 					self: '/api/albums/blah',
 					files: '/api/albums/blah/files/',
@@ -214,6 +234,7 @@ describe('Album', function() {
 					files: '/api/albums/blah/files/',
 					web: 'https://picnic.co/a/blah'
 				},
+				deleted: false,
 				shortName: 'blah',
 				ownershipCode: 'bleep',
 				files: [{
@@ -290,6 +311,7 @@ describe('Album', function() {
 					files: '/api/albums/blah/files/',
 					web: 'https://picnic.co/a/blah'
 				},
+				deleted: false,
 				owner: {
 					links: {
 						self: '/api/users/' + user.id,
