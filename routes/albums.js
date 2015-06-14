@@ -101,7 +101,7 @@ router.post('/', auth({
 
 	album.save(function(err, album) {
 		res.cookie('ownershipCode', album.ownershipCode);
-		res.send({ album : album.viewModel() });
+		res.send({ album : album.viewModel(undefined, { user : req.user }) });
 	});
 });
 

@@ -228,10 +228,13 @@ describe('Album', function() {
 			});
 		});
 
-		it('should produce a delete link if the "canDelete" option is true', function() {
+		it('should produce a delete link if the user provided in the options owns the album', function() {
+			var user = new User({
+				email: 'test@test.com'
+			});
 			var album = new Album({
 				shortName: 'blah',
-				ownershipCode: 'bleep',
+				owner: user,
 				files: [{
 					bytes: 1234469,
 					format: "jpg",
@@ -252,18 +255,26 @@ describe('Album', function() {
 					cloudinary: {
 						id: 2
 					}
-				}]
+				}],
+				ownershipCode: undefined
 			});
 
-			assert.deepEqual(album.viewModel(null, { canDelete : true }), {
+			assert.deepEqual(album.viewModel(null, { user : user }), {
 				links: {
 					self: '/api/albums/blah',
 					delete: '/api/albums/blah',
 					files: '/api/albums/blah/files/',
 					web: 'https://picnic.co/a/blah'
 				},
+				owner: {
+					links: {
+						self: '/api/users/' + user.id,
+						password: '/api/users/' + user.id + '/password',
+						web: '/u/' + user.id
+					},
+					email: 'test@test.com'
+				},
 				shortName: 'blah',
-				ownershipCode: 'bleep',
 				files: [{
 					shortName: 'firstOne',
 					bytes: 1234469,

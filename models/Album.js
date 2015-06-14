@@ -110,18 +110,23 @@ albumSchema.methods.isDeleted = function () {
 };
 
 albumSchema.methods.viewModel = function (override, options) {
-    options = _.defaults(options || {}, {
-        canDelete : false
-    });
+    options = _.defaults(options || {}, {});
     var viewModel = {
         links: {
             self: '/api/albums/' + this.shortName,
             files: '/api/albums/' + this.shortName + '/files/',
             web: url.resolve(config.webHost, '/a/' + this.shortName)
         },
-        shortName: this.shortName,
-        ownershipCode: this.ownershipCode
+        shortName: this.shortName
     };
+
+    if (options.user && this.ownedBy(options.user)) {
+        viewModel.links.delete = '/api/albums/' + this.shortName;
+    }
+
+    if (this.ownershipCode) {
+        viewModel.ownershipCode = this.ownershipCode;
+    }
 
     if (options.canDelete) {
         viewModel.links.delete = '/api/albums/' + this.shortName;
@@ -178,7 +183,7 @@ albumSchema.methods.viewModel = function (override, options) {
     }, this));
 
     if (this.owner) {
-        viewModel.owner = this.owner;
+        viewModel.owner = this.owner.viewModel();
     }
 
     viewModel.files = files;
