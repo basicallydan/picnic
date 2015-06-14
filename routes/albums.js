@@ -112,7 +112,7 @@ router.get('/', auth({
 		var user = req.user;
 		if (!user && ownershipCode) {
 			console.log('Looking for albums with ownershipCode', ownershipCode);
-			Album.findByOwnershipCode(ownershipCode, function(err, albums) {
+			Album.findActiveByOwnershipCode(ownershipCode, function(err, albums) {
 				var albumViewModels = _.map(albums, function(album) {
 					return album.viewModel(undefined, { user : req.user });
 				});
@@ -125,7 +125,7 @@ router.get('/', auth({
 			});
 		} else if (user) {
 			console.log('Looking for albums with ownershipCode', ownershipCode);
-			Album.findByOwner(user, function(err, albums) {
+			Album.findActiveByOwner(user, function(err, albums) {
 				console.log('Found', albums.length, 'albums owned by user', user.username);
 				var albumViewModels = _.map(albums, function(album) {
 					return album.viewModel(undefined, { user : req.user });
@@ -181,7 +181,7 @@ router.patch('/:shortName', function(req, res, next) {
 
 	if (req.body.owner && _.isString(req.body.owner.email)) {
 		email = req.body.owner.email;
-		album = Album.findByShortName(req.params.shortName, function(err, album) {
+		album = Album.findActiveByShortName(req.params.shortName, function(err, album) {
 			console.log('Album:', album, 'ownership code:', ownershipCode);
 			if (!album.authorizeOwnershipCode(ownershipCode)) {
 				res.status(401);
@@ -190,7 +190,7 @@ router.patch('/:shortName', function(req, res, next) {
 				});
 			}
 
-			user = User.findByEmail(email, function(err, user) {
+			user = User.findActiveByEmail(email, function(err, user) {
 				if (!user) {
 					user = new User({
 						email: email
@@ -212,7 +212,7 @@ router.patch('/:shortName', function(req, res, next) {
 router.get('/:shortName', auth({
 	required: false
 }), function(req, res, next) {
-	Album.findByShortName(req.params.shortName, function(err, album) {
+	Album.findActiveByShortName(req.params.shortName, function(err, album) {
 		var responseObject = {
 			title: 'Album',
 			user: req.user
@@ -233,7 +233,7 @@ router.get('/:shortName', auth({
 router.delete('/:shortName', auth({
 	required: true
 }), function(req, res, next) {
-	Album.findByShortName(req.params.shortName, function(err, album) {
+	Album.findActiveByShortName(req.params.shortName, function(err, album) {
 		if (!album) {
 			res.status(404);
 			return res.send({
@@ -261,7 +261,7 @@ router.delete('/:shortName', auth({
 router.post('/:shortName/files', auth({
 	required: false
 }), function(req, res, next) {
-	Album.findByShortName(req.params.shortName, function(err, album) {
+	Album.findActiveByShortName(req.params.shortName, function(err, album) {
 		if (!album) {
 			res.status(404);
 			return res.send({

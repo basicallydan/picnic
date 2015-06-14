@@ -214,9 +214,24 @@ albumSchema.statics.findByShortName = function (shortName, cb) {
 albumSchema.statics.findByOwnershipCode = function (ownershipCode, cb) {
     this.find({ ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i') }).populate('owner').exec(cb);
 };
-
 albumSchema.statics.findByOwner = function (user, cb) {
     this.find({ owner: user }).populate('owner').exec(cb);
+};
+
+// Only finds non-deleted albums
+albumSchema.statics.findActiveByOwnershipCode = function (ownershipCode, cb) {
+    this.find({
+        ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i'),
+        status : { '$ne' : statusCodes.deleted }
+    }).populate('owner').exec(cb);
+};
+
+// Only finds non-deleted albums
+albumSchema.statics.findActiveByOwner = function (user, cb) {
+    this.find({
+        owner: user,
+        status : { '$ne' : statusCodes.deleted }
+    }).populate('owner').exec(cb);
 };
 
 module.exports = mongoose.model('Album', albumSchema);
