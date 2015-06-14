@@ -150,14 +150,20 @@ router.get('/', auth({
 router.put('/:shortName', function(req, res, next) {
 	var newAlbumOptions = {};
 
-	if (req.user) {
-		newAlbumOptions.owner = req.user;
-	} else if (req.cookies.ownershipCode) {
-		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
-	}
-
 	newAlbumOptions.shortName = req.params.shortName;
 	newAlbumOptions.files = req.body.files;
+
+	if (req.user) {
+		newAlbumOptions.owner = req.user;
+		newAlbumOptions.files.each(function (f) {
+			f.owner = req.user;
+		});
+	} else if (req.cookies.ownershipCode) {
+		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
+		newAlbumOptions.files.each(function (f) {
+			f.ownershipCode = req.cookies.ownershipCode;
+		});
+	}
 
 	album = new Album(newAlbumOptions);
 

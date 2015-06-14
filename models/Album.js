@@ -45,6 +45,8 @@ var albumSchema = new Schema({
                 return shortId.generate();
             } 
         },
+        ownershipCode: String,
+        owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         format: String,
         createdAt: Date,
         width: Number,
