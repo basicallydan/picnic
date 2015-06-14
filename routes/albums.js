@@ -175,6 +175,7 @@ router.put('/:shortName', function(req, res, next) {
 		album = new Album(newAlbumOptions);
 
 		album.save(function(err, album) {
+			console.log('Saved', album);
 			Album.populate(album, { path : 'files' }, function (err, album) {
 				res.cookie('ownershipCode', album.ownershipCode);
 				res.send({ album : album.viewModel(undefined, { user : req.user }) });
@@ -228,6 +229,7 @@ router.get('/:shortName', auth({
 			user: req.user
 		};
 		if (album) {
+			console.log('Found', album);
 			res.send({
 				album: album.viewModel(undefined, { user : req.user })
 			});

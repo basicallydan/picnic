@@ -26,7 +26,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel(undefined, { user : req.user });
 			});
-			res.render('albums', { title : 'My Albums', albums : albumViewModels, user: req.user.viewModel() });
+			res.render('albums', { title : 'My Albums', albums : albumViewModels, user: undefined });
 		});
 	} else if (user) {
 		console.log('Looking for albums with user', user.email);
