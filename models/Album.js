@@ -21,6 +21,41 @@ var statusCodes = {
     deleted:1
 };
 
+var fileSchema = new Schema({
+    name: String,
+    bytes: Number,
+    shortName: {
+        type : String,
+        default : function () {
+            return shortId.generate();
+        } 
+    },
+    ownershipCode: String,
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    format: String,
+    createdAt: Date,
+    width: Number,
+    height: Number,
+    cloudinary: Schema.Types.Mixed
+});
+
+fileSchema.methods.authorizeOwnershipCode = function (code) {
+    return this.ownershipCode === code;
+};
+
+fileSchema.methods.ownedBy = function (user) {
+    var owner;
+    if (!this.owner) {
+        return false;
+    }
+    if (!this.owner._id) {
+        owner = new User({ _id : this.owner });
+    } else {
+        owner = this.owner;
+    }
+    return user.equals(owner);
+};
+
 var albumSchema = new Schema({
     shortName: {
         type : String,
@@ -36,23 +71,7 @@ var albumSchema = new Schema({
     },
     status: Number,
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    files: [{
-        name: String,
-        bytes: Number,
-        shortName: {
-            type : String,
-            default : function () {
-                return shortId.generate();
-            } 
-        },
-        ownershipCode: String,
-        owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        format: String,
-        createdAt: Date,
-        width: Number,
-        height: Number,
-        cloudinary: Schema.Types.Mixed
-    }]
+    files: [ fileSchema ]
 });
 
 albumSchema.methods.authorizeOwnershipCode = function (code) {
@@ -65,7 +84,7 @@ albumSchema.methods.transferOwnership = function (user, code) {
     	this.ownershipCode = undefined;
     }
     this.files.forEach(function (f) {
-        if (!f.ownershipCode || f.ownershipCode === code) {
+        if (!f.ownershipCode || f.authorizeOwnershipCode(code)) {
             f.owner = user;
             f.ownershipCode = undefined;
         }
@@ -74,7 +93,7 @@ albumSchema.methods.transferOwnership = function (user, code) {
 
 albumSchema.methods.ownedBy = function (user) {
     var owner;
-    if (!this.owner._id) {
+    if (this.owner && !this.owner._id) {
         owner = new User({ _id : this.owner });
     } else {
         owner = this.owner;

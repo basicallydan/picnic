@@ -75,14 +75,14 @@ describe('Album', function() {
 		});
 
 		it('should transfer ownership of the files which the owner uploaded (which may not have ', function () {
-			assert.equal(user.get('_id'), album.get('files')[0].owner);
+			assert.equal(album.get('files')[0].ownedBy(user), true);
+			assert.equal(album.get('files')[1].ownedBy(user), true);
 			assert.equal(album.get('files')[0].ownershipCode, undefined);
-			assert.equal(user.get('_id'), album.get('files')[1].owner);
 			assert.equal(album.get('files')[1].ownershipCode, undefined);
 		});
 
 		it('should not transfer ownership of the files which the owner did not upload', function () {
-			assert.notEqual(user.get('_id'), album.get('files')[2].owner);
+			assert.equal(album.get('files')[2].ownedBy(user), false);
 			assert.equal(album.get('files')[2].ownershipCode, 'peas');
 		});
 
