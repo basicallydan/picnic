@@ -22,7 +22,19 @@ describe('Album', function() {
 
 	beforeEach(function() {
 		album = new Album({
-			ownershipCode: 'eggs'
+			ownershipCode: 'eggs',
+			files: [{
+				name: 'ownerfile1',
+				bytes: 100000
+			},{
+				name: 'ownerfile2',
+				ownershipCode: 'eggs',
+				bytes: 100000
+			},{
+				name: 'otherpersonfile1',
+				bytes: 100000,
+				ownershipCode: 'peas'
+			}]
 		});
 	});
 
@@ -50,18 +62,31 @@ describe('Album', function() {
 	});
 
 	describe('#transferOwnership', function() {
-		it('should transfer ownership of an album to the specified user if the correct ownership code is supplied', function() {
-			var user = new User({
+		var user;
+		beforeEach(function () {
+			user = new User({
 				email: 'test@test.com'
 			});
 			album.transferOwnership(user, 'eggs');
+		});
+
+		it('should transfer ownership of an album to the specified user if the correct ownership code is supplied', function() {
 			assert.equal(album.ownedBy(user), true);
 		});
+
+		it('should transfer ownership of the files which the owner uploaded (which may not have ', function () {
+			assert.equal(user.get('_id'), album.get('files')[0].owner);
+			assert.equal(album.get('files')[0].ownershipCode, undefined);
+			assert.equal(user.get('_id'), album.get('files')[1].owner);
+			assert.equal(album.get('files')[1].ownershipCode, undefined);
+		});
+
+		it('should not transfer ownership of the files which the owner did not upload', function () {
+			assert.notEqual(user.get('_id'), album.get('files')[2].owner);
+			assert.equal(album.get('files')[2].ownershipCode, 'peas');
+		});
+
 		it('should undefine the ownership code for the transferred album', function() {
-			var user = new User({
-				email: 'test@test.com'
-			});
-			album.transferOwnership(user, 'eggs');
 			assert.equal(album.get('ownershipCode'), undefined);
 			assert.equal(album.authorizeOwnershipCode('eggs'), false);
 		});

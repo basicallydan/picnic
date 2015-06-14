@@ -62,8 +62,14 @@ albumSchema.methods.authorizeOwnershipCode = function (code) {
 albumSchema.methods.transferOwnership = function (user, code) {
     if (this.authorizeOwnershipCode(code)) {
         this.owner = user;
-	this.ownershipCode = undefined;
+    	this.ownershipCode = undefined;
     }
+    this.files.forEach(function (f) {
+        if (!f.ownershipCode || f.ownershipCode === code) {
+            f.owner = user;
+            f.ownershipCode = undefined;
+        }
+    });
 };
 
 albumSchema.methods.ownedBy = function (user) {

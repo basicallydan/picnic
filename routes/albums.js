@@ -155,12 +155,12 @@ router.put('/:shortName', function(req, res, next) {
 
 	if (req.user) {
 		newAlbumOptions.owner = req.user;
-		newAlbumOptions.files.each(function (f) {
+		newAlbumOptions.files.forEach(function (f) {
 			f.owner = req.user;
 		});
 	} else if (req.cookies.ownershipCode) {
 		newAlbumOptions.ownershipCode = req.cookies.ownershipCode;
-		newAlbumOptions.files.each(function (f) {
+		newAlbumOptions.files.forEach(function (f) {
 			f.ownershipCode = req.cookies.ownershipCode;
 		});
 	}
