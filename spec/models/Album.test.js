@@ -123,7 +123,11 @@ describe('Album', function() {
 					albumViewModel = album.viewModel();
 				});
 				it('should report that it is in fact deleted', function () {
-					assert(albumViewModel.deleted, true);
+					assert.equal(albumViewModel.deleted, true);
+				});
+
+				it('should no longer advertise a files URL', function () {
+					assert.equal(albumViewModel.links.files, undefined);
 				});
 			});
 		});

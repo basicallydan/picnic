@@ -166,7 +166,6 @@ albumSchema.methods.viewModel = function (override, options) {
     var viewModel = {
         links: {
             self: '/api/albums/' + this.shortName,
-            files: '/api/albums/' + this.shortName + '/files/',
             web: url.resolve(config.webHost, '/a/' + this.shortName)
         },
         shortName: this.shortName,
@@ -187,6 +186,8 @@ albumSchema.methods.viewModel = function (override, options) {
 
     if (this.status === Album.statusCodes.deleted) { 
         viewModel.deleted = true;
+    } else {
+        viewModel.links.files = '/api/albums/' + this.shortName + '/files/';
     }
 
     var files = [];

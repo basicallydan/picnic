@@ -254,7 +254,7 @@ router.delete('/:shortName', auth({
 		album.save(function () {
 			res.status(200);
 			res.send({
-				album : this.viewModel()
+				album : this.viewModel(undefined, { user : req.user })
 			});
 		});
 	});
