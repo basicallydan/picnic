@@ -208,15 +208,15 @@ albumSchema.methods.viewModel = function (override, options) {
 };
 
 albumSchema.statics.findByShortName = function (shortName, cb) {
-    this.findOne({ shortName: new RegExp(escapeRegexString(shortName), 'i') }, cb);
+    this.findOne({ shortName: new RegExp(escapeRegexString(shortName), 'i') }).populate('owner').exec(cb);
 };
 
 albumSchema.statics.findByOwnershipCode = function (ownershipCode, cb) {
-    this.find({ ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i') }, cb);
+    this.find({ ownershipCode: new RegExp(escapeRegexString(ownershipCode), 'i') }).populate('owner').exec(cb);
 };
 
 albumSchema.statics.findByOwner = function (user, cb) {
-    this.find({ owner: user }, cb);
+    this.find({ owner: user }).populate('owner').exec(cb);
 };
 
 module.exports = mongoose.model('Album', albumSchema);

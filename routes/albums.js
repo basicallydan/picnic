@@ -114,7 +114,7 @@ router.get('/', auth({
 			console.log('Looking for albums with ownershipCode', ownershipCode);
 			Album.findByOwnershipCode(ownershipCode, function(err, albums) {
 				var albumViewModels = _.map(albums, function(album) {
-					return album.viewModel();
+					return album.viewModel(undefined, { user : req.user });
 				});
 				res.send({
 					albums: albumViewModels,
@@ -128,7 +128,7 @@ router.get('/', auth({
 			Album.findByOwner(user, function(err, albums) {
 				console.log('Found', albums.length, 'albums owned by user', user.username);
 				var albumViewModels = _.map(albums, function(album) {
-					return album.viewModel();
+					return album.viewModel(undefined, { user : req.user });
 				});
 				res.send({
 					albums: albumViewModels,
@@ -169,7 +169,7 @@ router.put('/:shortName', function(req, res, next) {
 
 	album.save(function(err, album) {
 		res.cookie('ownershipCode', album.ownershipCode);
-		res.send({ album : album.viewModel() });
+		res.send({ album : album.viewModel(undefined, { user : req.user }) });
 	});
 });
 
@@ -199,7 +199,7 @@ router.patch('/:shortName', function(req, res, next) {
 						album.transferOwnership(user);
 						album.save(function(err, user) {
 							res.send({
-								album: album.viewModel()
+								album: album.viewModel(undefined, { user : req.user })
 							});
 						});
 					});
@@ -219,7 +219,7 @@ router.get('/:shortName', auth({
 		};
 		if (album) {
 			res.send({
-				album: album.viewModel()
+				album: album.viewModel(undefined, { user : req.user })
 			});
 		} else {
 			res.status(404);
@@ -276,7 +276,7 @@ router.post('/:shortName/files', auth({
 
 		album.save(function(err, album) {
 			res.send({
-				album: album.viewModel()
+				album: album.viewModel(undefined, { user : req.user })
 			});
 		});
 	});
