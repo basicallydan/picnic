@@ -34,7 +34,7 @@ var Router = Backbone.Router.extend({
         this.containerView = new ContainerView({
             el: 'body',
             collection: {
-                albums: new AlbumCollection(model.albums)
+                albums: new AlbumCollection(model.albums, { parse : true })
             },
             model: {
                 user: new UserModel(model.user),

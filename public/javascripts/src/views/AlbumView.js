@@ -133,10 +133,9 @@ var AlbumView = Backbone.View.extend({
 	},
 	handleDeleteLinkClick: function (e) {
 		e.preventDefault();
+		// this.stopListening(this.model.album, 'sync');
 		this.listenToOnce(this.model.album, 'sync', function () {
-			if (this.model.get('deleted')) {
-				this.destroyExistingDropzone();
-			}
+			this.trigger('deleted');
 		});
 		this.model.album.destroy();
 	},

@@ -138,6 +138,10 @@ var ContainerView = Backbone.View.extend({
 			this.navigateInternalLink(url);
 		});
 
+		this.listenTo(this.albumView, 'deleted', function () {
+			this.navigateInternalLink('/a');
+		});
+
 		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 		var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
 
