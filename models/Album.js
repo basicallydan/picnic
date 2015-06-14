@@ -172,7 +172,7 @@ albumSchema.methods.viewModel = function (override, options) {
         deleted: false
     };
 
-    if (options.user && this.ownedBy(options.user)) {
+    if (options.user && this.ownedBy(options.user) && !this.isDeleted()) {
         viewModel.links.delete = '/api/albums/' + this.shortName;
     }
 

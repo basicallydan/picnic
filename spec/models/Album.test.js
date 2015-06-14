@@ -102,6 +102,34 @@ describe('Album', function() {
 	});
 
 	describe('#isDeleted', function () {
+		var user;
+		beforeEach(function () {
+			user = new User();
+			album = new Album({
+				owner: user,
+				files: [{
+					name: 'ownerfile1',
+					bytes: 100000,
+					cloudinary: {
+						id: 1
+					}
+				},{
+					name: 'ownerfile2',
+					ownershipCode: 'eggs',
+					bytes: 100000,
+					cloudinary: {
+						id: 2
+					}
+				},{
+					name: 'otherpersonfile1',
+					bytes: 100000,
+					ownershipCode: 'peas',
+					cloudinary: {
+						id: 3
+					}
+				}]
+			});
+		});
 		it('should return false', function () {
 			assert.equal(album.isDeleted(), false);
 		});
@@ -117,10 +145,10 @@ describe('Album', function() {
 				});
 			});
 
-			describe('#viewModel', function() {
+			describe('#viewModel where the user owns it', function() {
 				var albumViewModel;
 				beforeEach(function () {
-					albumViewModel = album.viewModel();
+					albumViewModel = album.viewModel(undefined, { user : user });
 				});
 				it('should report that it is in fact deleted', function () {
 					assert.equal(albumViewModel.deleted, true);
@@ -128,6 +156,10 @@ describe('Album', function() {
 
 				it('should no longer advertise a files URL', function () {
 					assert.equal(albumViewModel.links.files, undefined);
+				});
+
+				it('should no longer advertise a delete URL even if the user owns it', function () {
+					assert.equal(albumViewModel.links.delete, undefined);
 				});
 			});
 		});
