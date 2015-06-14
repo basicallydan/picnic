@@ -2,8 +2,7 @@ var proxyquire = require('proxyquire');
 var config = {
 	webHost: 'https://picnic.co'
 };
-var Album = proxyquire('../../models/Album.js', {
-	'../config/config.js' : config,
+var File = proxyquire('../../models/File.js', {
 	'./schema/FileSchema': proxyquire('../../models/schema/FileSchema.js', {
 		'../../config/config.js' : config,
 		'cloudinary' : {
@@ -17,6 +16,10 @@ var Album = proxyquire('../../models/Album.js', {
 		}
 	})
 });
+var Album = proxyquire('../../models/Album.js', {
+	'../config/config.js' : config,
+	'./File': File
+});
 var User = require('../../models/User.js');
 var assert = require('assert');
 
@@ -26,27 +29,27 @@ describe('Album', function() {
 	beforeEach(function() {
 		album = new Album({
 			ownershipCode: 'eggs',
-			files: [{
+			files: [new File({
 				name: 'ownerfile1',
 				bytes: 100000,
 				cloudinary: {
 					id: 1
 				}
-			},{
+			}), new File({
 				name: 'ownerfile2',
 				ownershipCode: 'eggs',
 				bytes: 100000,
 				cloudinary: {
 					id: 2
 				}
-			},{
+			}), new File({
 				name: 'otherpersonfile1',
 				bytes: 100000,
 				ownershipCode: 'peas',
 				cloudinary: {
 					id: 3
 				}
-			}]
+			})]
 		});
 	});
 
