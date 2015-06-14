@@ -134,6 +134,7 @@ describe('Album', function() {
 					height:500,
 					shortName: 'firstOne',
 					links: {
+						self: '/api/files/firstOne',
 						web: 'https://picnic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -146,6 +147,7 @@ describe('Album', function() {
 					height:500,
 					shortName: 'secondOne',
 					links: {
+						self: '/api/files/secondOne',
 						web: 'https://picnic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -202,6 +204,7 @@ describe('Album', function() {
 					width:500,
 					height:500,
 					links: {
+						self: '/api/files/firstOne',
 						web: 'https://picnic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -214,6 +217,7 @@ describe('Album', function() {
 					width:500,
 					height:500,
 					links: {
+						self: '/api/files/secondOne',
 						web: 'https://picnic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -237,6 +241,7 @@ describe('Album', function() {
 				owner: user,
 				files: [{
 					bytes: 1234469,
+					owner: user,
 					format: "jpg",
 					name: "IMG_20140625_133245.jpg",
 					width: 500,
@@ -247,6 +252,7 @@ describe('Album', function() {
 					}
 				}, {
 					bytes: 1260809,
+					ownershipCode: 'ham',
 					format: "jpg",
 					name: "IMG_20140625_133308.jpg",
 					width: 500,
@@ -281,6 +287,8 @@ describe('Album', function() {
 					width:500,
 					height:500,
 					links: {
+						self: '/api/files/firstOne',
+						delete: '/api/files/firstOne',
 						web: 'https://picnic.co/a/blah/images/firstOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',
@@ -293,6 +301,7 @@ describe('Album', function() {
 					width:500,
 					height:500,
 					links: {
+						self: '/api/files/secondOne',
 						web: 'https://picnic.co/a/blah/images/secondOne',
 						image: '/test-url-500x500-nocrop.jpg',
 						imageW144: '/test-url-144x144-fill.jpg',

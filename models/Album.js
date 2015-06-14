@@ -56,6 +56,62 @@ fileSchema.methods.ownedBy = function (user) {
     return user.equals(owner);
 };
 
+fileSchema.methods.viewModel = function (override, options) {
+    var fileViewModel = {
+        shortName: this.shortName,
+        bytes: this.bytes,
+        width: this.width,
+        height: this.height,
+        links: {
+            self: '/api/files/' + this.shortName,
+            web: url.resolve(config.webHost, '/a/' + options.album.shortName + '/images/' + this.shortName),
+            image: cloudinary.url(
+                this.cloudinary.id + '.' + this.format,
+                {
+                    width: this.width,
+                    height: this.height,
+                    version: this.cloudinary.version
+                }
+            ),
+            imageW144: cloudinary.url(
+                this.cloudinary.id + '.' + this.format,
+                {
+                    width: 144,
+                    height: 144,
+                    crop: 'fill',
+                    version: this.cloudinary.version,
+                    quality: 75
+                }
+            ),
+            imageW288: cloudinary.url(
+                this.cloudinary.id + '.' + this.format,
+                {
+                    width: 288,
+                    height: 288,
+                    crop: 'fill',
+                    version: this.cloudinary.version,
+                    quality: 75
+                }
+            ),
+            imageW1136: cloudinary.url(
+                this.cloudinary.id + '.' + this.format,
+                {
+                    width: 1136,
+                    crop: 'scale',
+                    version: this.cloudinary.version,
+                    quality: 75
+                }
+            )
+        }
+    };
+
+    if (this.ownedBy(options.user)) {
+        fileViewModel.links.delete = '/api/files/' + this.shortName;
+    }
+
+    return fileViewModel;
+};
+
 var albumSchema = new Schema({
     shortName: {
         type : String,
@@ -134,52 +190,10 @@ albumSchema.methods.viewModel = function (override, options) {
 
     var files = [];
     this.files.forEach(_.bind(function (file, index) {
-        files.push({
-            shortName: file.shortName,
-            bytes: file.bytes,
-            width: file.width,
-            height: file.height,
-            links: {
-                web: url.resolve(config.webHost, '/a/' + this.shortName + '/images/' + file.shortName),
-                image: cloudinary.url(
-                    file.cloudinary.id + '.' + file.format,
-                    {
-                        width: file.width,
-                        height: file.height,
-                        version: file.cloudinary.version
-                    }
-                ),
-                imageW144: cloudinary.url(
-                    file.cloudinary.id + '.' + file.format,
-                    {
-                        width: 144,
-                        height: 144,
-                        crop: 'fill',
-                        version: file.cloudinary.version,
-                        quality: 75
-                    }
-                ),
-                imageW288: cloudinary.url(
-                    file.cloudinary.id + '.' + file.format,
-                    {
-                        width: 288,
-                        height: 288,
-                        crop: 'fill',
-                        version: file.cloudinary.version,
-                        quality: 75
-                    }
-                ),
-                imageW1136: cloudinary.url(
-                    file.cloudinary.id + '.' + file.format,
-                    {
-                        width: 1136,
-                        crop: 'scale',
-                        version: file.cloudinary.version,
-                        quality: 75
-                    }
-                )
-            }
-        });
+        files.push(file.viewModel(null, {
+            user: options.user,
+            album: this
+        }));
     }, this));
 
     if (this.owner) {
