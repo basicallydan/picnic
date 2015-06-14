@@ -24,7 +24,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 		console.log('Looking for albums with ownershipCode', ownershipCode);
 		Album.findByOwnershipCode(ownershipCode, function(err, albums) {
 			var albumViewModels = _.map(albums, function(album) {
-				return album.viewModel();
+				return album.viewModel(undefined, { user : req.user });
 			});
 			res.render('albums', { title : 'My Albums', albums : albumViewModels, user: req.user.viewModel() });
 		});
@@ -33,7 +33,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 		Album.findByOwner(user, function(err, albums) {
 			console.log('Found', albums.length, 'albums owned by user', user.username);
 			var albumViewModels = _.map(albums, function(album) {
-				return album.viewModel();
+				return album.viewModel(undefined, { user : req.user });
 			});
 			res.render('albums', { albums : albumViewModels, user: req.user.viewModel() });
 		});
@@ -60,13 +60,13 @@ router.get('/a/:shortName/images/:imageShortName', auth({
 			title: 'Image',
 			user: req.user
 		};
-		var albumViewModel = album.viewModel();
+		var albumViewModel = album.viewModel(undefined, { user : req.user });
 		var file = _.find(albumViewModel.files,
 			function(f) {
 				return f.shortName === req.params.imageShortName;
 			});
 		if (album) {
-			responseObject.album = album.viewModel();
+			responseObject.album = album.viewModel(undefined, { user : req.user });
 		}
 		if (file) {
 			responseObject.file = file;

@@ -7,7 +7,7 @@ var AlbumView = Backbone.View.extend({
 	albumTemplate: require('../../../../views/album.handlebars'),
 	events: {
 		'click #shortLinkCopy':'handleCopyLinkClick',
-		'click .delete':'handleDeleteLinkClick'
+		'click #deleteAlbum':'handleDeleteLinkClick'
 	},
 	initialize: function() {
 		this.listenTo(this.model.album, 'sync', this.render);
