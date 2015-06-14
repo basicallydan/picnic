@@ -22,7 +22,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 	var user = req.user;
 	if (!user && ownershipCode) {
 		console.log('Looking for albums with ownershipCode', ownershipCode);
-		Album.findByOwnershipCode(ownershipCode, function(err, albums) {
+		Album.findActiveByOwnershipCode(ownershipCode, function(err, albums) {
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel(undefined, { user : req.user });
 			});
@@ -30,7 +30,7 @@ router.get('/a', auth({ required : false }), function(req, res, next) {
 		});
 	} else if (user) {
 		console.log('Looking for albums with user', user.email);
-		Album.findByOwner(user, function(err, albums) {
+		Album.findActiveByOwner(user, function(err, albums) {
 			console.log('Found', albums.length, 'albums owned by user', user.username);
 			var albumViewModels = _.map(albums, function(album) {
 				return album.viewModel(undefined, { user : req.user });
