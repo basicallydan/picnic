@@ -46,7 +46,7 @@ router.get('/a/:shortName', auth({ required : false }), function(req, res, next)
 	Album.findByShortName(req.params.shortName, function(err, album) {
 		var responseObject = { title : 'Album', user: req.user };
 		if (album) {
-			responseObject.album = album.viewModel();
+			responseObject.album = album.viewModel(undefined, { user : req.user });
 		}
 		res.render('album', responseObject);
 	});
