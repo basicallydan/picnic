@@ -1,8 +1,10 @@
 {{#with album}}
 <div class="album-view" id="existingAlbumDropzone">
 	<div class="images cf">
-		<h2>{{{albumNameOrDefault @root.album}}}</h2>
-		<div class="album-actions"><a class="button delete">Delete</a></div>
+		<h2 class="album-heading">{{{albumNameOrDefault @root.album}}}</h2>
+		<div class="album-action-list cf">
+			{{#if links.delete}}<a class="album-action-list-item" id="deleteAlbum">Delete<span class="res-not-hh"> album</span></a>{{/if}}
+		</div>
 		<section class="short-link-form cf">
 			<p>Get your friends to contribute: <input type="text" id="shortLink" name="shortLink" class="no-edit autohighlight wide-on-hh" value="{{links.web}}" /> <a href="{{links.web}}" id="shortLinkCopy" class="button primary wide-on-hh"><span class="res-not-hh copy-available">Copy to clipboard</span><span class="res-hh copy-available">Copy link to clipboard</span><span class="copy-not-available">Share: {{links.web}}</span></a></p>
 		</section>
