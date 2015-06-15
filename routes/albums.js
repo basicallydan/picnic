@@ -101,7 +101,7 @@ router.post('/', auth({
 		newAlbumOptions.files = files;
 		album = new Album(newAlbumOptions);
 
-		album.save(function(err, album) {
+		album.saveCascade(function(err, album) {
 			Album.populate(album, { path : 'files' }, function (err, album) {
 				res.cookie('ownershipCode', album.ownershipCode);
 				res.send({ album : album.viewModel(undefined, { user : req.user }) });
@@ -172,9 +172,11 @@ router.put('/:shortName', function(req, res, next) {
 
 	File.collection.insert(req.body.files, function (err, files) {
 		newAlbumOptions.files = files;
+		console.log('Saving', newAlbumOptions);
 		album = new Album(newAlbumOptions);
+		console.log('Saving', album);
 
-		album.save(function(err, album) {
+		album.saveCascade(function(err, album) {
 			console.log('Saved', album);
 			Album.populate(album, { path : 'files' }, function (err, album) {
 				res.cookie('ownershipCode', album.ownershipCode);
@@ -208,7 +210,7 @@ router.patch('/:shortName', function(req, res, next) {
 					});
 					user.save(function(err, user) {
 						album.transferOwnership(user);
-						album.save(function(err, user) {
+						album.saveCascade(function(err, user) {
 							res.send({
 								album: album.viewModel(undefined, { user : req.user })
 							});
@@ -263,7 +265,7 @@ router.delete('/:shortName', auth({
 		}
 
 		album.softDelete();
-		album.save(function () {
+		album.saveCascade(function () {
 			res.status(200);
 			res.send({
 				album : album.viewModel(undefined, { user : req.user })
@@ -291,7 +293,7 @@ router.post('/:shortName/files', auth({
 				album.files.push(file);
 			});
 
-			album.save(function(err, album) {
+			album.saveCascade(function(err, album) {
 				Album.populate(album, { path : 'files' }, function (err, album) {
 					res.cookie('ownershipCode', album.ownershipCode);
 					res.send({ album : album.viewModel(undefined, { user : req.user }) });

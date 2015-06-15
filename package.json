@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "backbone": "^1.1.2",
+    "bluebird": "^2.9.30",
     "body-parser": "~1.10.1",
     "chance": "^0.7.1",
     "cloudinary": "^1.1.2",

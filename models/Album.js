@@ -7,6 +7,7 @@ var _ = require('underscore');
 var escapeRegexString = require('escape-regex-string');
 var config = require('../config/config.js');
 var url = require('url');
+var Promise = require('bluebird');
 var Album;
 
 shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
@@ -110,6 +111,16 @@ albumSchema.methods.viewModel = function (override, options) {
     viewModel = _.extend(viewModel, override || {});
 
     return viewModel;
+};
+
+albumSchema.methods.saveCascade = function (cb) {
+    var files = [];
+    this.files.forEach(function (file) {
+        files.push(file.save());
+    }.bind(this));
+    Promise.settle().then(function (results) {
+        this.save(cb);
+    }.bind(this));
 };
 
 albumSchema.statics.findByShortName = function (shortName, cb) {
