@@ -12,6 +12,8 @@ File = thinky.createModel('File', {
         return shortId.generate();
     }),
     ownershipCode: type.string(),
+    albumId: type.string(),
+    ownerId: type.string().optional(),
     format: type.string(),
     createdAt: type.date().default(function () {
     	return new Date()

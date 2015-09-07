@@ -6,6 +6,8 @@ var escapeRegexString = require('escape-regex-string');
 var config = require('../config/config.js');
 var url = require('url');
 var Promise = require('bluebird');
+var User = require('User');
+var File = require('File');
 var Album;
 
 shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
@@ -18,11 +20,12 @@ Album = thinky.createModel('Album', {
     ownershipCode: type.string().default(function () {
         return shortId.generate();
     }),
-    title: type.string().optional()
+    title: type.string().optional(),
+    ownerId: type.string().optional()
 });
 
-// Album belongsto user
-// Album hasmany file
+Album.belongsTo(User, 'owner', 'ownerId', 'id');
+Album.hasMany(File, 'files', 'id', 'albumId');
 
 Album.ensureIndex('shortName');
 
