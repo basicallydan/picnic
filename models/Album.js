@@ -28,5 +28,12 @@ Album.belongsTo(User, 'owner', 'ownerId', 'id');
 Album.hasMany(File, 'files', 'id', 'albumId');
 
 Album.ensureIndex('shortName');
+Album.ensureIndex('ownershipCode');
+
+Album.defineStatic('findByOwnershipCode', function (ownershipCode, cb) {
+    Album.filter({ ownershipCode : ownershipCode })
+        .getJoin({ owner : true, files : true })
+        .then(cb);
+});
 
 module.exports = Album;

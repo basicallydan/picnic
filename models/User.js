@@ -22,4 +22,16 @@ User.hasMany(File, 'files', 'id', 'ownerId');
 
 User.ensureIndex('email');
 
+User.define('takeOwnershipOfAlbums', function (ownershipCode, cb) {
+    var user = this;
+    Album.findByOwnershipCode(ownershipCode, function(err, albums) {
+        albums.forEach(function(album) {
+            console.log('Transfering ownership of', album.id, 'to', user.email);
+            album.transferOwnership(user, ownershipCode);
+            album.save();
+        });
+        cb(null, albums);
+    });
+});
+
 module.exports = User;
