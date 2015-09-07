@@ -1,6 +1,8 @@
 var thinky = require('thinky')();
 var type = thinky.type;
 var _ = require('underscore');
+var User = require('User');
+var Album = require('Album');
 var File;
 
 // var passportLocalMongoose = require('passport-local-mongoose');
@@ -23,7 +25,7 @@ File = thinky.createModel('File', {
     cloudinary: type.object()
 });
 
-// File belongsto Album
-// File belongsto User
+File.belongsTo(Album, 'album', 'albumId', 'id');
+File.belongsTo(User, 'owner', 'ownerId', 'id');
 
-module.exports = User;
+module.exports = File;
