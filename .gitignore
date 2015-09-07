@@ -27,7 +27,7 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# Project X-specific stuff
+# Project-specific
 uploads
 public/javascripts/bundle.js
 public/stylesheets/main.css
@@ -35,3 +35,6 @@ config/config.js
 
 # Mac OSX Shit
 .DS_Store
+
+# Rethink Stuff
+rethinkdb_data
