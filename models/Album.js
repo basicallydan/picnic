@@ -30,10 +30,45 @@ Album.hasMany(File, 'files', 'id', 'albumId');
 Album.ensureIndex('shortName');
 Album.ensureIndex('ownershipCode');
 
+Album.defineStatic('findByShortName', function (shortName, cb) {
+    Album.filter({ shortName : shortName })
+        .getJoin({ owner : true, files : true })
+        .then(cb);
+});
+
 Album.defineStatic('findByOwnershipCode', function (ownershipCode, cb) {
     Album.filter({ ownershipCode : ownershipCode })
         .getJoin({ owner : true, files : true })
         .then(cb);
+});
+
+Album.defineStatic('findByOwner', function (user, cb) {
+    Album.filter({ ownerId : user.id })
+        .getJoin({ owner : true, files : true })
+        .then(cb);
+});
+
+// Only finds non-deleted albums
+Album.defineStatic('findActiveByOwnershipCode', function (ownershipCode, cb) {
+    Album.filter(function (album) {
+        return album.ownershipCode === ownershipCode && album.status !== Album.statusCodes.deleted;
+    })
+        .getJoin({ owner : true, files : true })
+        .then(cb);
+});
+
+// Only finds non-deleted albums
+Album.defineStatic('findActiveByOwner', function (user, cb) {
+    Album.filter(function (album) {
+        return album.ownerId === user.id && album.status !== Album.statusCodes.deleted;
+    })
+        .getJoin({ owner : true, files : true })
+        .then(cb);
+});
+
+Album.defineStatic('statusCodes', {
+    active:0,
+    deleted:1
 });
 
 module.exports = Album;
